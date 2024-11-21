@@ -8,6 +8,7 @@ import Sidebar from "./components/Sidebar";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Buy from "./components/Buy";
+import ProductDetails from "./components/ProductDetails";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
                 <Route path="/" element={<MainContent />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/product/:id" element={<ProductDetails />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/buy" element={<Buy />} />
               </Routes>
@@ -39,7 +41,7 @@ const App = () => {
               marginTop: "auto",
             }}
           >
-            <p>&copy; 2024 This project. All rights reserved.</p>
+            <p>&copy; 2024 Project. All rights reserved.</p>
           </footer>
         </div>
       </Router>

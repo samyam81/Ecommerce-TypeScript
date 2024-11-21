@@ -48,9 +48,12 @@ const CartPage: React.FC = () => {
       <div style={styles.totalBar}>
         <p style={styles.totalText}>Total: ${totalPrice.toFixed(2)}</p>
       </div>
-      <Link to="/buy">
-        <button style={styles.clearCartBtn}>Buy now</button>
-      </Link>
+
+      {totalPrice > 0 && (
+        <Link to="/buy">
+          <button style={styles.clearCartBtn}>Buy now</button>
+        </Link>
+      )}
     </div>
   );
 };

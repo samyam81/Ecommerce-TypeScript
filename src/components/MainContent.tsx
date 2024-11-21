@@ -3,6 +3,8 @@ import { useFilter } from "./FilterContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCart } from "./CartContext"; // Importing useCart hook
+import { Link } from "react-router-dom"; // Import Link for navigation
+import "./MainContent.css";
 
 const MainContent = () => {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
@@ -64,108 +66,51 @@ const MainContent = () => {
   }
 
   return (
-    <section>
-      <div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <div
-            style={{
-              position: "relative",
-              marginBottom: "15px",
-              marginTop: "15px",
-            }}
+    <section className="main-content">
+      <div className="filter-container">
+        <div className="dropdown-container">
+          <button
+            className="filter-button"
+            onClick={() => setDropdown(!dropdown)}
           >
-            <button
-              style={{
-                border: "1px solid",
-                padding: "6px 12px",
-                borderRadius: "9999px",
-                display: "flex",
-                alignItems: "center",
-              }}
-              onClick={() => setDropdown(!dropdown)}
-            >
-              <Tally3 />
-              {filter === "all"
-                ? "Filter"
-                : filter.charAt(0).toLowerCase() + filter.slice(1)}
-            </button>
-            {dropdown && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "50px",
-                  left: "0",
-                  background: "white",
-                  border: "1px solid #fff",
-                  padding: "8px",
-                }}
-              >
-                <button onClick={() => setFilter("Cheap")}>Cheap</button>
-                <button onClick={() => setFilter("Expensive")}>
-                  Expensive
-                </button>
-                <button onClick={() => setFilter("Popular")}>Popular</button>
-              </div>
-            )}
-          </div>
-        </div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-            gap: "15px",
-          }}
-        >
-          {getFilteredProducts().map((product) => (
-            <div
-              key={product.id}
-              style={{
-                border: "1px solid #ccc",
-                padding: "8px",
-                borderRadius: "8px",
-                textAlign: "center",
-                fontSize: "0.9rem",
-              }}
-            >
-              <h3 style={{ fontSize: "1rem" }}>{product.title}</h3>
-              <p style={{ fontSize: "0.8rem" }}>{product.price} USD</p>
-              <img
-                src={product.thumbnail}
-                alt={product.title}
-                style={{
-                  width: "100%",
-                  height: "120px",
-                  objectFit: "cover",
-                  borderRadius: "4px",
-                }}
-              />
-              <button
-                style={{
-                  marginTop: "10px",
-                  padding: "6px 12px",
-                  backgroundColor: "#28a745",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  addItemToCart(product); // Add product to cart
-                  console.log(cartItems); // Log to verify cart is updated
-                }}
-              >
-                Add to Cart
-              </button>
+            <Tally3 />
+            {filter === "all"
+              ? "Filter"
+              : filter.charAt(0).toLowerCase() + filter.slice(1)}
+          </button>
+          {dropdown && (
+            <div className="dropdown-menu">
+              <button onClick={() => setFilter("Cheap")}>Cheap</button>
+              <button onClick={() => setFilter("Expensive")}>Expensive</button>
+              <button onClick={() => setFilter("Popular")}>Popular</button>
             </div>
-          ))}
+          )}
         </div>
+      </div>
+      <div className="product-grid">
+        {getFilteredProducts().map((product) => (
+          <div key={product.id} className="product-card">
+            <h3 className="product-title">{product.title}</h3>
+            <p className="product-price">{product.price} USD</p>
+            <img
+              src={product.thumbnail}
+              alt={product.title}
+              className="product-image"
+            />
+            <button
+              className="add-to-cart-button"
+              onClick={() => {
+                addItemToCart(product);
+                console.log(cartItems);
+              }}
+            >
+              Add to Cart
+            </button>
+            <Link to={`/product/${product.id}`} className="add-to-cart-button">
+              View Details
+            </Link>
+          </div>
+        ))}
       </div>
     </section>
   );
