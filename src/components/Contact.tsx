@@ -4,7 +4,6 @@ const Contact: React.FC = () => {
   const handleClick = () => {
     alert("Thank you for contacting us. We will get back to you soon.");
   };
-
   const styles: Record<string, React.CSSProperties> = {
     container: {
       maxWidth: "600px",
@@ -71,7 +70,6 @@ const Contact: React.FC = () => {
       backgroundColor: "#0056b3",
     },
   };
-
   return (
     <div style={styles.container}>
       <h2 style={styles.heading}>Contact Us</h2>

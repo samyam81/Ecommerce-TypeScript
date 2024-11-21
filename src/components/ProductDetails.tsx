@@ -6,7 +6,7 @@ import { useWish } from "./WishContext"; // Import useWish
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<any | null>(null);
-  const { addItemToWish } = useWish(); // Destructure addItemToWish
+  const { addItemToWish, wishItems, removeItemFromWish } = useWish(); // Destructure addItemToWish and wishItems
 
   useEffect(() => {
     axios
@@ -20,6 +20,9 @@ const ProductDetails = () => {
   }, [id]);
 
   if (!product) return <div>Loading...</div>;
+
+  // Check if the product is already in the wishlist
+  const isInWishlist = wishItems.some((item) => item.id === product.id);
 
   return (
     <div className="product-details" style={styles.productDetails}>
@@ -65,18 +68,27 @@ const ProductDetails = () => {
 
       {/* Add to Wish Button */}
       <button
-        className="add-to-cart-button"
+        className="add-to-wish-button"
         onClick={() => {
-          addItemToWish({
-            id: product.id,
-            title: product.title,
-            price: product.price,
-          });
-          console.log("Item added to wish list");
+          if (isInWishlist) {
+            removeItemFromWish(product.id); // Remove from wishlist if already present
+          } else {
+            addItemToWish({
+              id: product.id,
+              title: product.title,
+              price: product.price,
+            }); // Add to wishlist
+          }
+          console.log(
+            isInWishlist
+              ? "Item removed from wish list"
+              : "Item added to wish list"
+          );
         }}
         style={{
           padding: "10px 20px",
-          backgroundColor: "#ffc107",
+          margin: "10px",
+          backgroundColor: isInWishlist ? "#dc3545" : "#ffc107", // Red if it's in the wishlist, yellow otherwise
           color: "white",
           border: "none",
           borderRadius: "5px",
@@ -85,7 +97,7 @@ const ProductDetails = () => {
           marginTop: "10px",
         }}
       >
-        Add to Wish
+        {isInWishlist ? "Remove from Wish" : "Add to Wish"}
       </button>
     </div>
   );

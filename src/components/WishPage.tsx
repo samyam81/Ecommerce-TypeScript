@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useWish } from "./WishContext"; // Make sure the path is correct
 import { useCart } from "./CartContext";
 
@@ -10,14 +10,28 @@ interface WishItem {
 }
 
 const WishPage: React.FC = () => {
-  const { wishItems, removeItemFromWish, clearWish } = useWish(); // Get wish items and functions from context
+  const { wishItems, addItemToWish, removeItemFromWish, clearWish } = useWish(); // Get wish items and functions from context
   const { addItemToCart, cartItems } = useCart(); // Get cart functions from context
 
   // Add item to the cart
   const handleAddToCart = (item: WishItem) => {
     addItemToCart(item); // Add item to cart
-    console.log(cartItems); // Log the cart items to verify the addition
   };
+
+  // Function to toggle wishlist item
+  const handleToggleWishlist = (item: WishItem) => {
+    const isItemInWish = wishItems.some((wishItem) => wishItem.id === item.id);
+    if (isItemInWish) {
+      removeItemFromWish(item); // Remove item from wishlist if it's already there
+    } else {
+      addItemToWish(item); // Add item to wishlist if it's not there
+    }
+  };
+
+  // Log cart items when they change
+  useEffect(() => {
+    console.log(cartItems); // Log the cart items to verify the addition
+  }, [cartItems]);
 
   return (
     <div style={styles.wishContainer}>
@@ -31,16 +45,18 @@ const WishPage: React.FC = () => {
               <p style={styles.itemTitle}>{item.title}</p>
               <p style={styles.itemPrice}>Price: ${item.price}</p>
               <button
-                style={styles.removeItemBtn}
-                onClick={() => removeItemFromWish(item.id)}
-              >
-                Remove
-              </button>
-              <button
                 style={styles.addToCartBtn}
                 onClick={() => handleAddToCart(item)}
               >
                 Add to Cart
+              </button>
+              <button
+                style={styles.addToCartBtn}
+                onClick={() => handleToggleWishlist(item)}
+              >
+                {wishItems.some((wishItem) => wishItem.id === item.id)
+                  ? "Remove from Wishlist"
+                  : "Add to Wishlist"}
               </button>
             </div>
           ))}
@@ -52,9 +68,7 @@ const WishPage: React.FC = () => {
 
       {/* Display message if there are items in the wish list */}
       {wishItems.length > 0 && (
-        <div style={styles.checkoutBar}>
-            
-        </div>
+        <div style={styles.checkoutBar}>{/* Checkout-related content */}</div>
       )}
     </div>
   );
@@ -88,16 +102,6 @@ const styles: Record<string, React.CSSProperties> = {
   },
   itemPrice: {
     color: "#555",
-  },
-  removeItemBtn: {
-    backgroundColor: "#ff5c5c",
-    border: "none",
-    color: "white",
-    padding: "8px 16px",
-    borderRadius: "4px",
-    cursor: "pointer",
-    fontSize: "1rem",
-    transition: "background-color 0.3s",
   },
   addToCartBtn: {
     backgroundColor: "#4caf50", // Green color for the Add to Cart button
