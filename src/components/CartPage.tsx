@@ -58,7 +58,7 @@ const CartPage: React.FC = () => {
   );
 };
 
-const styles = {
+const styles: Record<string, React.CSSProperties>={
   cartContainer: {
     padding: "20px",
     maxWidth: "800px",

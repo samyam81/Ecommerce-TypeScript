@@ -5,7 +5,7 @@ const Contact: React.FC = () => {
     alert("Thank you for contacting us. We will get back to you soon.");
   };
 
-  const styles: { [key: string]: React.CSSProperties } = {
+  const styles: Record<string, React.CSSProperties> = {
     container: {
       maxWidth: "600px",
       margin: "0 auto",
@@ -64,6 +64,7 @@ const Contact: React.FC = () => {
       borderRadius: "4px",
       cursor: "pointer",
       fontSize: "1em",
+      transition: "background-color 0.3s",
       alignSelf: "center",
     },
     buttonHover: {
@@ -75,7 +76,7 @@ const Contact: React.FC = () => {
     <div style={styles.container}>
       <h2 style={styles.heading}>Contact Us</h2>
       <p style={styles.paragraph}>
-        If you have any questions or feedback about the E-commerce Nepal , feel
+        If you have any questions or feedback about the E-commerce Nepal, feel
         free to reach out using the form below.
       </p>
       <form
@@ -123,14 +124,14 @@ const Contact: React.FC = () => {
         <button
           type="submit"
           style={styles.button}
-          onMouseOver={(e) =>
-            ((e.target as HTMLButtonElement).style.backgroundColor =
-              styles.buttonHover.backgroundColor)
-          }
-          onMouseOut={(e) =>
-            ((e.target as HTMLButtonElement).style.backgroundColor =
-              styles.button.backgroundColor)
-          }
+          onMouseOver={(e) => {
+            const target = e.target as HTMLButtonElement;
+            target.style.backgroundColor = styles.buttonHover.backgroundColor!;
+          }}
+          onMouseOut={(e) => {
+            const target = e.target as HTMLButtonElement;
+            target.style.backgroundColor = styles.button.backgroundColor!;
+          }}
         >
           Submit
         </button>

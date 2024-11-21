@@ -100,7 +100,7 @@ const ProductDetails = () => {
 };
 
 // Styles for the component
-const styles = {
+const styles: Record<string, React.CSSProperties>= {
   productDetails: {
     padding: "20px",
     maxWidth: "900px",

@@ -51,19 +51,18 @@ const Buy: React.FC = () => {
     setThankYou(true); // Set state to true after the alert is dismissed
   };
 
-if (thankYou) {
-  return (
-    <div style={styles.thankYouContainer}>
-      <h1 style={styles.thankYouHeader}>Thank You for Visiting!</h1>
-      <p style={styles.thankYouMessage}>
-        We appreciate your purchase. Have a great day!
-      </p>
-    </div>
-  );
+  if (thankYou) {
+    return (
+      <div style={styles.thankYouContainer}>
+        <h1 style={styles.thankYouHeader}>Thank You for Visiting!</h1>
+        <p style={styles.thankYouMessage}>
+          We appreciate your purchase. Have a great day!
+        </p>
+      </div>
+    );
 
-  window.location.reload(); // This will reload the page completely
-}
-
+    window.location.reload(); // This will reload the page completely
+  }
 
   return (
     <div style={styles.container}>
@@ -127,7 +126,7 @@ if (thankYou) {
   );
 };
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   container: {
     maxWidth: "600px",
     margin: "0 auto",
