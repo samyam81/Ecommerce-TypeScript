@@ -1,6 +1,6 @@
 import React from "react";
 
-const Contact = () => {
+const Contact:React.FC = () => {
   const handleClick = () => {
     alert("Thank you for contacting us. We will get back to you soon.");
   };
@@ -75,7 +75,7 @@ const Contact = () => {
     <div style={styles.container}>
       <h2 style={styles.heading}>Contact Us</h2>
       <p style={styles.paragraph}>
-        If you have any questions or feedback about the Workout Logger, feel
+        If you have any questions or feedback about the E-commerce Nepal , feel
         free to reach out using the form below.
       </p>
       <form
