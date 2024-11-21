@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import Sidebar from "./components/Sidebar";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import Buy from "./components/Buy";
 
 const App = () => {
   return (
@@ -21,12 +22,25 @@ const App = () => {
             <div style={{ flexGrow: 1, padding: "20px", overflowY: "auto" }}>
               <Routes>
                 <Route path="/" element={<MainContent />} />
-                <Route path="/cart" element={<CartPage />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact/>}/>
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/buy" element={<Buy />} />
               </Routes>
             </div>
           </div>
+          {/* Footer Section */}
+          <footer
+            style={{
+              backgroundColor: "#333",
+              color: "#fff",
+              textAlign: "center",
+              padding: "10px",
+              marginTop: "auto",
+            }}
+          >
+            <p>&copy; 2024 This project. All rights reserved.</p>
+          </footer>
         </div>
       </Router>
     </CartProvider>

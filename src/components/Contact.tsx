@@ -5,7 +5,7 @@ const Contact:React.FC = () => {
     alert("Thank you for contacting us. We will get back to you soon.");
   };
 
-  const styles = {
+  const styles: { [key: string]: React.CSSProperties } = {
     container: {
       maxWidth: "600px",
       margin: "0 auto",

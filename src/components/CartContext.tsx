@@ -46,8 +46,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   };
 
   // Clear the cart
-  const clearCart = () => {
-    setCartItems([]);
+const clearCart = () => {
+    clearCart();
   };
 
   return (

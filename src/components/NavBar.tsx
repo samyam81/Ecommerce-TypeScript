@@ -6,7 +6,7 @@ const NavBar = () => {
   const { cartItems } = useCart(); 
 
   return (
-    <nav style={{ padding: "10px", backgroundColor: "#333", color: "white" }}>
+    <nav style={{ margin:"2px", padding: "10px", backgroundColor: "#333", color: "white" }}>
       <Link
         to="/"
         style={{ color: "white", textDecoration: "none", marginRight: "20px" }}

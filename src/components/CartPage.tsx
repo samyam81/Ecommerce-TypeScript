@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart } from "./CartContext";
+import { Link } from "react-router-dom";
 
 // Define types for CartItem
 interface CartItem {
@@ -8,11 +9,16 @@ interface CartItem {
   price: number;
 }
 
+// Exported function to calculate total price
+export const calculateTotalPrice = (cartItems: CartItem[]): number => {
+  return cartItems.reduce((total, item) => total + item.price, 0);
+};
+
 const CartPage: React.FC = () => {
   const { cartItems, removeItemFromCart, clearCart } = useCart(); // Get cart items and functions from context
 
-  // Calculate total price
-  const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
+  // Use the helper function to calculate total price
+  const totalPrice = calculateTotalPrice(cartItems);
 
   return (
     <div style={styles.cartContainer}>
@@ -38,10 +44,13 @@ const CartPage: React.FC = () => {
           </button>
         </div>
       )}
-      {/* Total Bar */}
+
       <div style={styles.totalBar}>
         <p style={styles.totalText}>Total: ${totalPrice.toFixed(2)}</p>
       </div>
+      <Link to="/buy">
+        <button style={styles.clearCartBtn}>Buy now</button>
+      </Link>
     </div>
   );
 };
