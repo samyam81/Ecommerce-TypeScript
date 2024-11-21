@@ -1,25 +1,24 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
-// Define types for a cart item
+// Define types for CartItem with quantity
 interface CartItem {
   id: number;
   title: string;
   price: number;
+  quantity: number;
 }
 
-// Define types for the context value
 interface CartContextType {
   cartItems: CartItem[];
   addItemToCart: (item: CartItem) => void;
-  removeItemFromCart: (itemId: number) => void;
+  removeItemFromCart: (id: number) => void;
+  updateItemQuantity: (id: number, quantity: number) => void; // New function to update quantity
   clearCart: () => void;
 }
 
-// Create the context with a default value of an empty object (will be overwritten by the provider)
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Custom hook to use cart context
-export const useCart = (): CartContextType => {
+export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error("useCart must be used within a CartProvider");
@@ -27,32 +26,48 @@ export const useCart = (): CartContextType => {
   return context;
 };
 
-// CartProvider to wrap the app and manage the cart state
-interface CartProviderProps {
-  children: ReactNode;
-}
-
-export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+export const CartProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // Add item to the cart
   const addItemToCart = (item: CartItem) => {
-    setCartItems((prevItems) => [...prevItems, item]);
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((i) => i.id === item.id);
+      if (existingItem) {
+        return prevItems.map((i) =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+        );
+      } else {
+        return [...prevItems, { ...item, quantity: 1 }];
+      }
+    });
   };
 
-  // Remove item from the cart
-  const removeItemFromCart = (itemId: number) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  const removeItemFromCart = (id: number) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
-  // Clear the cart
-const clearCart = () => {
+  const updateItemQuantity = (id: number, quantity: number) => {
+    if (quantity < 1) return; // Don't allow negative or zero quantity
+    setCartItems((prevItems) =>
+      prevItems.map((item) => (item.id === id ? { ...item, quantity } : item))
+    );
+  };
+
+  const clearCart = () => {
     setCartItems([]);
   };
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addItemToCart, removeItemFromCart, clearCart }}
+      value={{
+        cartItems,
+        addItemToCart,
+        removeItemFromCart,
+        updateItemQuantity,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>

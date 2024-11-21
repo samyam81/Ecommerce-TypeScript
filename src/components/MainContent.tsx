@@ -3,6 +3,7 @@ import { useFilter } from "./FilterContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCart } from "./CartContext"; // Importing useCart hook
+import { useWish  } from "./WishContext";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import "./MainContent.css";
 

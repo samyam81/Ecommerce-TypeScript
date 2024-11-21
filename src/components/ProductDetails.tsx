@@ -1,10 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useWish } from "./WishContext"; // Import useWish
 
 const ProductDetails = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [product, setProduct] = useState<any | null>(null);
+  const { addItemToWish } = useWish(); // Destructure addItemToWish
 
   useEffect(() => {
     axios
@@ -42,6 +44,8 @@ const ProductDetails = () => {
       <p className="product-rating" style={styles.productRating}>
         Rating: {product.rating} ⭐
       </p>
+
+      {/* Back Button */}
       <Link to="/">
         <button
           style={{
@@ -58,6 +62,31 @@ const ProductDetails = () => {
           Back
         </button>
       </Link>
+
+      {/* Add to Wish Button */}
+      <button
+        className="add-to-cart-button"
+        onClick={() => {
+          addItemToWish({
+            id: product.id,
+            title: product.title,
+            price: product.price,
+          });
+          console.log("Item added to wish list");
+        }}
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#ffc107",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          fontSize: "16px",
+          marginTop: "10px",
+        }}
+      >
+        Add to Wish
+      </button>
     </div>
   );
 };
@@ -79,12 +108,12 @@ const styles: Record<string, React.CSSProperties> = {
     marginBottom: "15px",
   },
   imageContainer: {
-    textAlign: "center", 
+    textAlign: "center",
     marginBottom: "15px",
   },
   productImage: {
-    width: "300px", 
-    height: "auto", 
+    width: "300px",
+    height: "auto",
     objectFit: "contain",
     borderRadius: "8px",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",

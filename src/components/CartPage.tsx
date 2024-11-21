@@ -7,15 +7,20 @@ interface CartItem {
   id: number;
   title: string;
   price: number;
+  quantity: number;
 }
 
 // Exported function to calculate total price
 export const calculateTotalPrice = (cartItems: CartItem[]): number => {
-  return cartItems.reduce((total, item) => total + item.price, 0);
+  return cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 };
 
 const CartPage: React.FC = () => {
-  const { cartItems, removeItemFromCart, clearCart } = useCart(); // Get cart items and functions from context
+  const { cartItems, removeItemFromCart, updateItemQuantity, clearCart } =
+    useCart(); // Get cart items and functions from context
 
   // Use the helper function to calculate total price
   const totalPrice = calculateTotalPrice(cartItems);
@@ -31,6 +36,31 @@ const CartPage: React.FC = () => {
             <div key={item.id} style={styles.cartItem}>
               <p style={styles.itemTitle}>{item.title}</p>
               <p style={styles.itemPrice}>Price: ${item.price}</p>
+
+              {/* Quantity Selector */}
+              <div style={styles.quantityWrapper}>
+                <button
+                  style={styles.quantityBtn}
+                  onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  value={item.quantity}
+                  onChange={(e) =>
+                    updateItemQuantity(item.id, parseInt(e.target.value) || 1)
+                  }
+                  style={styles.quantityInput}
+                />
+                <button
+                  style={styles.quantityBtn}
+                  onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+                >
+                  +
+                </button>
+              </div>
+
               <button
                 style={styles.removeItemBtn}
                 onClick={() => removeItemFromCart(item.id)}
@@ -44,11 +74,9 @@ const CartPage: React.FC = () => {
           </button>
         </div>
       )}
-
       <div style={styles.totalBar}>
         <p style={styles.totalText}>Total: ${totalPrice.toFixed(2)}</p>
       </div>
-
       {totalPrice > 0 && (
         <Link to="/buy">
           <button style={styles.clearCartBtn}>Buy now</button>
@@ -58,7 +86,7 @@ const CartPage: React.FC = () => {
   );
 };
 
-const styles: Record<string, React.CSSProperties>={
+const styles: Record<string, React.CSSProperties> = {
   cartContainer: {
     padding: "20px",
     maxWidth: "800px",
@@ -125,6 +153,21 @@ const styles: Record<string, React.CSSProperties>={
   },
   totalText: {
     margin: "0",
+  },
+  quantityWrapper: {
+    display: "flex",
+    alignItems: "center",
+  },
+  quantityBtn: {
+    padding: "5px 10px",
+    fontSize: "1rem",
+    cursor: "pointer",
+  },
+  quantityInput: {
+    width: "50px",
+    textAlign: "center",
+    fontSize: "1rem",
+    margin: "0 5px",
   },
 };
 

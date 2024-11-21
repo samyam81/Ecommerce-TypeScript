@@ -48,7 +48,7 @@
 }
 
 .product-card {
-  border: 1px solid #fff;
+  border: 1px solid #0a697b;
   padding: 8px;
   border-radius: 8px;
   text-align: center;
@@ -58,9 +58,9 @@
 }
 
 .product-card:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   transition: transform 0.3s ease-in-out;
-  border: 2px solid #19c97d;
+  border: 2px solid #df18c7;
 }
 
 
@@ -85,7 +85,7 @@
   margin-left: 1px;
   margin-right: 1px;
   padding: 6px 12px;
-  background-color: #28a745;
+  background-color: #1dcf17;
   color: white;
   border: none;
   border-radius: 5px;
@@ -93,5 +93,5 @@
 }
 
 .add-to-cart-button:hover {
-  background-color: #218838;
+  background-color: #7B0323;
 }

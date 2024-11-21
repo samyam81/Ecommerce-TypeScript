@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
+import { useWish } from "./WishContext"; // Import the useWish hook
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const NavBar = () => {
   const { cartItems } = useCart();
+  const { wishItems } = useWish(); // Get the wish list items
 
   return (
     <nav
@@ -41,8 +43,13 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="d-flex align-items-center" style={{ color: "white" }}>
+          {/* Cart Link */}
           <Link to="/cart" className="nav-link">
             <i className="bi bi-bag text-white"></i> ({cartItems.length})
+          </Link>
+          {/* Wish List Link */}
+          <Link to="/wish" className="nav-link" style={{ marginLeft: "10px" }}>
+            <i className="bi bi-heart text-white"></i> ({wishItems.length})
           </Link>
         </div>
       </div>

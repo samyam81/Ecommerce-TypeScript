@@ -9,42 +9,51 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Buy from "./components/Buy";
 import ProductDetails from "./components/ProductDetails";
+import { WishProvider } from "./components/WishContext";
+import WishPage from "./components/WishPage";
 
 const App = () => {
   return (
     <CartProvider>
-      <Router>
-        <div
-          style={{ display: "flex", flexDirection: "column", height: "100vh" }}
-        >
-          <NavBar />
-          <div style={{ display: "flex", flex: 1 }}>
-            <Sidebar /> {/* Sidebar */}
-            <div style={{ flexGrow: 1, padding: "20px", overflowY: "auto" }}>
-              <Routes>
-                <Route path="/" element={<MainContent />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/product/:id" element={<ProductDetails />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/buy" element={<Buy />} />
-              </Routes>
-            </div>
-          </div>
-          {/* Footer Section */}
-          <footer
+      <WishProvider>
+        <Router>
+          <div
             style={{
-              backgroundColor: "#333",
-              color: "#fff",
-              textAlign: "center",
-              padding: "10px",
-              marginTop: "auto",
+              display: "flex",
+              flexDirection: "column",
+              height: "100vh",
             }}
           >
-            <p>&copy; 2024 Project. All rights reserved.</p>
-          </footer>
-        </div>
-      </Router>
+            <NavBar />
+            <div style={{ display: "flex", flex: 1 }}>
+              <Sidebar /> {/* Sidebar */}
+              <div style={{ flexGrow: 1, padding: "20px", overflowY: "auto" }}>
+                <Routes>
+                  <Route path="/" element={<MainContent />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/product/:id" element={<ProductDetails />} />
+                  <Route path="/cart" element={<CartPage />} />
+                  <Route path="/wish" element={<WishPage />} />
+                  <Route path="/buy" element={<Buy />} />
+                </Routes>
+              </div>
+            </div>
+            {/* Footer Section */}
+            <footer
+              style={{
+                backgroundColor: "#333",
+                color: "#fff",
+                textAlign: "center",
+                padding: "10px",
+                marginTop: "auto",
+              }}
+            >
+              <p>&copy; 2024 Project. All rights reserved.</p>
+            </footer>
+          </div>
+        </Router>
+      </WishProvider>
     </CartProvider>
   );
 };
