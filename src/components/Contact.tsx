@@ -1,6 +1,6 @@
 import React from "react";
 
-const Contact:React.FC = () => {
+const Contact: React.FC = () => {
   const handleClick = () => {
     alert("Thank you for contacting us. We will get back to you soon.");
   };
@@ -124,11 +124,12 @@ const Contact:React.FC = () => {
           type="submit"
           style={styles.button}
           onMouseOver={(e) =>
-            (e.target.style.backgroundColor =
+            ((e.target as HTMLButtonElement).style.backgroundColor =
               styles.buttonHover.backgroundColor)
           }
           onMouseOut={(e) =>
-            (e.target.style.backgroundColor = styles.button.backgroundColor)
+            ((e.target as HTMLButtonElement).style.backgroundColor =
+              styles.button.backgroundColor)
           }
         >
           Submit
