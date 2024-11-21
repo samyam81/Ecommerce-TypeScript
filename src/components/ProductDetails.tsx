@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const ProductDetails = () => {
-  const { id } = useParams(); // Get the product ID from the URL
+  const { id } = useParams(); 
   const [product, setProduct] = useState<any | null>(null);
 
   useEffect(() => {
@@ -24,13 +24,15 @@ const ProductDetails = () => {
       <h1 className="product-title" style={styles.productTitle}>
         {product.title}
       </h1>
-      {/* Ensure the image source is from the images array */}
-      <img
-        src={product.images[0]} // Use the first image from the images array
-        alt={product.title}
-        className="product-image"
-        style={styles.productImage}
-      />
+      {/* Centered Image */}
+      <div style={styles.imageContainer}>
+        <img
+          src={product.images[0]} // Use the first image from the images array
+          alt={product.title}
+          className="product-image"
+          style={styles.productImage}
+        />
+      </div>
       <p className="product-description" style={styles.productDescription}>
         {product.description}
       </p>
@@ -40,45 +42,6 @@ const ProductDetails = () => {
       <p className="product-rating" style={styles.productRating}>
         Rating: {product.rating} ⭐
       </p>
-      <p className="product-stock" style={styles.productStock}>
-        Stock Status: {product.availabilityStatus}
-      </p>
-      <p className="product-warranty" style={styles.productWarranty}>
-        Warranty: {product.warrantyInformation}
-      </p>
-      <p className="product-shipping" style={styles.productShipping}>
-        Shipping: {product.shippingInformation}
-      </p>
-      <div className="product-dimensions" style={styles.productDimensions}>
-        <p>
-          Dimensions: {product.dimensions.width} x {product.dimensions.height} x{" "}
-          {product.dimensions.depth} cm
-        </p>
-      </div>
-      <p className="product-return-policy" style={styles.productReturnPolicy}>
-        Return Policy: {product.returnPolicy}
-      </p>
-      <p className="product-min-order" style={styles.productMinOrder}>
-        Minimum Order Quantity: {product.minimumOrderQuantity}
-      </p>
-      <div className="product-reviews" style={styles.productReviews}>
-        <h3>Reviews</h3>
-        {product.reviews.map((review: any, index: number) => (
-          <div key={index} style={styles.reviewItem}>
-            <p>
-              <strong>{review.reviewerName}</strong> ({review.date})
-            </p>
-            <p>Rating: {review.rating} ⭐</p>
-            <p>{review.comment}</p>
-          </div>
-        ))}
-      </div>
-      <div className="product-meta" style={styles.productMeta}>
-        <p>SKU: {product.sku}</p>
-        <p>Barcode: {product.meta.barcode}</p>
-        <img src={product.meta.qrCode} alt="QR Code" style={styles.qrCode} />
-      </div>
-
       <Link to="/">
         <button
           style={{
@@ -100,7 +63,7 @@ const ProductDetails = () => {
 };
 
 // Styles for the component
-const styles: Record<string, React.CSSProperties>= {
+const styles: Record<string, React.CSSProperties> = {
   productDetails: {
     padding: "20px",
     maxWidth: "900px",
@@ -115,12 +78,14 @@ const styles: Record<string, React.CSSProperties>= {
     textAlign: "center",
     marginBottom: "15px",
   },
-  productImage: {
-    width: "80%", // Decreased width to 80% of its container
-    height: "auto",
-    maxHeight: "250px", // Reduced the max height
-    objectFit: "cover",
+  imageContainer: {
+    textAlign: "center", 
     marginBottom: "15px",
+  },
+  productImage: {
+    width: "300px", 
+    height: "auto", 
+    objectFit: "contain",
     borderRadius: "8px",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   },
@@ -133,54 +98,12 @@ const styles: Record<string, React.CSSProperties>= {
   productPrice: {
     fontSize: "1.2rem",
     fontWeight: "bold",
-    color: "#28a745",
+    color: "#7B0323",
     marginBottom: "10px",
   },
   productRating: {
     fontSize: "1rem",
     marginBottom: "10px",
-  },
-  productStock: {
-    fontSize: "1rem",
-    marginBottom: "10px",
-  },
-  productWarranty: {
-    fontSize: "1rem",
-    marginBottom: "10px",
-  },
-  productShipping: {
-    fontSize: "1rem",
-    marginBottom: "10px",
-  },
-  productDimensions: {
-    fontSize: "1rem",
-    marginBottom: "10px",
-  },
-  productReturnPolicy: {
-    fontSize: "1rem",
-    marginBottom: "10px",
-  },
-  productMinOrder: {
-    fontSize: "1rem",
-    marginBottom: "15px",
-  },
-  productReviews: {
-    fontSize: "1rem",
-    marginBottom: "20px",
-  },
-  reviewItem: {
-    borderTop: "1px solid #ddd",
-    paddingTop: "10px",
-    paddingBottom: "10px",
-  },
-  productMeta: {
-    fontSize: "1rem",
-    marginBottom: "20px",
-  },
-  qrCode: {
-    width: "100px",
-    height: "100px",
-    marginTop: "10px",
   },
 };
 
