@@ -2,11 +2,13 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useWish } from "./WishContext"; // Import useWish
+import { useCart } from "./CartContext"; // Importing useCart hook
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<any | null>(null);
   const { addItemToWish, wishItems, removeItemFromWish } = useWish(); // Destructure addItemToWish and wishItems
+  const { addItemToCart, cartItems } = useCart(); // Use addItemToCart and cartItems from context
 
   useEffect(() => {
     axios
@@ -74,7 +76,7 @@ const ProductDetails = () => {
               title: product.title,
               price: product.price,
               image: product.images[0],
-            }); 
+            });
           }
           console.log(
             isInWishlist
@@ -95,6 +97,17 @@ const ProductDetails = () => {
         }}
       >
         {isInWishlist ? "Remove from Wish" : "Add to Wish"}
+      </button>
+
+      {/* Add to Cart button here */}
+      <button
+        className="add-to-cart-button"
+        onClick={() => {
+          addItemToCart(product);
+          console.log(cartItems);
+        }}
+      >
+        Add to Cart
       </button>
     </div>
   );
