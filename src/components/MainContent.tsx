@@ -2,15 +2,14 @@ import { Tally3 } from "lucide-react";
 import { useFilter } from "./FilterContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useCart } from "./CartContext"; // Importing useCart hook
-import { useWish  } from "./WishContext";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { useCart } from "./CartContext"; 
+import { Link } from "react-router-dom";
 import "./MainContent.css";
 
 const MainContent = () => {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
     useFilter();
-  const { addItemToCart, cartItems } = useCart(); // Use addItemToCart and cartItems from context
+  const { addItemToCart, cartItems } = useCart(); 
   const [products, setProducts] = useState<any[]>([]);
   const [filter, setFilter] = useState<"all" | string>("all");
   const [dropdown, setDropdown] = useState(false);
