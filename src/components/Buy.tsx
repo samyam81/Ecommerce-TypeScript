@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { calculateTotalPrice } from "./CartPage";
 import { useCart } from "./CartContext";
+import { useNavigate } from "react-router-dom";
 
 const Buy: React.FC = () => {
-  const { cartItems } = useCart(); // Get cart items from the context
-  const [thankYou, setThankYou] = useState(false); // State to handle thank-you page rendering
+  const { cartItems } = useCart();
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -16,9 +16,8 @@ const Buy: React.FC = () => {
     phone: false,
   });
 
-  // Calculate total price using the imported function
   const totalPrice = calculateTotalPrice(cartItems);
-
+  const navigate = useNavigate(); 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -47,20 +46,10 @@ const Buy: React.FC = () => {
       alert("Please fill in all the fields.");
       return;
     }
-    alert(`You are paying through ${method}.`);
-    setThankYou(true); // Set state to true after the alert is dismissed
-  };
 
-  if (thankYou) {
-    return (
-      <div style={styles.thankYouContainer}>
-        <h1 style={styles.thankYouHeader}>Thank You for Visiting!</h1>
-        <p style={styles.thankYouMessage}>
-          We appreciate your purchase. Have a great day!
-        </p>
-      </div>
-    );
-  }
+    alert(`You are paying through ${method}.`);
+    navigate("/thankyou"); 
+  };
 
   return (
     <div style={styles.container}>

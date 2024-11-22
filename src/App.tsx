@@ -10,6 +10,7 @@ import Buy from "./components/Buy";
 import ProductDetails from "./components/ProductDetails";
 import { WishProvider } from "./components/WishContext";
 import WishPage from "./components/WishPage";
+import ThankYou from "./components/ThankYou";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
                   <Route path="/cart" element={<CartPage />} />
                   <Route path="/wish" element={<WishPage />} />
                   <Route path="/buy" element={<Buy />} />
+                  <Route path="/thankyou" element={<ThankYou />} />
                 </Routes>
               </div>
             </div>
