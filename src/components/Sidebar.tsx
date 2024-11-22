@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useFilter } from "./FilterContext";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const Sidebar = () => {
   const {
@@ -73,59 +72,50 @@ const Sidebar = () => {
   };
 
   return (
-    <div
-      className="d-flex flex-column p-3 bg-dark text-white"
-      style={{
-        width: "250px",
-        height: "100%",
-        boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)",
-      }}
-    >
-      <h1 className="text-center mb-4">React Store</h1>
+    <div className="sidebar border-end p-3">
+      <h1 className="sidebar-header border-bottom pb-2">React Store</h1>
 
       <section className="mb-4">
         <input
           type="text"
+          className="form-control mb-2"
           placeholder="Search for Items"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="form-control mb-3"
         />
-        <div className="d-flex justify-content-between">
+        <div className="d-flex gap-2">
           <input
             type="number"
+            className="form-control"
             placeholder="Min"
             value={minPrice ?? ""}
             onChange={handleMinPriceChange}
-            className="form-control me-2"
-            style={{ width: "48%" }}
           />
           <input
             type="number"
+            className="form-control"
             placeholder="Max"
             value={maxPrice ?? ""}
             onChange={handleMaxPriceChange}
-            className="form-control ms-2"
-            style={{ width: "48%" }}
           />
         </div>
       </section>
 
       <section className="mb-4">
-        <h3 className="fs-5 mb-3">Categories</h3>
+        <h3 className="h5">Categories</h3>
         {categories.length > 0 ? (
           categories.map((category, index) => (
             <div key={index} className="form-check">
               <input
                 type="radio"
+                className="form-check-input"
                 id={category}
                 name="category"
                 value={category}
                 onChange={() => handleRadioChangeCategories(category)}
                 checked={selectedCategory === category}
-                className="form-check-input"
               />
-              <label htmlFor={category} className="form-check-label">
+              <label className="form-check-label" htmlFor={category}>
                 {category.toUpperCase()}
               </label>
             </div>
@@ -136,14 +126,13 @@ const Sidebar = () => {
       </section>
 
       <section className="mb-4">
-        <h3 className="fs-5 mb-3">Keywords</h3>
-        <div className="d-flex flex-wrap">
+        <h3 className="h5">Keywords</h3>
+        <div className="d-flex flex-wrap gap-2">
           {keywords.map((keyword, index) => (
             <button
               key={index}
+              className="btn btn-outline-primary btn-sm"
               onClick={() => handleKeywordClick(keyword)}
-              className="btn btn-success mb-2 me-2"
-              style={{ width: "100%" }}
             >
               {keyword.toUpperCase()}
             </button>
@@ -151,10 +140,7 @@ const Sidebar = () => {
         </div>
       </section>
 
-      <button
-        onClick={handleResetFilters}
-        className="btn btn-danger w-100 mt-3"
-      >
+      <button className="btn btn-danger" onClick={handleResetFilters}>
         Reset Filters
       </button>
     </div>

@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useCart } from "./CartContext"; 
 
 const ThankYou: React.FC = () => {
-  const { clearCart } = useCart(); 
+ const { clearCart } = useCart(); 
 
   useEffect(() => {
     clearCart();
-  }, [clearCart]);
+  }, []);
 
   return (
     <div style={styles.container}>

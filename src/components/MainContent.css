@@ -13,7 +13,6 @@
   margin-bottom: 15px;
 }
 
-
 .filter-button {
   border: 1px solid #ccc;
   padding: 6px 12px;
@@ -60,9 +59,8 @@
 .product-card:hover {
   transform: scale(1.08);
   transition: transform 0.3s ease-in-out;
-  border: 2px solid #df18c7;
+  border: 2px solid #7b0b6e;
 }
-
 
 .product-title {
   font-size: 1rem;
@@ -74,10 +72,10 @@
 
 .product-image {
   width: 100%;
-  height: 120px;
+  height: 150px;
   object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
 }
 
 .add-to-cart-button {
@@ -93,5 +91,5 @@
 }
 
 .add-to-cart-button:hover {
-  background-color: #7B0323;
+  background-color: #7b0323;
 }

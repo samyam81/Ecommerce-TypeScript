@@ -22,7 +22,7 @@ const CartPage: React.FC = () => {
   const { cartItems, removeItemFromCart, updateItemQuantity, clearCart } =
     useCart(); // Get cart items and functions from context
 
-  // Use the helper function to calculate total price
+  // Using the helper function to calculate total price
   const totalPrice = calculateTotalPrice(cartItems);
 
   return (

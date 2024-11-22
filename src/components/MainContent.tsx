@@ -14,7 +14,7 @@ const MainContent = () => {
   const [filter, setFilter] = useState<"all" | string>("all");
   const [dropdown, setDropdown] = useState(false);
   const [currentPage] = useState(1);
-  const itemsPerPage = 12;
+  const itemsPerPage = 8;
 
   useEffect(() => {
     let url = `http://dummyjson.com/products?limit=${itemsPerPage}&skip=${
@@ -111,6 +111,9 @@ const MainContent = () => {
             </Link>
           </div>
         ))}
+      </div>
+      <div>
+        
       </div>
     </section>
   );
