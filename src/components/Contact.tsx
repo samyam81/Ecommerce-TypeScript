@@ -1,55 +1,55 @@
 import React, { useState } from "react";
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  message: "",
+});
+const [errors, setErrors] = useState({
+  name: "",
+  email: "",
+  message: "",
+});
+
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+) => {
+  const { name, value } = e.target;
+  setFormData({
+    ...formData,
+    [name]: value,
+  });
+  setErrors({
+    ...errors,
+    [name]: "",
+  });
+};
+
+const validateForm = () => {
+  let isValid = true;
+  const newErrors: { name: string; email: string; message: string } = {
     name: "",
     email: "",
     message: "",
-  });
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    setErrors({
-      ...errors,
-      [name]: "", // Clear error when the user types
-    });
   };
 
-  const validateForm = () => {
-    let isValid = true;
-    const newErrors: Record<string, string> = {
-      name: "",
-      email: "",
-      message: "",
-    };
+  if (!formData.name.trim()) {
+    newErrors.name = "Name is required.";
+    isValid = false;
+  }
+  if (!formData.email.trim()) {
+    newErrors.email = "Email is required.";
+    isValid = false;
+  }
+  if (!formData.message.trim()) {
+    newErrors.message = "Message is required.";
+    isValid = false;
+  }
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required.";
-      isValid = false;
-    }
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
-      isValid = false;
-    }
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required.";
-      isValid = false;
-    }
-
-    setErrors(newErrors);
-    return isValid;
-  };
+  setErrors(newErrors);
+  return isValid;
+};
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

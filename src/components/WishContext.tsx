@@ -4,7 +4,7 @@ interface WishItem {
   id: number;
   title: string;
   price: number;
-  image: string; 
+  image: string;
 }
 
 interface WishListType {
@@ -31,17 +31,16 @@ interface WishProviderProps {
 export const WishProvider: React.FC<WishProviderProps> = ({ children }) => {
   const [wishItems, setWishItems] = useState<WishItem[]>([]);
 
-const addItemToWish = (item: WishItem) => {
-  setWishItems((prevItems) => {
-    const itemExists = prevItems.some((wishItem) => wishItem.id === item.id);
-    if (itemExists) {
-      return prevItems.filter((wishItem) => wishItem.id !== item.id);
-    } else {
-      return [...prevItems, item]; 
-    }
-  });
-};
-
+  const addItemToWish = (item: WishItem) => {
+    setWishItems((prevItems) => {
+      const itemExists = prevItems.some((wishItem) => wishItem.id === item.id);
+      if (itemExists) {
+        return prevItems.filter((wishItem) => wishItem.id !== item.id);
+      } else {
+        return [...prevItems, item];
+      }
+    });
+  };
 
   const removeItemFromWish = (itemId: number) => {
     setWishItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
