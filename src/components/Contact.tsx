@@ -1,9 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Contact: React.FC = () => {
-  const handleClick = () => {
-    alert("Thank you for contacting us. We will get back to you soon.");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: "", // Clear error when the user types
+    });
   };
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors: Record<string, string> = {
+      name: "",
+      email: "",
+      message: "",
+    };
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required.";
+      isValid = false;
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+      isValid = false;
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required.";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validateForm()) {
+      alert("Thank you for contacting us. We will get back to you soon.");
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    }
+  };
+
   const styles: Record<string, React.CSSProperties> = {
     container: {
       maxWidth: "600px",
@@ -69,7 +128,13 @@ const Contact: React.FC = () => {
     buttonHover: {
       backgroundColor: "#0056b3",
     },
+    errorText: {
+      color: "red",
+      fontSize: "0.9em",
+      marginTop: "5px",
+    },
   };
+
   return (
     <div style={styles.container}>
       <h2 style={styles.heading}>Contact Us</h2>
@@ -77,13 +142,7 @@ const Contact: React.FC = () => {
         If you have any questions or feedback about the E-commerce Nepal, feel
         free to reach out using the form below.
       </p>
-      <form
-        style={styles.form}
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleClick();
-        }}
-      >
+      <form style={styles.form} onSubmit={handleSubmit}>
         <div style={styles.formGroup}>
           <label htmlFor="name" style={styles.label}>
             Name:
@@ -94,7 +153,10 @@ const Contact: React.FC = () => {
             name="name"
             placeholder="Enter your name"
             style={styles.input}
+            value={formData.name}
+            onChange={handleChange}
           />
+          {errors.name && <p style={styles.errorText}>{errors.name}</p>}
         </div>
         <div style={styles.formGroup}>
           <label htmlFor="email" style={styles.label}>
@@ -106,7 +168,10 @@ const Contact: React.FC = () => {
             name="email"
             placeholder="Enter your email"
             style={styles.input}
+            value={formData.email}
+            onChange={handleChange}
           />
+          {errors.email && <p style={styles.errorText}>{errors.email}</p>}
         </div>
         <div style={styles.formGroup}>
           <label htmlFor="message" style={styles.label}>
@@ -117,7 +182,10 @@ const Contact: React.FC = () => {
             name="message"
             placeholder="Write your message here"
             style={styles.textarea}
+            value={formData.message}
+            onChange={handleChange}
           ></textarea>
+          {errors.message && <p style={styles.errorText}>{errors.message}</p>}
         </div>
         <button
           type="submit"
