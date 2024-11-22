@@ -13,7 +13,7 @@ const MainContent = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [filter, setFilter] = useState<"all" | string>("all");
   const [dropdown, setDropdown] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage] = useState(1);
   const itemsPerPage = 12;
 
   useEffect(() => {
