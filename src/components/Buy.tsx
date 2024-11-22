@@ -60,8 +60,6 @@ const Buy: React.FC = () => {
         </p>
       </div>
     );
-
-    window.location.reload(); // This will reload the page completely
   }
 
   return (
