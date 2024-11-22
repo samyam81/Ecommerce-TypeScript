@@ -20,8 +20,6 @@ const ProductDetails = () => {
   }, [id]);
 
   if (!product) return <div>Loading...</div>;
-
-  // Check if the product is already in the wishlist
   const isInWishlist = wishItems.some((item) => item.id === product.id);
 
   return (
@@ -29,7 +27,6 @@ const ProductDetails = () => {
       <h1 className="product-title" style={styles.productTitle}>
         {product.title}
       </h1>
-      {/* Centered Image */}
       <div style={styles.imageContainer}>
         <img
           src={product.images[0]} // Use the first image from the images array
@@ -48,7 +45,6 @@ const ProductDetails = () => {
         Rating: {product.rating} ⭐
       </p>
 
-      {/* Back Button */}
       <Link to="/">
         <button
           style={{
@@ -71,13 +67,14 @@ const ProductDetails = () => {
         className="add-to-wish-button"
         onClick={() => {
           if (isInWishlist) {
-            removeItemFromWish(product.id); // Remove from wishlist if already present
+            removeItemFromWish(product.id);
           } else {
             addItemToWish({
               id: product.id,
               title: product.title,
               price: product.price,
-            }); // Add to wishlist
+              image: product.images[0],
+            }); 
           }
           console.log(
             isInWishlist
