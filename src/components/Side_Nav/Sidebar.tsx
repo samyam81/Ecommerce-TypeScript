@@ -1,5 +1,7 @@
+// Sidebar.tsx
 import React, { useEffect, useState } from "react";
 import { useFilter } from "../Filter/FilterContext";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const {
@@ -23,7 +25,9 @@ const Sidebar = () => {
     "shoes",
     "shirt",
   ]);
+  const [randomProduct, setRandomProduct] = useState<any | null>(null);
 
+  // Fetch categories and random product
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -42,9 +46,23 @@ const Sidebar = () => {
       }
     };
 
+    const fetchRandomProduct = async () => {
+      try {
+        const response = await fetch("https://dummyjson.com/products");
+        const data = await response.json();
+        const randomProduct =
+          data.products[Math.floor(Math.random() * data.products.length)];
+        setRandomProduct(randomProduct);
+      } catch (err) {
+        console.error("Error fetching random product", err);
+      }
+    };
+
     fetchCategories();
+    fetchRandomProduct();
   }, []);
 
+  // Handle changes to inputs
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setMinPrice(value ? parseFloat(value) : undefined);
@@ -72,13 +90,14 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar border-end p-3" style={{ width: "200px" }}>
-      <h1 className="sidebar-header border-bottom pb-2">React Store</h1>
+    <div className="sidebar bg-light p-3">
+      <h1 className="sidebar-header border-bottom pb-2 mb-3">React Store</h1>
 
+      {/* Search Section */}
       <section className="mb-4">
         <input
           type="text"
-          className="form-control mb-2"
+          className="form-control mb-3"
           placeholder="Search for Items"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -101,6 +120,7 @@ const Sidebar = () => {
         </div>
       </section>
 
+      {/* Categories Section */}
       <section className="mb-4">
         <h3 className="h5">Categories</h3>
         {categories.length > 0 ? (
@@ -125,22 +145,67 @@ const Sidebar = () => {
         )}
       </section>
 
+      {/* Keywords Section */}
       <section className="mb-4">
         <h3 className="h5">Keywords</h3>
         <div className="d-flex flex-wrap gap-2">
           {keywords.map((keyword, index) => (
-            <button
+            <span
               key={index}
-              className="btn btn-outline-primary btn-sm"
+              className="badge bg-primary text-white cursor-pointer"
               onClick={() => handleKeywordClick(keyword)}
+              style={{ cursor: "pointer" }}
             >
               {keyword.toUpperCase()}
-            </button>
+            </span>
           ))}
         </div>
       </section>
 
-      <button className="btn btn-danger" onClick={handleResetFilters}>
+      {/* Special Offer Section */}
+      {randomProduct && (
+        <section className="mb-4">
+          <h3 className="h5">Special Offer</h3>
+          <div
+            className="card"
+            style={{
+              maxWidth: "200px",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            <img
+              src={randomProduct.thumbnail || randomProduct.image}
+              alt={randomProduct.title}
+              className="card-img-top"
+              style={{ objectFit: "cover", height: "150px" }}
+            />
+            <div className="card-body">
+              <h5 className="card-title">{randomProduct.title}</h5>
+              <p className="card-text">Price: ${randomProduct.price}</p>
+              <Link
+                to={`/product/${randomProduct.id}`}
+                className="btn btn-primary btn-sm w-100"
+              >
+                View Product
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Reset Filters */}
+      <button
+        className="btn btn-danger w-100 mt-3"
+        onClick={handleResetFilters}
+      >
         Reset Filters
       </button>
     </div>

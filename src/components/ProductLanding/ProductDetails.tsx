@@ -22,47 +22,59 @@ const ProductDetails = () => {
   }, [id]);
 
   if (!product) return <div className="text-center mt-5">Loading...</div>;
+
   const isInWishlist = wishItems.some((item) => item.id === product.id);
 
   return (
-    <div className="container mt-5 p-4 bg-light rounded shadow">
-      <h1 className="text-center mb-4">{product.title}</h1>
-      <div className="text-center mb-4">
-        <img
-          src={product.images[0]}
-          alt={product.title}
-          className="img-fluid rounded shadow-sm"
-          style={{ maxWidth: "400px" }}
-        />
-      </div>
-      <p className="text-muted">{product.description}</p>
-      <p className="text-success fw-bold">Price: ${product.price}</p>
-      <p>Rating: {product.rating} ⭐</p>
-      <div className="d-flex justify-content-center gap-2">
-        <Link to="/" className="btn btn-secondary">
-          Back
-        </Link>
-        <button
-          className={`btn ${isInWishlist ? "btn-danger" : "btn-warning"}`}
-          onClick={() =>
-            isInWishlist
-              ? removeItemFromWish(product.id)
-              : addItemToWish({
-                  id: product.id,
-                  title: product.title,
-                  price: product.price,
-                  image: product.images[0],
-                })
-          }
-        >
-          {isInWishlist ? "Remove from Wish" : "Add to Wish"}
-        </button>
-        <button
-          className="btn btn-primary"
-          onClick={() => addItemToCart(product)}
-        >
-          Add to Cart
-        </button>
+    <div className="container mt-5">
+      {/* Card with Product Details */}
+      <div className="card shadow-sm border-light">
+        <div className="row g-0">
+          <div className="col-md-6">
+            <img
+              src={product.images[0]}
+              alt={product.title}
+              className="img-fluid rounded-start"
+              style={{ maxHeight: "400px", objectFit: "cover" }}
+            />
+          </div>
+          <div className="col-md-6">
+            <div className="card-body">
+              <h5 className="card-title">{product.title}</h5>
+              <p className="card-text">{product.description}</p>
+              <p className="text-success fw-bold">Price: ${product.price}</p>
+              <p className="text-muted">Rating: {product.rating} ⭐</p>
+              <div className="d-flex justify-content-start gap-2">
+                <Link to="/" className="btn btn-secondary">
+                  Back
+                </Link>
+                <button
+                  className={`btn ${
+                    isInWishlist ? "btn-danger" : "btn-warning"
+                  }`}
+                  onClick={() =>
+                    isInWishlist
+                      ? removeItemFromWish(product.id)
+                      : addItemToWish({
+                          id: product.id,
+                          title: product.title,
+                          price: product.price,
+                          image: product.images[0],
+                        })
+                  }
+                >
+                  {isInWishlist ? "Remove from Wish" : "Add to Wish"}
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => addItemToCart(product)}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

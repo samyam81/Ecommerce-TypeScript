@@ -13,15 +13,15 @@ const MainContent = () => {
   const [filter, setFilter] = useState<"all" | string>("all");
   const [dropdown, setDropdown] = useState(false);
   const [currentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 12;
 
   useEffect(() => {
-    let url = `http://dummyjson.com/products?limit=${itemsPerPage}&skip=${
+    let url = `https://dummyjson.com/products?limit=${itemsPerPage}&skip=${
       (currentPage - 1) * itemsPerPage
     }`;
 
     if (keyword) {
-      url = `http://dummyjson.com/products/search?q=${keyword}`;
+      url = `https://dummyjson.com/products/search?q=${keyword}`;
     }
 
     axios
@@ -61,11 +61,24 @@ const MainContent = () => {
       );
     }
 
+    if (filter !== "all") {
+      if (filter === "Cheap") {
+        filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+      } else if (filter === "Expensive") {
+        filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+      } else if (filter === "Popular") {
+        filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
+      }
+    }
+
     return filteredProducts;
   }
 
   return (
-    <section className="main-content container mt-4">
+    <section
+      className="main-content container-fluid mt-4"
+      style={{ margin: 0, padding: "20px", flex: 1, overflowY: "auto" }}
+    >
       <style>
         {`
           .card-hover-effect {
@@ -75,8 +88,32 @@ const MainContent = () => {
             border: 2px solid red !important;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
           }
+          .ad-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+          .ad-section h4 {
+            margin-bottom: 15px;
+          }
+          .ad-section button {
+            margin-top: 10px;
+          }
         `}
       </style>
+
+      {/* Ad Section */}
+      <div className="ad-section">
+        <h4>Exclusive Offer!</h4>
+        <p>
+          Get 50% off on your first order! Don't miss out on this limited time
+          offer.
+        </p>
+        <button className="btn btn-primary">Shop Now</button>
+      </div>
 
       {/* Filter Container */}
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -92,7 +129,7 @@ const MainContent = () => {
               : filter.charAt(0).toUpperCase() + filter.slice(1)}
           </button>
           {dropdown && (
-            <ul className="dropdown-menu">
+            <ul className="dropdown-menu show">
               <li>
                 <button
                   className="dropdown-item"
@@ -117,6 +154,17 @@ const MainContent = () => {
                   Popular
                 </button>
               </li>
+              <li>
+                <hr className="dropdown-divider" />
+              </li>
+              <li>
+                <button
+                  className="dropdown-item"
+                  onClick={() => setFilter("all")}
+                >
+                  Reset Filter
+                </button>
+              </li>
             </ul>
           )}
         </div>
@@ -125,29 +173,63 @@ const MainContent = () => {
       {/* Product Grid */}
       <div className="row">
         {getFilteredProducts().map((product) => (
-          <div key={product.id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
+          <div
+            key={product.id}
+            className="col-lg-2 col-md-3 col-sm-4 col-6 mb-3"
+          >
             <Link
               to={`/product/${product.id}`}
               className="text-decoration-none text-dark"
             >
-              <div className="card h-100 card-hover-effect">
+              <div
+                className="card h-100 card-hover-effect"
+                style={{
+                  width: "100%",
+                  maxWidth: "150px", // Reduced width
+                  margin: "0 auto",
+                }}
+              >
                 <img
-                  src={product.thumbnail}
+                  src={product.thumbnail || product.images[0]}
                   alt={product.title}
                   className="card-img-top"
-                  style={{ height: "200px", objectFit: "cover" }}
+                  style={{
+                    height: "120px", // Reduced height
+                    objectFit: "cover",
+                  }}
                 />
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p className="card-text text-success fw-bold">
+                <div
+                  className="card-body d-flex flex-column"
+                  style={{
+                    padding: "10px", // Reduced padding
+                  }}
+                >
+                  <h6
+                    className="card-title"
+                    style={{
+                      fontSize: "0.85rem", // Smaller title font
+                      lineHeight: "1.2",
+                    }}
+                  >
+                    {product.title}
+                  </h6>
+                  <p
+                    className="card-text text-success fw-bold"
+                    style={{
+                      fontSize: "0.75rem", // Smaller price font
+                    }}
+                  >
                     {product.price} USD
                   </p>
                   <button
                     className="btn btn-primary w-100 mt-auto"
+                    style={{
+                      fontSize: "0.75rem", // Smaller button text
+                      padding: "5px",
+                    }}
                     onClick={(e) => {
                       e.preventDefault(); // Prevent navigation when adding to cart
                       addItemToCart(product);
-                      console.log(cartItems);
                     }}
                   >
                     Add to Cart

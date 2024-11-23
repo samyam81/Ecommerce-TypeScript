@@ -21,13 +21,38 @@ const App = () => {
             style={{
               display: "flex",
               flexDirection: "column",
-              height: "100vh",
+              minHeight: "100vh",
             }}
           >
+            {/* Navigation Bar */}
             <NavBar />
-            <div style={{ display: "flex", flex: 1 }}>
-              <Sidebar /> {/* Sidebar */}
-              <div style={{ flexGrow: 1, padding: "20px", overflowY: "auto" }}>
+
+            {/* Main Content Section */}
+            <div
+              style={{
+                display: "flex",
+                flex: 1,
+              }}
+            >
+              {/* Sidebar */}
+              <Sidebar
+                style={{
+                  width: "250px", // Fixed width for sidebar
+                  height: "calc(100vh - 60px)", // Full height minus NavBar height
+                  overflowY: "auto", // Scrollable sidebar
+                  backgroundColor: "#f8f9fa",
+                  borderRight: "1px solid #ddd",
+                }}
+              />
+
+              {/* Main Content */}
+              <div
+                style={{
+                  flexGrow: 1, // Main content takes remaining space
+                  padding: "20px",
+                  overflowY: "auto",
+                }}
+              >
                 <Routes>
                   <Route path="/" element={<MainContent />} />
                   <Route path="/about" element={<About />} />
@@ -40,7 +65,8 @@ const App = () => {
                 </Routes>
               </div>
             </div>
-            {/* Footer Section */}
+
+            {/* Footer */}
             <footer
               style={{
                 backgroundColor: "#333",
