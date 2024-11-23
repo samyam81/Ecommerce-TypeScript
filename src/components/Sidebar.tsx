@@ -72,7 +72,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar border-end p-3">
+    <div className="sidebar border-end p-3" style={{ width: "200px" }}>
       <h1 className="sidebar-header border-bottom pb-2">React Store</h1>
 
       <section className="mb-4">

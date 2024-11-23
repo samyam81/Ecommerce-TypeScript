@@ -1,14 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useWish } from "./WishContext"; // Import useWish
-import { useCart } from "./CartContext"; // Importing useCart hook
+import { useWish } from "./WishContext";
+import { useCart } from "./CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<any | null>(null);
-  const { addItemToWish, wishItems, removeItemFromWish } = useWish(); // Destructure addItemToWish and wishItems
-  const { addItemToCart, cartItems } = useCart(); // Use addItemToCart and cartItems from context
+  const { addItemToWish, wishItems, removeItemFromWish } = useWish();
+  const { addItemToCart } = useCart();
 
   useEffect(() => {
     axios
@@ -21,141 +21,51 @@ const ProductDetails = () => {
       });
   }, [id]);
 
-  if (!product) return <div>Loading...</div>;
+  if (!product) return <div className="text-center mt-5">Loading...</div>;
   const isInWishlist = wishItems.some((item) => item.id === product.id);
 
   return (
-    <div className="product-details" style={styles.productDetails}>
-      <h1 className="product-title" style={styles.productTitle}>
-        {product.title}
-      </h1>
-      <div style={styles.imageContainer}>
+    <div className="container mt-5 p-4 bg-light rounded shadow">
+      <h1 className="text-center mb-4">{product.title}</h1>
+      <div className="text-center mb-4">
         <img
-          src={product.images[0]} // Use the first image from the images array
+          src={product.images[0]}
           alt={product.title}
-          className="product-image"
-          style={styles.productImage}
+          className="img-fluid rounded shadow-sm"
+          style={{ maxWidth: "400px" }}
         />
       </div>
-      <p className="product-description" style={styles.productDescription}>
-        {product.description}
-      </p>
-      <p className="product-price" style={styles.productPrice}>
-        Price: {product.price} USD
-      </p>
-      <p className="product-rating" style={styles.productRating}>
-        Rating: {product.rating} ⭐
-      </p>
-
-      <Link to="/">
-        <button
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#28a745",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            fontSize: "16px",
-            transition: "background-color 0.3s ease",
-          }}
-        >
+      <p className="text-muted">{product.description}</p>
+      <p className="text-success fw-bold">Price: ${product.price}</p>
+      <p>Rating: {product.rating} ⭐</p>
+      <div className="d-flex justify-content-center gap-2">
+        <Link to="/" className="btn btn-secondary">
           Back
-        </button>
-      </Link>
-
-      {/* Add to Wish Button */}
-      <button
-        className="add-to-wish-button"
-        onClick={() => {
-          if (isInWishlist) {
-            removeItemFromWish(product.id);
-          } else {
-            addItemToWish({
-              id: product.id,
-              title: product.title,
-              price: product.price,
-              image: product.images[0],
-            });
-          }
-          console.log(
+        </Link>
+        <button
+          className={`btn ${isInWishlist ? "btn-danger" : "btn-warning"}`}
+          onClick={() =>
             isInWishlist
-              ? "Item removed from wish list"
-              : "Item added to wish list"
-          );
-        }}
-        style={{
-          padding: "10px 20px",
-          margin: "10px",
-          backgroundColor: isInWishlist ? "#dc3545" : "#ffc107", // Red if it's in the wishlist, yellow otherwise
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          fontSize: "16px",
-          marginTop: "10px",
-        }}
-      >
-        {isInWishlist ? "Remove from Wish" : "Add to Wish"}
-      </button>
-
-      {/* Add to Cart button here */}
-      <button
-        className="add-to-cart-button"
-        onClick={() => {
-          addItemToCart(product);
-          console.log(cartItems);
-        }}
-      >
-        Add to Cart
-      </button>
+              ? removeItemFromWish(product.id)
+              : addItemToWish({
+                  id: product.id,
+                  title: product.title,
+                  price: product.price,
+                  image: product.images[0],
+                })
+          }
+        >
+          {isInWishlist ? "Remove from Wish" : "Add to Wish"}
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={() => addItemToCart(product)}
+        >
+          Add to Cart
+        </button>
+      </div>
     </div>
   );
-};
-
-// Styles for the component
-const styles: Record<string, React.CSSProperties> = {
-  productDetails: {
-    padding: "20px",
-    maxWidth: "900px",
-    margin: "0 auto",
-    backgroundColor: "#f9f9f9",
-    borderRadius: "8px",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  },
-  productTitle: {
-    fontSize: "2rem",
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: "15px",
-  },
-  imageContainer: {
-    textAlign: "center",
-    marginBottom: "15px",
-  },
-  productImage: {
-    width: "300px",
-    height: "auto",
-    objectFit: "contain",
-    borderRadius: "8px",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  },
-  productDescription: {
-    fontSize: "1rem",
-    lineHeight: "1.6",
-    color: "#555",
-    marginBottom: "15px",
-  },
-  productPrice: {
-    fontSize: "1.2rem",
-    fontWeight: "bold",
-    color: "#7B0323",
-    marginBottom: "10px",
-  },
-  productRating: {
-    fontSize: "1rem",
-    marginBottom: "10px",
-  },
 };
 
 export default ProductDetails;

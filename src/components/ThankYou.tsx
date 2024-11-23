@@ -1,76 +1,43 @@
 import React, { useEffect } from "react";
-import { useCart } from "./CartContext"; 
+import { useCart } from "./CartContext";
+import { Link } from "react-router-dom";
 
 const ThankYou: React.FC = () => {
- const { clearCart } = useCart(); 
+  const { clearCart } = useCart();
 
   useEffect(() => {
     clearCart();
   }, []);
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.header}>Thank You for Your Purchase!</h1>
-      <p style={styles.message}>
+    <div className="container text-center py-5">
+      <h1 className="display-4 text-success mb-4 animate__animated animate__fadeIn">
+        Thank You for Your Purchase!
+      </h1>
+      <p className="lead text-muted mb-4">
         Your order is being processed. We hope to serve you again soon!
       </p>
-      <p style={styles.contact}>
+      <p className="text-muted mb-4">
         Need assistance? Contact us at{" "}
-        <a href="mailto:support@example.com" style={styles.link}>
+        <a href="mailto:support@example.com" className="text-success">
           support@example.com
         </a>
       </p>
-      <button
-        style={styles.button}
-        onClick={() => (window.location.href = "/")}
-      >
-        Continue Shopping
-      </button>
+      <div className="d-flex justify-content-center gap-3">
+        <button
+          className="btn btn-lg btn-success mt-3 px-4 py-3 rounded-pill shadow-lg hover-shadow"
+          onClick={() => (window.location.href = "/")}
+        >
+          Continue Shopping
+        </button>
+        <Link to="/contact">
+          <button className="btn btn-lg btn-outline-success mt-3 px-4 py-3 rounded-pill shadow-lg hover-shadow">
+            Contact Us
+          </button>
+        </Link>
+      </div>
     </div>
   );
-};
-
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    textAlign: "center",
-    padding: "50px",
-    fontFamily: "Arial, sans-serif",
-    backgroundColor: "#f0fff4",
-    borderRadius: "8px",
-    margin: "0 auto",
-    maxWidth: "600px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  },
-  header: {
-    fontSize: "2.5rem",
-    color: "#2e7d32",
-    marginBottom: "20px",
-    animation: "fadeIn 1.5s ease-in-out",
-  },
-  message: {
-    fontSize: "1.2rem",
-    color: "#555",
-    marginBottom: "20px",
-  },
-  contact: {
-    fontSize: "1rem",
-    color: "#777",
-    marginBottom: "30px",
-  },
-  link: {
-    color: "#2e7d32",
-    textDecoration: "none",
-  },
-  button: {
-    backgroundColor: "#4caf50",
-    color: "#fff",
-    border: "none",
-    padding: "10px 20px",
-    borderRadius: "4px",
-    fontSize: "1rem",
-    cursor: "pointer",
-    transition: "background-color 0.3s",
-  }
 };
 
 export default ThankYou;

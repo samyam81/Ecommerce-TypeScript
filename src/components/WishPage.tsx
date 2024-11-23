@@ -6,86 +6,50 @@ const Wishpage = () => {
 
   if (wishItems.length === 0) {
     return (
-      <p style={{ textAlign: "center", fontSize: "1.2rem", marginTop: "20px" }}>
+      <p className="text-center mt-4" style={{ fontSize: "1.2rem" }}>
         Your wishlist is empty!
       </p>
     );
   }
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        backgroundColor: "#f9f9f9",
-        borderRadius: "8px",
-      }}
-    >
-      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-        Your Wishlist
-      </h1>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-          gap: "20px",
-        }}
-      >
+    <div className="container my-5 p-4 bg-light rounded shadow-sm">
+      <h1 className="text-center mb-4">Your Wishlist</h1>
+      <div className="row row-cols-1 row-cols-md-3 g-4">
         {wishItems.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              padding: "10px",
-              backgroundColor: "#fff",
-              textAlign: "center",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <img
-              src={item.image}
-              alt={item.title}
-              style={{
-                maxWidth: "100%",
-                height: "150px",
-                objectFit: "cover",
-                marginBottom: "10px",
-                borderRadius: "8px",
-              }}
-            />
-            <h2 style={{ fontSize: "1.2rem", margin: "10px 0" }}>
-              {item.title}
-            </h2>
-            <p style={{ fontWeight: "bold", color: "#7B0323" }}>
-              Price: {item.price} USD
-            </p>
-            <button
-              onClick={() => removeItemFromWish(item.id)}
-              style={{
-                padding: "8px 16px",
-                backgroundColor: "#dc3545",
-                color: "#fff",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-                marginTop: "10px",
-              }}
-            >
-              Remove
-            </button>
-            <Link
-              to={`/product/${item.id}`}
-              style={{
-                display: "block",
-                marginTop: "10px",
-                textDecoration: "none",
-                color: "#007bff",
-              }}
-            >
-              View Details
-            </Link>
+          <div key={item.id} className="col d-flex justify-content-center">
+            <div className="card shadow-sm" style={{ width: "18rem" }}>
+              <img
+                src={item.image}
+                alt={item.title}
+                className="card-img-top"
+                style={{
+                  height: "200px",
+                  objectFit: "cover",
+                  borderRadius: "8px 8px 0 0",
+                }}
+              />
+              <div className="card-body text-center">
+                <h5 className="card-title" style={{ fontSize: "1.2rem" }}>
+                  {item.title}
+                </h5>
+                <p className="card-text font-weight-bold text-danger">
+                  Price: {item.price} USD
+                </p>
+                <button
+                  onClick={() => removeItemFromWish(item.id)}
+                  className="btn btn-danger w-100"
+                >
+                  Remove
+                </button>
+                <Link
+                  to={`/product/${item.id}`}
+                  className="btn btn-link text-primary d-block mt-2"
+                >
+                  View Details
+                </Link>
+              </div>
+            </div>
           </div>
         ))}
       </div>
