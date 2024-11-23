@@ -1,16 +1,16 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { CartProvider } from "./components/CartContext";
-import MainContent from "./components/MainContent";
-import CartPage from "./components/CartPage";
-import NavBar from "./components/NavBar";
-import Sidebar from "./components/Sidebar";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Buy from "./components/Buy";
-import ProductDetails from "./components/ProductDetails";
-import { WishProvider } from "./components/WishContext";
-import WishPage from "./components/WishPage";
-import ThankYou from "./components/ThankYou";
+import { CartProvider } from "./components/Cart/CartContext";
+import MainContent from "./components/MainApp/MainContent";
+import CartPage from "./components/Cart/CartPage";
+import NavBar from "./components/Side_Nav/NavBar";
+import Sidebar from "./components/Side_Nav/Sidebar";
+import About from "./components/About_Contact/About";
+import Contact from "./components/About_Contact/Contact";
+import Buy from "./components/ProductLanding/Buy";
+import ProductDetails from "./components/ProductLanding/ProductDetails";
+import { WishProvider } from "./components/Wish/WishContext";
+import WishPage from "./components/Wish/WishPage";
+import ThankYou from "./components/ThankYouPage/ThankYou";
 
 const App = () => {
   return (

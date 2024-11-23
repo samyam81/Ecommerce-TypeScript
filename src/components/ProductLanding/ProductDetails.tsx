@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useWish } from "./WishContext";
-import { useCart } from "./CartContext";
+import { useWish } from "../Wish/WishContext";
+import { useCart } from "../Cart/CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();

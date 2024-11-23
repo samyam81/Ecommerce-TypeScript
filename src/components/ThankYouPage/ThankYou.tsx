@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useCart } from "./CartContext";
+import { useCart } from "../Cart/CartContext";
 import { Link } from "react-router-dom";
 
 const ThankYou: React.FC = () => {

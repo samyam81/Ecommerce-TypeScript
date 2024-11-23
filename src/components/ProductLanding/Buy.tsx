@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { calculateTotalPrice } from "./CartPage";
-import { useCart } from "./CartContext";
+import { calculateTotalPrice } from "../Cart/CartPage";
+import { useCart } from "../Cart/CartContext";
 import { useNavigate } from "react-router-dom";
 
 const Buy: React.FC = () => {

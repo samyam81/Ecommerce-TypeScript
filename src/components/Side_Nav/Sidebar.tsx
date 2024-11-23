@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useFilter } from "./FilterContext";
+import { useFilter } from "../Filter/FilterContext";
 
 const Sidebar = () => {
   const {

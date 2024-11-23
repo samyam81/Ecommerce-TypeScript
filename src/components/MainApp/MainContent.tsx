@@ -1,8 +1,8 @@
 import { Tally3 } from "lucide-react";
-import { useFilter } from "./FilterContext";
+import { useFilter } from "../Filter/FilterContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useCart } from "./CartContext";
+import { useCart } from "../Cart/CartContext";
 import { Link } from "react-router-dom";
 
 const MainContent = () => {
