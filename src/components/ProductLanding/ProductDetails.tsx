@@ -7,10 +7,15 @@ import { useCart } from "../Cart/CartContext";
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<any | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
   const { addItemToWish, wishItems, removeItemFromWish } = useWish();
   const { addItemToCart } = useCart();
 
+  // For hover effect
+  const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
+
   useEffect(() => {
+    // Fetch the current product details
     axios
       .get(`http://dummyjson.com/products/${id}`)
       .then((response) => {
@@ -18,6 +23,19 @@ const ProductDetails = () => {
       })
       .catch((error) => {
         console.error("Error fetching product details", error);
+      });
+
+    // Fetch all products and filter out the current product
+    axios
+      .get("http://dummyjson.com/products") // Assuming this returns a list of products
+      .then((response) => {
+        const filteredProducts = response.data.products.filter(
+          (item: any) => item.id !== parseInt(id) // Parse `id` to an integer if needed
+        );
+        setRelatedProducts(filteredProducts.slice(0, 3)); // Limit to 3 products
+      })
+      .catch((error) => {
+        console.error("Error fetching related products", error);
       });
   }, [id]);
 
@@ -74,6 +92,58 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Related Products Section */}
+      <div className="mt-5">
+        <h4>You may also like</h4>
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+          {relatedProducts.map((relatedProduct) => (
+            <div
+              key={relatedProduct.id}
+              className="col"
+              onMouseEnter={() => setHoveredProductId(relatedProduct.id)}
+              onMouseLeave={() => setHoveredProductId(null)}
+              style={{
+                transition:
+                  "transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease",
+                transform:
+                  hoveredProductId === relatedProduct.id
+                    ? "scale(1.05)"
+                    : "scale(1)",
+                boxShadow:
+                  hoveredProductId === relatedProduct.id
+                    ? "0 4px 8px rgba(0, 0, 0, 0.1)"
+                    : "none",
+                border:
+                  hoveredProductId === relatedProduct.id
+                    ? "2px solid blue" // Blue border on hover
+                    : "none", // Remove border when not hovered
+              }}
+            >
+              <div className="card h-100 shadow-sm border-light">
+                <img
+                  src={relatedProduct.images[0]}
+                  alt={relatedProduct.title}
+                  className="card-img-top"
+                  style={{ height: "200px", objectFit: "cover" }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{relatedProduct.title}</h5>
+                  <p className="text-success fw-bold">
+                    Price: ${relatedProduct.price}
+                  </p>
+                  <Link
+                    to={`/product/${relatedProduct.id}`}
+                    className="btn btn-primary"
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
