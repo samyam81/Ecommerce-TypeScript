@@ -26,13 +26,13 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-transparent shadow-sm p-3 mb-3">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-3">
       <div className="container-fluid">
         <Link to="/" className="navbar-brand text-primary fw-bold">
-          <i className="bi bi-shop"></i>
+          <i className="bi bi-shop"></i> SamyamREACT
         </Link>
 
-        {/* Toggle Button */}
+        {/* Toggle Button for Mobile */}
         <button
           className="navbar-toggler"
           type="button"
@@ -60,7 +60,7 @@ const NavBar = () => {
             </li>
           </ul>
 
-          {/* Search Section */}
+          {/* Search and Price Filter Section */}
           <div className="d-flex gap-2 me-3">
             <input
               type="text"
@@ -85,21 +85,19 @@ const NavBar = () => {
             />
           </div>
 
-          {/* Cart and Wish List Links */}
+          {/* Cart and Wish List Links with badges */}
           <div className="d-flex">
             <Link
               to="/cart"
-              className="btn btn-outline-primary me-2"
-              style={{ position: "relative" }}
+              className="btn btn-outline-primary position-relative me-2"
             >
-              Cart
+              <i className="bi bi-cart"></i> Cart
               <span
-                className="badge bg-primary text-white rounded-pill"
+                className="badge bg-primary text-white rounded-pill position-absolute"
                 style={{
-                  position: "absolute",
                   top: "-5px",
                   right: "-10px",
-                  fontSize: "0.8rem",
+                  fontSize: "0.75rem",
                 }}
               >
                 {cartItems.length}
@@ -108,17 +106,15 @@ const NavBar = () => {
 
             <Link
               to="/wish"
-              className="btn btn-outline-secondary"
-              style={{ position: "relative" }}
+              className="btn btn-outline-secondary position-relative"
             >
-              Wish List
+              <i className="bi bi-heart"></i> Wish List
               <span
-                className="badge bg-secondary text-white rounded-pill"
+                className="badge bg-secondary text-white rounded-pill position-absolute"
                 style={{
-                  position: "absolute",
                   top: "-5px",
                   right: "-10px",
-                  fontSize: "0.8rem",
+                  fontSize: "0.75rem",
                 }}
               >
                 {wishItems.length}

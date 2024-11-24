@@ -27,6 +27,7 @@ const CartPage: React.FC = () => {
   return (
     <div className="container py-4">
       <h1 className="text-center">Your Cart</h1>
+
       {cartItems.length === 0 ? (
         <p className="text-center text-muted fs-4">Your cart is empty</p>
       ) : (
@@ -93,12 +94,23 @@ const CartPage: React.FC = () => {
           </button>
         </div>
       )}
-      <div className="bg-danger text-white text-center py-2 rounded my-3">
+
+      {/* Total Price Section */}
+      <div
+        className={`bg-danger text-white text-center py-2 rounded my-3 ${
+          totalPrice === 0 ? "opacity-50" : ""
+        }`}
+      >
         <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
       </div>
-      <Link to="/buy">
-        <button className="btn btn-success w-100">Proceed to Checkout</button>
-      </Link>
+
+      {/* Shop Now Button */}
+      <button
+        className="btn btn-lg btn-success mt-3 px-4 py-3 rounded-pill shadow-lg hover-shadow"
+        onClick={() => (window.location.href = "/")}
+      >
+        Shop Now
+      </button>
     </div>
   );
 };

@@ -58,17 +58,6 @@ const Sidebar = () => {
     fetchRandomProduct();
   }, []);
 
-  // Handle changes to inputs
-  // const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.value;
-  //   setMinPrice(value ? parseFloat(value) : undefined);
-  // };
-
-  // const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.value;
-  //   setMaxPrice(value ? parseFloat(value) : undefined);
-  // };
-
   const handleRadioChangeCategories = (category: string) => {
     setSelectedCategory(category);
   };
@@ -86,8 +75,10 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar bg-light p-3">
-      <h1 className="sidebar-header border-bottom pb-2 mb-3">React Store</h1>
+    <div className="sidebar bg-light p-3 rounded">
+      <h1 className="sidebar-header border-bottom pb-2 mb-3 text-center">
+        React Store
+      </h1>
 
       {/* Categories Section */}
       <section className="mb-4">
@@ -105,7 +96,7 @@ const Sidebar = () => {
                 checked={selectedCategory === category}
               />
               <label className="form-check-label" htmlFor={category}>
-                {category.toLocaleUpperCase()}
+                {category.toUpperCase()}
               </label>
             </div>
           ))
@@ -121,9 +112,8 @@ const Sidebar = () => {
           {keywords.map((keyword, index) => (
             <span
               key={index}
-              className="badge bg-success text-white cursor-pointer"
+              className="badge bg-success text-white cursor-pointer p-2"
               onClick={() => handleKeywordClick(keyword)}
-              style={{ cursor: "pointer" }}
             >
               {keyword.toUpperCase()}
             </span>
@@ -136,7 +126,7 @@ const Sidebar = () => {
         <section className="mb-4">
           <h3 className="h5">Special Offer</h3>
           <div
-            className="card"
+            className="card shadow-sm"
             style={{
               maxWidth: "200px",
               transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -154,7 +144,11 @@ const Sidebar = () => {
               src={randomProduct.thumbnail || randomProduct.image}
               alt={randomProduct.title}
               className="card-img-top"
-              style={{ objectFit: "cover", height: "150px" }}
+              style={{
+                objectFit: "cover",
+                height: "150px",
+                borderRadius: "5px 5px 0 0",
+              }}
             />
             <div className="card-body">
               <h5 className="card-title">{randomProduct.title}</h5>

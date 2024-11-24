@@ -28,7 +28,7 @@ const ThankYou: React.FC = () => {
           className="btn btn-lg btn-success mt-3 px-4 py-3 rounded-pill shadow-lg hover-shadow"
           onClick={() => (window.location.href = "/")}
         >
-          Continue Shopping
+          Continue Shopping 
         </button>
         <Link to="/contact">
           <button className="btn btn-lg btn-outline-success mt-3 px-4 py-3 rounded-pill shadow-lg hover-shadow">
