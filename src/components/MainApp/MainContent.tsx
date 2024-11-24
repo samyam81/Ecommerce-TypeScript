@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCart } from "../Cart/CartContext";
 import { Link } from "react-router-dom";
+import ProductCard from "../ProductLanding/ProductCard";
 
 const MainContent = () => {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
@@ -13,6 +14,7 @@ const MainContent = () => {
   const [filter, setFilter] = useState<"all" | string>("all");
   const [dropdown, setDropdown] = useState(false);
   const [currentPage] = useState(1);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null); // Track selected product for modal
   const itemsPerPage = 12;
 
   useEffect(() => {
@@ -34,8 +36,14 @@ const MainContent = () => {
       });
   }, [currentPage, keyword]);
 
+  useEffect(() => {
+    setProducts([]); // Reset products when filters are changed
+  }, [searchQuery, selectedCategory, minPrice, maxPrice, filter]);
+
   function getFilteredProducts() {
     let filteredProducts = products;
+
+    if (!products.length) return [];
 
     if (selectedCategory) {
       filteredProducts = filteredProducts.filter(
@@ -72,6 +80,15 @@ const MainContent = () => {
     }
 
     return filteredProducts;
+  }
+
+  function handleAddToCart(product: any) {
+    addItemToCart(product); // Add to cart
+    setSelectedProduct(product); // Open modal with selected product
+  }
+
+  function closeProductCard() {
+    setSelectedProduct(null); // Close modal
   }
 
   return (
@@ -185,7 +202,7 @@ const MainContent = () => {
                 className="card h-100 card-hover-effect"
                 style={{
                   width: "100%",
-                  maxWidth: "150px", // Reduced width
+                  maxWidth: "150px",
                   margin: "0 auto",
                 }}
               >
@@ -194,20 +211,20 @@ const MainContent = () => {
                   alt={product.title}
                   className="card-img-top"
                   style={{
-                    height: "120px", // Reduced height
+                    height: "120px",
                     objectFit: "cover",
                   }}
                 />
                 <div
                   className="card-body d-flex flex-column"
                   style={{
-                    padding: "10px", // Reduced padding
+                    padding: "10px",
                   }}
                 >
                   <h6
                     className="card-title"
                     style={{
-                      fontSize: "0.85rem", // Smaller title font
+                      fontSize: "0.85rem",
                       lineHeight: "1.2",
                     }}
                   >
@@ -216,7 +233,7 @@ const MainContent = () => {
                   <p
                     className="card-text text-success fw-bold"
                     style={{
-                      fontSize: "0.75rem", // Smaller price font
+                      fontSize: "0.75rem",
                     }}
                   >
                     {product.price} USD
@@ -224,12 +241,12 @@ const MainContent = () => {
                   <button
                     className="btn btn-primary w-100 mt-auto"
                     style={{
-                      fontSize: "0.75rem", // Smaller button text
+                      fontSize: "0.75rem",
                       padding: "5px",
                     }}
                     onClick={(e) => {
-                      e.preventDefault(); // Prevent navigation when adding to cart
-                      addItemToCart(product);
+                      e.preventDefault(); // Prevent navigation
+                      handleAddToCart(product);
                     }}
                   >
                     Add to Cart
@@ -240,6 +257,11 @@ const MainContent = () => {
           </div>
         ))}
       </div>
+
+      {/* ProductCard Modal */}
+      {selectedProduct && (
+        <ProductCard product={selectedProduct} onClose={closeProductCard} />
+      )}
     </section>
   );
 };
