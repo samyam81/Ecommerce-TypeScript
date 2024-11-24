@@ -5,7 +5,7 @@ import { useWish } from "../Wish/WishContext";
 import { useCart } from "../Cart/CartContext";
 
 const ProductDetails = () => {
-  const { id } = useParams();
+  const { id} = useParams();
   const [product, setProduct] = useState<any | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
   const { addItemToWish, wishItems, removeItemFromWish } = useWish();
@@ -14,30 +14,37 @@ const ProductDetails = () => {
   // For hover effect
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
 
-  useEffect(() => {
-    // Fetch the current product details
-    axios
-      .get(`http://dummyjson.com/products/${id}`)
-      .then((response) => {
-        setProduct(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching product details", error);
-      });
+useEffect(() => {
+  if (!id) {
+    console.error("Product ID is undefined");
+    return;
+  }
 
-    // Fetch all products and filter out the current product
-    axios
-      .get("http://dummyjson.com/products")
-      .then((response) => {
-        const filteredProducts = response.data.products.filter(
-          (item: any) => item.id !== parseInt(id)
-        );
-        setRelatedProducts(filteredProducts.slice(0, 3));
-      })
-      .catch((error) => {
-        console.error("Error fetching related products", error);
-      });
-  }, [id]);
+  // Fetch the current product details
+  axios
+    .get(`http://dummyjson.com/products/${id}`)
+    .then((response) => {
+      setProduct(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching product details", error);
+    });
+
+  // Fetch all products and filter out the current product
+  axios
+    .get("http://dummyjson.com/products")
+    .then((response) => {
+      const filteredProducts = response.data.products.filter(
+        (item: any) => item.id !== parseInt(id, 10) // Ensures valid numeric parsing
+      );
+      setRelatedProducts(filteredProducts.slice(0, 3));
+    })
+    .catch((error) => {
+      console.error("Error fetching related products", error);
+    });
+}, [id]);
+
+
 
   if (!product) return <div className="text-center mt-5">Loading...</div>;
 
@@ -118,38 +125,50 @@ const ProductDetails = () => {
                     : "0 2px 4px rgba(0, 0, 0, 0.1)",
                 border:
                   hoveredProductId === relatedProduct.id
-                    ? "2px solid #7B0323 "
+                    ? "2px solid #7B0323"
                     : "1px solid #eaeaea",
                 borderRadius: "8px",
                 backgroundColor: "#ffffff",
               }}
             >
-              <div className="card h-100 shadow-sm border-0">
+              <div
+                className="card h-100 card-hover-effect"
+                style={{
+                  width: "100%",
+                  maxWidth: "150px", // Reduced width
+                  margin: "0 auto",
+                }}
+              >
                 <img
                   src={relatedProduct.images[0]}
                   alt={relatedProduct.title}
                   className="card-img-top"
                   style={{
-                    height: "150px",// Reduced height
+                    height: "120px", // Reduced height
                     objectFit: "cover",
                     borderRadius: "8px 8px 0 0",
                   }}
                 />
                 <div
-                  className="card-body text-center"
+                  className="card-body d-flex flex-column"
                   style={{
                     padding: "10px", // Reduced padding
                   }}
                 >
-                  <h5
-                    className="card-title mb-2"
-                    style={{ fontSize: "0.9rem", lineHeight: "1.2" }} // Smaller font size
+                  <h6
+                    className="card-title"
+                    style={{
+                      fontSize: "0.85rem", // Smaller title font
+                      lineHeight: "1.2",
+                    }}
                   >
                     {relatedProduct.title}
-                  </h5>
+                  </h6>
                   <p
-                    className="text-success fw-bold mb-3"
-                    style={{ fontSize: "0.85rem" }} // Smaller font size
+                    className="card-text text-success fw-bold"
+                    style={{
+                      fontSize: "0.75rem", // Smaller price font
+                    }}
                   >
                     ${relatedProduct.price}
                   </p>

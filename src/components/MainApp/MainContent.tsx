@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const MainContent = () => {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
     useFilter();
-  const { addItemToCart, cartItems } = useCart();
+  const { addItemToCart } = useCart();
   const [products, setProducts] = useState<any[]>([]);
   const [filter, setFilter] = useState<"all" | string>("all");
   const [dropdown, setDropdown] = useState(false);
