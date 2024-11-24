@@ -44,8 +44,11 @@ const Buy: React.FC = () => {
 
   const handlePaymentMethod = (method: string) => {
     if (!validateForm()) {
-      alert("Please fill in all the fields.");
-      return;
+      return (
+        <div role="alert" className="alert alert-danger">
+          Please fill in all the fields.
+        </div>
+      );
     }
 
     alert(`You are paying through ${method}.`);
