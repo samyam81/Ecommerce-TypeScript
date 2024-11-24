@@ -93,33 +93,6 @@ const Sidebar = () => {
     <div className="sidebar bg-light p-3">
       <h1 className="sidebar-header border-bottom pb-2 mb-3">React Store</h1>
 
-      {/* Search Section */}
-      <section className="mb-4">
-        <input
-          type="text"
-          className="form-control mb-3"
-          placeholder="Search for Items"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <div className="d-flex gap-2">
-          <input
-            type="number"
-            className="form-control"
-            placeholder="Min"
-            value={minPrice ?? ""}
-            onChange={handleMinPriceChange}
-          />
-          <input
-            type="number"
-            className="form-control"
-            placeholder="Max"
-            value={maxPrice ?? ""}
-            onChange={handleMaxPriceChange}
-          />
-        </div>
-      </section>
-
       {/* Categories Section */}
       <section className="mb-4">
         <h3 className="h5">Categories</h3>
@@ -136,7 +109,7 @@ const Sidebar = () => {
                 checked={selectedCategory === category}
               />
               <label className="form-check-label" htmlFor={category}>
-                {category.toUpperCase()}
+                {category.toLocaleUpperCase()}
               </label>
             </div>
           ))

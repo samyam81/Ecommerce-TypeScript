@@ -1,10 +1,29 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../Cart/CartContext";
 import { useWish } from "../Wish/WishContext";
+import { useFilter } from "../Filter/FilterContext";
 
 const NavBar = () => {
   const { cartItems } = useCart();
   const { wishItems } = useWish();
+  const {
+    searchQuery,
+    setSearchQuery,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
+  } = useFilter();
+
+  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setMinPrice(value ? parseFloat(value) : undefined);
+  };
+
+  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setMaxPrice(value ? parseFloat(value) : undefined);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-transparent shadow-sm p-3 mb-3">
@@ -40,6 +59,31 @@ const NavBar = () => {
               </Link>
             </li>
           </ul>
+
+          {/* Search Section */}
+          <div className="d-flex gap-2 me-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search for Items"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <input
+              type="number"
+              className="form-control"
+              placeholder="Min"
+              value={minPrice ?? ""}
+              onChange={handleMinPriceChange}
+            />
+            <input
+              type="number"
+              className="form-control"
+              placeholder="Max"
+              value={maxPrice ?? ""}
+              onChange={handleMaxPriceChange}
+            />
+          </div>
 
           {/* Cart and Wish List Links */}
           <div className="d-flex">
