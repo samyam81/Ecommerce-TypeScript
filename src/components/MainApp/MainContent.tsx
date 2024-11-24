@@ -112,7 +112,7 @@ const MainContent = () => {
           Get 50% off on your first order! Don't miss out on this limited time
           offer.
         </p>
-        <button className="btn btn-primary">Shop Now</button>
+        <button className="btn btn-warning">Shop Now</button>
       </div>
 
       {/* Filter Container */}
@@ -120,7 +120,7 @@ const MainContent = () => {
         <h2>Products</h2>
         <div className="dropdown">
           <button
-            className="btn btn-outline-primary dropdown-toggle"
+            className="btn btn-outline-dark dropdown-toggle"
             onClick={() => setDropdown(!dropdown)}
           >
             <Tally3 className="me-2" />

@@ -121,7 +121,7 @@ const Sidebar = () => {
           {keywords.map((keyword, index) => (
             <span
               key={index}
-              className="badge bg-primary text-white cursor-pointer"
+              className="badge bg-success text-white cursor-pointer"
               onClick={() => handleKeywordClick(keyword)}
               style={{ cursor: "pointer" }}
             >
