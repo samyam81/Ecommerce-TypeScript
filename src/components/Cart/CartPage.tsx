@@ -54,9 +54,13 @@ const CartPage: React.FC = () => {
                     type="number"
                     className="form-control mx-2 text-center"
                     value={item.quantity}
-                    onChange={(e) =>
-                      updateItemQuantity(item.id, parseInt(e.target.value) || 1)
-                    }
+                    onChange={(e) => {
+                      const newQuantity = Math.max(
+                        parseInt(e.target.value) || 1,
+                        1
+                      ); // Ensure quantity is at least 1
+                      updateItemQuantity(item.id, newQuantity);
+                    }}
                     style={{ width: "60px" }}
                   />
                   <button
@@ -86,7 +90,7 @@ const CartPage: React.FC = () => {
         <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
       </div>
       {totalPrice > 0 && (
-        <Link to="/buy">
+        <Link to="/login">
           <button className="btn btn-primary w-100">Buy now</button>
         </Link>
       )}

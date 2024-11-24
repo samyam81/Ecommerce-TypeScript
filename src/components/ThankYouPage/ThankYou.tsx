@@ -19,8 +19,8 @@ const ThankYou: React.FC = () => {
       </p>
       <p className="text-muted mb-4">
         Need assistance? Contact us at{" "}
-        <a href="mailto:support@example.com" className="text-success">
-          support@example.com
+        <a href="mailto:ecommerce@example.com" className="text-success">
+          ecommerce@example.com
         </a>
       </p>
       <div className="d-flex justify-content-center gap-3">

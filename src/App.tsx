@@ -11,6 +11,8 @@ import ProductDetails from "./components/ProductLanding/ProductDetails";
 import { WishProvider } from "./components/Wish/WishContext";
 import WishPage from "./components/Wish/WishPage";
 import ThankYou from "./components/ThankYouPage/ThankYou";
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
 
 const App = () => {
   return (
@@ -62,6 +64,8 @@ const App = () => {
                   <Route path="/wish" element={<WishPage />} />
                   <Route path="/buy" element={<Buy />} />
                   <Route path="/thankyou" element={<ThankYou />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
                 </Routes>
               </div>
             </div>
