@@ -16,13 +16,13 @@ const NavBar = () => {
   } = useFilter();
 
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setMinPrice(value ? parseFloat(value) : undefined);
+    const value = parseFloat(e.target.value);
+    setMinPrice(value >= 0 ? value : 0);
   };
 
   const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setMaxPrice(value ? parseFloat(value) : undefined);
+    const value = parseFloat(e.target.value);
+    setMaxPrice(value >= 0 ? value : 0);
   };
 
   return (

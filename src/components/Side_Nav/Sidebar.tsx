@@ -1,17 +1,13 @@
-// Sidebar.tsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFilter } from "../Filter/FilterContext";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const {
-    searchQuery,
     setSearchQuery,
     selectedCategory,
     setSelectedCategory,
-    minPrice,
     setMinPrice,
-    maxPrice,
     setMaxPrice,
     setKeywords,
   } = useFilter();
@@ -63,15 +59,15 @@ const Sidebar = () => {
   }, []);
 
   // Handle changes to inputs
-  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setMinPrice(value ? parseFloat(value) : undefined);
-  };
+  // const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   setMinPrice(value ? parseFloat(value) : undefined);
+  // };
 
-  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setMaxPrice(value ? parseFloat(value) : undefined);
-  };
+  // const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   setMaxPrice(value ? parseFloat(value) : undefined);
+  // };
 
   const handleRadioChangeCategories = (category: string) => {
     setSelectedCategory(category);
