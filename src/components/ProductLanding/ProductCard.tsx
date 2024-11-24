@@ -1,13 +1,5 @@
-import React from "react";
 import { useCart } from "../Cart/CartContext";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
-
-export const calculateTotalPrice = (cartItems: CartItem[]): number => {
-  return cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-};
 
 const ProductCard = ({
   product,
@@ -22,10 +14,9 @@ const ProductCard = ({
   if (!product) return null;
 
   const cartItem = cartItems.find((item) => item.id === product.id);
-
   const quantity = cartItem ? cartItem.quantity : 1;
 
-  const totalPrice = calculateTotalPrice(cartItems);
+  const totalPrice = product.price * quantity;
 
   const handleAddToCart = () => {
     if (!cartItem) {
@@ -33,7 +24,7 @@ const ProductCard = ({
     } else {
       updateItemQuantity(cartItem.id, cartItem.quantity + 1); // Increment quantity if already in cart
     }
-    navigate("/login"); // Navigate to the login page
+    navigate("/login"); 
   };
 
   return (
@@ -106,9 +97,11 @@ const ProductCard = ({
             <p
               className="font-semibold text-lg btn"
               role="button"
-              onClick={handleAddToCart} // Add to cart and navigate
+              onClick={handleAddToCart}
             >
-              Add to Cart and Go to Login
+              <div style={{ color: "white" }}>
+                <i className="bi bi-basket"></i>
+              </div>
             </p>
           </label>
         </div>

@@ -37,47 +37,54 @@ const CartPage: React.FC = () => {
                 key={item.id}
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
-                <div>
-                  <h5 className="mb-1">{item.title}</h5>
-                  <p className="mb-1 text-muted">Price: ${item.price}</p>
-                </div>
-                <div className="d-flex align-items-center">
+                <div className="d-flex justify-content-between w-100">
+                  <div className="flex-grow-1">
+                    <h5 className="mb-1">{item.title}</h5>
+                    <p className="mb-1 text-muted">Price: ${item.price}</p>
+                  </div>
+
+                  <div className="d-flex align-items-center gap-2">
+                    <button
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={() =>
+                        updateItemQuantity(
+                          item.id,
+                          Math.max(1, item.quantity - 1)
+                        )
+                      }
+                    >
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      className="form-control text-center"
+                      value={item.quantity}
+                      onChange={(e) => {
+                        const newQuantity = Math.max(
+                          parseInt(e.target.value) || 1,
+                          1
+                        );
+                        updateItemQuantity(item.id, newQuantity);
+                      }}
+                      style={{ width: "60px" }}
+                    />
+                    <button
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={() =>
+                        updateItemQuantity(item.id, item.quantity + 1)
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+
                   <button
-                    className="btn btn-outline-secondary btn-sm"
-                    onClick={() =>
-                      updateItemQuantity(item.id, item.quantity - 1)
-                    }
+                    className="btn btn-danger btn-sm mx-4 my-4"
+                    onClick={() => removeItemFromCart(item.id)}
                   >
-                    -
-                  </button>
-                  <input
-                    type="number"
-                    className="form-control mx-2 text-center"
-                    value={item.quantity}
-                    onChange={(e) => {
-                      const newQuantity = Math.max(
-                        parseInt(e.target.value) || 1,
-                        1
-                      ); // Ensure quantity is at least 1
-                      updateItemQuantity(item.id, newQuantity);
-                    }}
-                    style={{ width: "60px" }}
-                  />
-                  <button
-                    className="btn btn-outline-secondary btn-sm"
-                    onClick={() =>
-                      updateItemQuantity(item.id, item.quantity + 1)
-                    }
-                  >
-                    +
+                    Remove
                   </button>
                 </div>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => removeItemFromCart(item.id)}
-                >
-                  Remove
-                </button>
               </div>
             ))}
           </div>
@@ -89,11 +96,9 @@ const CartPage: React.FC = () => {
       <div className="bg-danger text-white text-center py-2 rounded my-3">
         <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
       </div>
-      {totalPrice > 0 && (
-        <Link to="/login">
-          <button className="btn btn-primary w-100">Buy now</button>
-        </Link>
-      )}
+      <Link to="/buy">
+        <button className="btn btn-success w-100">Proceed to Checkout</button>
+      </Link>
     </div>
   );
 };

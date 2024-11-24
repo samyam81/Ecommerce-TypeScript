@@ -35,11 +35,13 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((i) => i.id === item.id);
       if (existingItem) {
+        // If item exists, update the quantity by adding the passed quantity
         return prevItems.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+          i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
         );
       } else {
-        return [...prevItems, { ...item, quantity: 1 }];
+        // If item does not exist, add it with the correct quantity
+        return [...prevItems, item];
       }
     });
   };
@@ -49,7 +51,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const updateItemQuantity = (id: number, quantity: number) => {
-    if (quantity < 1) return; // Don't allow negative or zero quantity
     setCartItems((prevItems) =>
       prevItems.map((item) => (item.id === id ? { ...item, quantity } : item))
     );
