@@ -27,12 +27,12 @@ const ProductDetails = () => {
 
     // Fetch all products and filter out the current product
     axios
-      .get("http://dummyjson.com/products") // Assuming this returns a list of products
+      .get("http://dummyjson.com/products")
       .then((response) => {
         const filteredProducts = response.data.products.filter(
-          (item: any) => item.id !== parseInt(id) // Parse `id` to an integer if needed
+          (item: any) => item.id !== parseInt(id)
         );
-        setRelatedProducts(filteredProducts.slice(0, 3)); // Limit to 3 products
+        setRelatedProducts(filteredProducts.slice(0, 3));
       })
       .catch((error) => {
         console.error("Error fetching related products", error);
@@ -45,8 +45,8 @@ const ProductDetails = () => {
 
   return (
     <div className="container mt-5">
-      {/* Card with Product Details */}
-      <div className="card shadow-sm border-light">
+      {/* Product Details Card */}
+      <div className="card shadow-sm border-0">
         <div className="row g-0">
           <div className="col-md-6">
             <img
@@ -114,29 +114,48 @@ const ProductDetails = () => {
                     : "scale(1)",
                 boxShadow:
                   hoveredProductId === relatedProduct.id
-                    ? "0 4px 8px rgba(0, 0, 0, 0.1)"
-                    : "none",
+                    ? "0 4px 8px rgba(0, 0, 0, 0.2)"
+                    : "0 2px 4px rgba(0, 0, 0, 0.1)",
                 border:
                   hoveredProductId === relatedProduct.id
-                    ? "2px solid blue" // Blue border on hover
-                    : "none", // Remove border when not hovered
+                    ? "2px solid #7B0323 "
+                    : "1px solid #eaeaea",
+                borderRadius: "8px",
+                backgroundColor: "#ffffff",
               }}
             >
-              <div className="card h-100 shadow-sm border-light">
+              <div className="card h-100 shadow-sm border-0">
                 <img
                   src={relatedProduct.images[0]}
                   alt={relatedProduct.title}
                   className="card-img-top"
-                  style={{ height: "200px", objectFit: "cover" }}
+                  style={{
+                    height: "150px",// Reduced height
+                    objectFit: "cover",
+                    borderRadius: "8px 8px 0 0",
+                  }}
                 />
-                <div className="card-body">
-                  <h5 className="card-title">{relatedProduct.title}</h5>
-                  <p className="text-success fw-bold">
-                    Price: ${relatedProduct.price}
+                <div
+                  className="card-body text-center"
+                  style={{
+                    padding: "10px", // Reduced padding
+                  }}
+                >
+                  <h5
+                    className="card-title mb-2"
+                    style={{ fontSize: "0.9rem", lineHeight: "1.2" }} // Smaller font size
+                  >
+                    {relatedProduct.title}
+                  </h5>
+                  <p
+                    className="text-success fw-bold mb-3"
+                    style={{ fontSize: "0.85rem" }} // Smaller font size
+                  >
+                    ${relatedProduct.price}
                   </p>
                   <Link
                     to={`/product/${relatedProduct.id}`}
-                    className="btn btn-primary"
+                    className="btn btn-outline-primary btn-sm"
                   >
                     View Details
                   </Link>
