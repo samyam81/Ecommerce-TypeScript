@@ -36,7 +36,7 @@ const Register: React.FC = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value, type, checked} = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
@@ -289,7 +289,7 @@ const Register: React.FC = () => {
               I accept the terms and conditions
             </label>
             {errors.acceptTerms && (
-              <div className="invalid-feedback d-block">
+              <div className="invalid-feedback d-flex align-items-center">
                 <FaExclamationCircle
                   style={{ color: "#E74C3C", marginRight: "8px" }}
                 />
