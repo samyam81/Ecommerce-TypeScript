@@ -1,0 +1,65 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Hover effect for product cards */
+.card-hover-effect {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-color: #007bff;
+}
+
+/* Product Image */
+.card-hover-effect img {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.card-hover-effect:hover img {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Button Styling */
+.card-hover-effect .btn {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-hover-effect .btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.card-hover-effect .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Footer Button Styling */
+.card-hover-effect .btn-outline-secondary {
+  color: #6c757d;
+  border-color: #6c757d;
+}
+
+.card-hover-effect .btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* Additional Card Styles */
+.card-hover-effect .card-body {
+  padding: 15px;
+}
+
+.card-hover-effect .card-footer {
+  background-color: transparent;
+  border-top: 1px solid #ddd;
+  padding: 10px 15px;
+}

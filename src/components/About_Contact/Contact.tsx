@@ -50,13 +50,14 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="container mt-5 p-4 bg-light rounded shadow">
-      <h2 className="text-center mb-4">Contact Us</h2>
-      <p className="text-center mb-4">
+    <div className="container mt-5 p-4 bg-light rounded shadow-sm">
+      <h2 className="text-center mb-4 text-primary">Contact Us</h2>
+      <p className="text-center mb-4 text-muted">
         If you have any questions or feedback about E-commerce Nepal, feel free
         to reach out using the form below.
       </p>
       <form onSubmit={handleSubmit}>
+        {/* Name Field */}
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
             Name:
@@ -65,13 +66,20 @@ const Contact: React.FC = () => {
             type="text"
             id="name"
             name="name"
-            className="form-control"
+            className={`form-control ${errors.name ? "is-invalid" : ""}`}
             placeholder="Enter your name"
             value={formData.name}
             onChange={handleChange}
+            aria-describedby="nameError"
           />
-          {errors.name && <div className="text-danger">{errors.name}</div>}
+          {errors.name && (
+            <div id="nameError" className="invalid-feedback">
+              {errors.name}
+            </div>
+          )}
         </div>
+
+        {/* Email Field */}
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email:
@@ -80,13 +88,20 @@ const Contact: React.FC = () => {
             type="email"
             id="email"
             name="email"
-            className="form-control"
+            className={`form-control ${errors.email ? "is-invalid" : ""}`}
             placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
+            aria-describedby="emailError"
           />
-          {errors.email && <div className="text-danger">{errors.email}</div>}
+          {errors.email && (
+            <div id="emailError" className="invalid-feedback">
+              {errors.email}
+            </div>
+          )}
         </div>
+
+        {/* Message Field */}
         <div className="mb-3">
           <label htmlFor="message" className="form-label">
             Message:
@@ -94,19 +109,38 @@ const Contact: React.FC = () => {
           <textarea
             id="message"
             name="message"
-            className="form-control"
+            className={`form-control ${errors.message ? "is-invalid" : ""}`}
             placeholder="Write your message here"
             value={formData.message}
             onChange={handleChange}
             rows={4}
+            aria-describedby="messageError"
           />
           {errors.message && (
-            <div className="text-danger">{errors.message}</div>
+            <div id="messageError" className="invalid-feedback">
+              {errors.message}
+            </div>
           )}
         </div>
-        <button type="submit" className="btn btn-primary d-block mx-auto">
-          Submit
-        </button>
+
+        {/* Submit Button */}
+        <div className="d-flex justify-content-center">
+          <button
+            type="submit"
+            className="btn btn-primary w-50 shadow-sm transition-transform"
+            style={{ transition: "transform 0.3s, box-shadow 0.3s ease" }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

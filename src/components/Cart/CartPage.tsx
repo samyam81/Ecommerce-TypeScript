@@ -1,6 +1,5 @@
 import React from "react";
 import { useCart } from "./CartContext";
-import { Link } from "react-router-dom";
 
 // Define types for CartItem
 interface CartItem {
@@ -20,97 +19,132 @@ export const calculateTotalPrice = (cartItems: CartItem[]): number => {
 
 const CartPage: React.FC = () => {
   const { cartItems, removeItemFromCart, updateItemQuantity, clearCart } =
-    useCart(); // Get cart items and functions from context
+    useCart();
 
   const totalPrice = calculateTotalPrice(cartItems);
 
   return (
-    <div className="container py-4">
-      <h1 className="text-center">Your Cart</h1>
+    <div className="container py-5">
+      <h1 className="text-center mb-4">🛒 Your Shopping Cart</h1>
 
+      {/* Cart Empty State */}
       {cartItems.length === 0 ? (
-        <p className="text-center text-muted fs-4">Your cart is empty</p>
+        <div className="text-center">
+          <p className="text-muted fs-4">Your cart is currently empty.</p>
+          <button
+            className="btn btn-lg btn-primary mt-3 px-4 py-3 rounded-pill shadow-lg"
+            onClick={() => (window.location.href = "/")}
+          >
+            🛍️ Start Shopping
+          </button>
+        </div>
       ) : (
         <div>
-          <div className="list-group my-3">
+          {/* Cart Items List */}
+          <div className="list-group my-4">
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="list-group-item d-flex justify-content-between align-items-center"
+                className="list-group-item d-flex align-items-center justify-content-between p-3 shadow-sm rounded mb-3"
+                style={{
+                  backgroundColor: "#f9f9f9",
+                }}
               >
-                <div className="d-flex justify-content-between w-100">
-                  <div className="flex-grow-1">
+                <div className="d-flex flex-grow-1 align-items-center gap-3">
+                  <div>
                     <h5 className="mb-1">{item.title}</h5>
-                    <p className="mb-1 text-muted">Price: ${item.price}</p>
+                    <p className="text-muted mb-0">Price: ${item.price}</p>
                   </div>
+                </div>
 
-                  <div className="d-flex align-items-center gap-2">
-                    <button
-                      className="btn btn-outline-secondary btn-sm"
-                      onClick={() =>
-                        updateItemQuantity(
-                          item.id,
-                          Math.max(1, item.quantity - 1)
-                        )
-                      }
-                    >
-                      -
-                    </button>
-                    <input
-                      type="number"
-                      className="form-control text-center"
-                      value={item.quantity}
-                      onChange={(e) => {
-                        const newQuantity = Math.max(
-                          parseInt(e.target.value) || 1,
-                          1
-                        );
-                        updateItemQuantity(item.id, newQuantity);
-                      }}
-                      style={{ width: "60px" }}
-                    />
-                    <button
-                      className="btn btn-outline-secondary btn-sm"
-                      onClick={() =>
-                        updateItemQuantity(item.id, item.quantity + 1)
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-
+                <div className="d-flex align-items-center gap-3">
+                  {/* Quantity Controls */}
                   <button
-                    className="btn btn-danger btn-sm mx-4 my-4"
-                    onClick={() => removeItemFromCart(item.id)}
+                    className="btn btn-sm btn-outline-secondary"
+                    onClick={() =>
+                      updateItemQuantity(
+                        item.id,
+                        Math.max(1, item.quantity - 1)
+                      )
+                    }
                   >
-                    Remove
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    className="form-control text-center"
+                    value={item.quantity}
+                    onChange={(e) => {
+                      const newQuantity = Math.max(
+                        parseInt(e.target.value) || 1,
+                        1
+                      );
+                      updateItemQuantity(item.id, newQuantity);
+                    }}
+                    style={{ width: "60px" }}
+                  />
+                  <button
+                    className="btn btn-sm btn-outline-secondary"
+                    onClick={() =>
+                      updateItemQuantity(item.id, item.quantity + 1)
+                    }
+                  >
+                    +
                   </button>
                 </div>
+
+                {/* Remove Item Button */}
+                <button
+                  className="btn btn-sm btn-danger ms-3"
+                  onClick={() => removeItemFromCart(item.id)}
+                >
+                  Remove
+                </button>
               </div>
             ))}
           </div>
-          <button className="btn btn-danger w-100 my-3" onClick={clearCart}>
-            Clear Cart
+
+          {/* Clear Cart Button */}
+          <button
+            className="btn btn-danger w-100 mb-3 py-2 shadow-sm"
+            onClick={clearCart}
+          >
+            🗑️ Clear Cart
           </button>
+
+          {/* Total Price Section */}
+          <div
+            className="text-center bg-primary text-white py-3 rounded shadow-sm"
+            style={{
+              opacity: totalPrice === 0 ? 0.7 : 1,
+            }}
+          >
+            <h4 className="mb-0">💰 Total: ${totalPrice.toFixed(2)}</h4>
+          </div>
+
+          {/* Buy Now Button */}
+          {totalPrice > 0 && (
+            <div className="text-center mt-4">
+              <button
+                className="btn btn-lg btn-warning px-4 py-3 rounded-pill shadow-lg"
+                onClick={() => (window.location.href = "/login")}
+              >
+                🛒 Buy Now
+              </button>
+            </div>
+          )}
+
+          {/* Shop Now Button */}
+          <div className="text-center mt-3">
+            <button
+              className="btn btn-lg btn-success px-4 py-3 rounded-pill shadow-lg"
+              onClick={() => (window.location.href = "/")}
+            >
+              🛍️ Shop More
+            </button>
+          </div>
         </div>
       )}
-
-      {/* Total Price Section */}
-      <div
-        className={`bg-danger text-white text-center py-2 rounded my-3 ${
-          totalPrice === 0 ? "opacity-50" : ""
-        }`}
-      >
-        <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
-      </div>
-
-      {/* Shop Now Button */}
-      <button
-        className="btn btn-lg btn-success mt-3 px-4 py-3 rounded-pill shadow-lg hover-shadow"
-        onClick={() => (window.location.href = "/")}
-      >
-        Shop Now
-      </button>
     </div>
   );
 };

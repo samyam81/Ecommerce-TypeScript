@@ -1,6 +1,11 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
-// Define types for CartItem with quantity
 interface CartItem {
   id: number;
   title: string;
@@ -12,7 +17,7 @@ interface CartContextType {
   cartItems: CartItem[];
   addItemToCart: (item: CartItem) => void;
   removeItemFromCart: (id: number) => void;
-  updateItemQuantity: (id: number, quantity: number) => void; // New function to update quantity
+  updateItemQuantity: (id: number, quantity: number) => void;
   clearCart: () => void;
 }
 
@@ -29,18 +34,24 @@ export const useCart = () => {
 export const CartProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  // Try to load cart items from localStorage when the component is mounted
+  const savedCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+  const [cartItems, setCartItems] = useState<CartItem[]>(savedCart);
+
+  // Use useEffect to save the cart to localStorage whenever cartItems change
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addItemToCart = (item: CartItem) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((i) => i.id === item.id);
       if (existingItem) {
-        // If item exists, update the quantity by adding the passed quantity
         return prevItems.map((i) =>
           i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
         );
       } else {
-        // If item does not exist, add it with the correct quantity
         return [...prevItems, item];
       }
     });

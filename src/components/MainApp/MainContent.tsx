@@ -5,6 +5,7 @@ import axios from "axios";
 import { useCart } from "../Cart/CartContext";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductLanding/ProductCard";
+import "../Styles/Main.css";
 
 const MainContent = () => {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
@@ -92,49 +93,22 @@ const MainContent = () => {
   }
 
   return (
-    <section
-      className="main-content container-fluid mt-4"
-      style={{ margin: 0, padding: "20px", flex: 1, overflowY: "auto" }}
-    >
-      <style>
-        {`
-          .card-hover-effect {
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-          }
-          .card-hover-effect:hover {
-            border: 2px solid red !important;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-          }
-          .ad-section {
-            background-color: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          }
-          .ad-section h4 {
-            margin-bottom: 15px;
-          }
-          .ad-section button {
-            margin-top: 10px;
-          }
-        `}
-      </style>
-
+    <section className="main-content container-fluid mt-4 px-4">
       {/* Ad Section */}
-      <div className="ad-section">
-        <h4>Exclusive Offer!</h4>
-        <p>
-          Get 50% off on your first order! Don't miss out on this limited time
-          offer.
+      <div className="ad-section bg-primary text-white p-5 rounded mb-4 text-center shadow-lg">
+        <h4 className="display-4">🎉 Exclusive Offer!</h4>
+        <p className="lead">
+          Get 50% off on your first order! Don’t miss out on this limited-time
+          deal.
         </p>
-        <button className="btn btn-warning">Shop Now</button>
+        <button className="btn btn-warning btn-lg rounded-pill shadow-lg hover-shadow">
+          Shop Now
+        </button>
       </div>
 
-      {/* Filter Container */}
+      {/* Filter and Sorting */}
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Products</h2>
+        <h2 className="text-dark">🛍️ Products</h2>
         <div className="dropdown">
           <button
             className="btn btn-outline-dark dropdown-toggle"
@@ -142,7 +116,7 @@ const MainContent = () => {
           >
             <Tally3 className="me-2" />
             {filter === "all"
-              ? "Filter"
+              ? "Sort By"
               : filter.charAt(0).toUpperCase() + filter.slice(1)}
           </button>
           {dropdown && (
@@ -152,7 +126,7 @@ const MainContent = () => {
                   className="dropdown-item"
                   onClick={() => setFilter("Cheap")}
                 >
-                  Cheap
+                  Cheapest
                 </button>
               </li>
               <li>
@@ -160,7 +134,7 @@ const MainContent = () => {
                   className="dropdown-item"
                   onClick={() => setFilter("Expensive")}
                 >
-                  Expensive
+                  Most Expensive
                 </button>
               </li>
               <li>
@@ -168,7 +142,7 @@ const MainContent = () => {
                   className="dropdown-item"
                   onClick={() => setFilter("Popular")}
                 >
-                  Popular
+                  Most Popular
                 </button>
               </li>
               <li>
@@ -188,77 +162,55 @@ const MainContent = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="row">
+      <div className="row g-4">
         {getFilteredProducts().map((product) => (
-          <div
-            key={product.id}
-            className="col-lg-2 col-md-3 col-sm-4 col-6 mb-3"
-          >
-            <Link
-              to={`/product/${product.id}`}
-              className="text-decoration-none text-dark"
-            >
-              <div
-                className="card h-100 card-hover-effect"
-                style={{
-                  width: "100%",
-                  maxWidth: "150px",
-                  margin: "0 auto",
-                }}
+          <div key={product.id} className="col-lg-3 col-md-4 col-sm-6">
+            <div className="card h-100 shadow-lg card-hover-effect">
+              <Link
+                to={`/product/${product.id}`}
+                className="text-decoration-none text-dark"
               >
                 <img
                   src={product.thumbnail || product.images[0]}
                   alt={product.title}
                   className="card-img-top"
-                  style={{
-                    height: "120px",
-                    objectFit: "cover",
-                  }}
+                  style={{ height: "180px", objectFit: "cover" }}
                 />
-                <div
-                  className="card-body d-flex flex-column"
-                  style={{
-                    padding: "10px",
-                  }}
-                >
+                <div className="card-body">
                   <h6
-                    className="card-title"
-                    style={{
-                      fontSize: "0.85rem",
-                      lineHeight: "1.2",
-                    }}
+                    className="card-title text-truncate"
+                    title={product.title}
                   >
                     {product.title}
                   </h6>
-                  <p
-                    className="card-text text-success fw-bold"
-                    style={{
-                      fontSize: "0.75rem",
-                    }}
-                  >
-                    {product.price} USD
+                  <p className="card-text text-success fw-bold">
+                    ${product.price}
                   </p>
-                  <button
-                    className="btn btn-primary w-100 mt-auto"
-                    style={{
-                      fontSize: "0.75rem",
-                      padding: "5px",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault(); // Prevent navigation
-                      handleAddToCart(product);
-                    }}
-                  >
-                    Add to Cart
-                  </button>
                 </div>
+              </Link>
+              <div className="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevent navigation
+                    handleAddToCart(product);
+                  }}
+                >
+                  Add to Cart
+                </button>
+                <Link
+                  to={`/product/${product.id}`}
+                  className="btn btn-outline-secondary btn-sm"
+                >
+                  Details
+                </Link>
               </div>
-            </Link>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* ProductCard Modal */}
+      {/* Product Modal */}
       {selectedProduct && (
         <ProductCard product={selectedProduct} onClose={closeProductCard} />
       )}

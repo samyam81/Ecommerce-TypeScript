@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { calculateTotalPrice } from "../Cart/CartPage";
 import { useCart } from "../Cart/CartContext";
 import { useNavigate } from "react-router-dom";
+import { FaExclamationCircle } from "react-icons/fa"; // Icon for error feedback
 
 const Buy: React.FC = () => {
   const { cartItems } = useCart();
@@ -38,7 +39,6 @@ const Buy: React.FC = () => {
       phone: formData.phone.trim() === "",
     };
     setErrors(newErrors);
-
     return !Object.values(newErrors).includes(true);
   };
 
@@ -46,7 +46,7 @@ const Buy: React.FC = () => {
     if (!validateForm()) {
       return (
         <div role="alert" className="alert alert-danger">
-          Please fill in all the fields.
+          <FaExclamationCircle /> Please fill in all the fields.
         </div>
       );
     }
@@ -57,15 +57,16 @@ const Buy: React.FC = () => {
 
   return (
     <div className="container py-5">
-      <div className="card shadow mx-auto" style={{ maxWidth: "600px" }}>
+      <div className="card shadow-lg mx-auto" style={{ maxWidth: "600px" }}>
         <div className="card-body">
-          <h1 className="text-center mb-4">Checkout</h1>
+          <h1 className="text-center mb-4 text-primary">Checkout</h1>
           <p className="text-center text-danger fw-bold">
             Total Price: ${totalPrice.toFixed(2)}
           </p>
           <form>
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
+            {/* Name Field */}
+            <div className="mb-4">
+              <label htmlFor="name" className="form-label fs-5">
                 Name:
               </label>
               <input
@@ -78,11 +79,15 @@ const Buy: React.FC = () => {
                 placeholder="Enter your name"
               />
               {errors.name && (
-                <div className="invalid-feedback">Name is required.</div>
+                <div className="invalid-feedback">
+                  <FaExclamationCircle /> Name is required.
+                </div>
               )}
             </div>
-            <div className="mb-3">
-              <label htmlFor="address" className="form-label">
+
+            {/* Address Field */}
+            <div className="mb-4">
+              <label htmlFor="address" className="form-label fs-5">
                 Address:
               </label>
               <input
@@ -95,11 +100,15 @@ const Buy: React.FC = () => {
                 placeholder="Enter your address"
               />
               {errors.address && (
-                <div className="invalid-feedback">Address is required.</div>
+                <div className="invalid-feedback">
+                  <FaExclamationCircle /> Address is required.
+                </div>
               )}
             </div>
-            <div className="mb-3">
-              <label htmlFor="phone" className="form-label">
+
+            {/* Phone Number Field */}
+            <div className="mb-4">
+              <label htmlFor="phone" className="form-label fs-5">
                 Phone Number:
               </label>
               <input
@@ -113,25 +122,27 @@ const Buy: React.FC = () => {
               />
               {errors.phone && (
                 <div className="invalid-feedback">
-                  Phone number is required.
+                  <FaExclamationCircle /> Phone number is required.
                 </div>
               )}
             </div>
+
+            {/* Payment Buttons */}
+            <div className="d-flex justify-content-between">
+              <button
+                className="btn btn-primary w-48"
+                onClick={() => handlePaymentMethod("E-sewa")}
+              >
+                E-sewa
+              </button>
+              <button
+                className="btn btn-outline-secondary w-48"
+                onClick={() => handlePaymentMethod("Cash on Delivery")}
+              >
+                Cash on Delivery
+              </button>
+            </div>
           </form>
-          <div className="d-flex justify-content-around mt-4">
-            <button
-              className="btn btn-primary"
-              onClick={() => handlePaymentMethod("E-sewa")}
-            >
-              E-sewa
-            </button>
-            <button
-              className="btn btn-secondary"
-              onClick={() => handlePaymentMethod("Cash on Delivery")}
-            >
-              Cash on Delivery
-            </button>
-          </div>
         </div>
       </div>
     </div>

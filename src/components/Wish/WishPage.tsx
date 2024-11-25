@@ -4,55 +4,82 @@ import { Link } from "react-router-dom";
 const Wishpage = () => {
   const { wishItems, removeItemFromWish } = useWish();
 
-  if (wishItems.length === 0) {
-    return (
-      <p className="text-center mt-4" style={{ fontSize: "1.2rem" }}>
-        Your wishlist is empty!
-      </p>
-    );
-  }
-
   return (
-    <div className="container my-5 p-4 bg-light rounded shadow-sm">
-      <h1 className="text-center mb-4">Your Wishlist</h1>
-      <div className="row row-cols-1 row-cols-md-3 g-4">
-        {wishItems.map((item) => (
-          <div key={item.id} className="col d-flex justify-content-center">
-            <div className="card shadow-sm" style={{ width: "18rem" }}>
-              <img
-                src={item.image}
-                alt={item.title}
-                className="card-img-top"
+    <div className="container my-5">
+      <h1 className="text-center mb-4">💖 Your Wishlist</h1>
+
+      {/* Empty Wishlist State */}
+      {wishItems.length === 0 ? (
+        <div className="text-center mt-4">
+          <p className="text-muted fs-4">Your wishlist is empty!</p>
+          <Link
+            to="/"
+            className="btn btn-lg btn-primary mt-3 px-4 py-3 rounded-pill shadow-lg"
+          >
+            🛍️ Start Adding Favorites
+          </Link>
+        </div>
+      ) : (
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+          {wishItems.map((item) => (
+            <div key={item.id} className="col d-flex justify-content-center">
+              <div
+                className="card shadow-sm border-0"
                 style={{
-                  height: "200px",
-                  objectFit: "cover",
-                  borderRadius: "8px 8px 0 0",
+                  width: "20rem",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 }}
-              />
-              <div className="card-body text-center">
-                <h5 className="card-title" style={{ fontSize: "1.2rem" }}>
-                  {item.title}
-                </h5>
-                <p className="card-text font-weight-bold text-danger">
-                  Price: {item.price} USD
-                </p>
-                <button
-                  onClick={() => removeItemFromWish(item.id)}
-                  className="btn btn-danger w-100"
-                >
-                  Remove
-                </button>
-                <Link
-                  to={`/product/${item.id}`}
-                  className="btn btn-link text-primary d-block mt-2"
-                >
-                  View Details
-                </Link>
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "scale(1.05)";
+                  e.currentTarget.style.boxShadow =
+                    "0 6px 20px rgba(0, 0, 0, 0.2)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="card-img-top"
+                  style={{
+                    height: "220px",
+                    objectFit: "cover",
+                    borderTopLeftRadius: "8px",
+                    borderTopRightRadius: "8px",
+                  }}
+                />
+                <div className="card-body text-center">
+                  <h5
+                    className="card-title"
+                    style={{ fontSize: "1.3rem", fontWeight: "bold" }}
+                  >
+                    {item.title}
+                  </h5>
+                  <p className="card-text text-danger fs-5 fw-semibold">
+                    Price: ${item.price}
+                  </p>
+                  <div className="d-grid gap-2">
+                    <button
+                      onClick={() => removeItemFromWish(item.id)}
+                      className="btn btn-outline-danger"
+                    >
+                      🗑️ Remove
+                    </button>
+                    <Link
+                      to={`/product/${item.id}`}
+                      className="btn btn-outline-primary"
+                    >
+                      🔍 View Details
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

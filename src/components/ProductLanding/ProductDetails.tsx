@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../Cart/CartContext"; // Import cart context
+import { useWish } from "../Wish/WishContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<any | null>(null);
   const [quantity, setQuantity] = useState(1); // State for quantity
   const { addItemToCart } = useCart(); // Get addItemToCart from context
+  const { addItemToWish } = useWish(); // Get addItemToWish from context
 
   useEffect(() => {
     if (!id) {
@@ -32,6 +34,16 @@ const ProductDetails = () => {
   const handleAddToCart = (product: any, quantity: number) => {
     // Add the item to the cart with the specified quantity
     addItemToCart({ ...product, quantity });
+  };
+
+  const handleAddToWish = (product: any) => {
+    // Add or remove the item from the wishlist
+    addItemToWish({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.images[0],
+    });
   };
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,10 +114,18 @@ const ProductDetails = () => {
 
               {/* Add to Cart Button */}
               <button
-                className="btn btn-primary w-100"
+                className="btn btn-primary w-100 mb-2"
                 onClick={() => handleAddToCart(product, quantity)} // Pass quantity to addItemToCart
               >
                 Add to Cart
+              </button>
+
+              {/* Add to Wishlist Button */}
+              <button
+                className="btn btn-outline-warning w-100"
+                onClick={() => handleAddToWish(product)} // Add or remove from wishlist
+              >
+                Add to Wishlist
               </button>
             </div>
           </div>
