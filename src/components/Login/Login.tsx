@@ -134,7 +134,7 @@ const Login: React.FC = () => {
 
           <div className="text-center mt-3">
             <p>
-              Don't have an account? <a href="/register">Sign up</a>
+              Don't have an account? <a href="#">Sign up</a>
             </p>
           </div>
         </form>

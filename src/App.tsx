@@ -12,7 +12,6 @@ import { WishProvider } from "./components/Wish/WishContext";
 import WishPage from "./components/Wish/WishPage";
 import ThankYou from "./components/ThankYouPage/ThankYou";
 import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
 
 const App = () => {
   return (
@@ -37,15 +36,7 @@ const App = () => {
               }}
             >
               {/* Sidebar */}
-              <Sidebar
-                style={{
-                  width: "250px", // Fixed width for sidebar
-                  height: "calc(100vh - 60px)", // Full height minus NavBar height
-                  overflowY: "auto", // Scrollable sidebar
-                  backgroundColor: "#f8f9fa",
-                  borderRight: "1px solid #ddd",
-                }}
-              />
+              <Sidebar/>
 
               {/* Main Content */}
               <div
@@ -65,7 +56,6 @@ const App = () => {
                   <Route path="/buy" element={<Buy />} />
                   <Route path="/thankyou" element={<ThankYou />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
                 </Routes>
               </div>
             </div>
