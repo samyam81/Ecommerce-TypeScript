@@ -106,15 +106,16 @@ const NavBar = () => {
 
             <Link
               to="/wish"
-              className="btn btn-outline-secondary position-relative"
+              className="btn btn-outline-danger position-relative"
             >
               <i className="bi bi-heart"></i> Wish List
               <span
-                className="badge bg-secondary text-white rounded-pill position-absolute"
+                className="badge text-white rounded-pill position-absolute"
                 style={{
                   top: "-5px",
                   right: "-10px",
                   fontSize: "0.75rem",
+                  backgroundColor: "#722f37", 
                 }}
               >
                 {wishItems.length}

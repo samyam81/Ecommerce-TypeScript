@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { useCart } from "../Cart/CartContext"; // Import cart context
+import { useCart } from "../Cart/CartContext";
 import { useWish } from "../Wish/WishContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<any | null>(null);
-  const [quantity, setQuantity] = useState(1); // State for quantity
-  const { addItemToCart } = useCart(); // Get addItemToCart from context
-  const { addItemToWish } = useWish(); // Get addItemToWish from context
+  const [quantity, setQuantity] = useState<number>(1); // Default to 1
+  const { addItemToCart } = useCart();
+  const { addItemToWish } = useWish();
 
   useEffect(() => {
     if (!id) {
@@ -18,10 +18,16 @@ const ProductDetails = () => {
     }
 
     // Fetch product details
-    axios
-      .get(`http://dummyjson.com/products/${id}`)
-      .then((response) => setProduct(response.data))
-      .catch((error) => console.error("Error fetching product details", error));
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://dummyjson.com/products/${id}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error("Error fetching product details", error);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
 
   if (!product)
@@ -31,13 +37,11 @@ const ProductDetails = () => {
       </div>
     );
 
-  const handleAddToCart = (product: any, quantity: number) => {
-    // Add the item to the cart with the specified quantity
+  const handleAddToCart = () => {
     addItemToCart({ ...product, quantity });
   };
 
-  const handleAddToWish = (product: any) => {
-    // Add or remove the item from the wishlist
+  const handleAddToWish = () => {
     addItemToWish({
       id: product.id,
       title: product.title,
@@ -47,15 +51,11 @@ const ProductDetails = () => {
   };
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Ensure quantity is a valid number and not less than 1
     const value = parseInt(e.target.value, 10);
     if (!isNaN(value)) {
-      setQuantity(Math.max(1, value)); // Set quantity to 1 if it's less than 1
+      setQuantity(Math.max(1, value)); // Ensure quantity is always at least 1
     }
   };
-
-  const handleIncreaseQuantity = () => setQuantity(quantity + 1);
-  const handleDecreaseQuantity = () => setQuantity(Math.max(1, quantity - 1));
 
   const totalPrice = product.price * quantity;
 
@@ -77,11 +77,12 @@ const ProductDetails = () => {
               <p className="card-text">{product.description}</p>
               <p className="text-success fw-bold">Price: ${product.price}</p>
 
-              {/* Quantity selector with + and - buttons */}
+              {/* Quantity selector */}
               <div className="d-flex align-items-center gap-2 mb-3">
                 <button
                   className="btn btn-outline-secondary"
-                  onClick={handleDecreaseQuantity}
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  aria-label="Decrease quantity"
                 >
                   <i className="bi bi-dash"></i>
                 </button>
@@ -93,37 +94,35 @@ const ProductDetails = () => {
                   min="1"
                   className="form-control text-center"
                   style={{ width: "70px" }}
+                  aria-label="Product quantity"
                 />
                 <button
                   className="btn btn-outline-secondary"
-                  onClick={handleIncreaseQuantity}
+                  onClick={() => setQuantity(quantity + 1)}
+                  aria-label="Increase quantity"
                 >
                   <i className="bi bi-plus"></i>
                 </button>
               </div>
 
-              {/* Back Button */}
               <Link to="/" className="btn btn-secondary mb-3">
                 <i className="bi bi-arrow-left-circle"></i> Back
               </Link>
 
-              {/* Total Price Section */}
               <div className="bg-danger text-white text-center py-2 rounded my-3">
                 <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
               </div>
 
-              {/* Add to Cart Button */}
               <button
                 className="btn btn-primary w-100 mb-2"
-                onClick={() => handleAddToCart(product, quantity)} // Pass quantity to addItemToCart
+                onClick={handleAddToCart}
               >
                 Add to Cart
               </button>
 
-              {/* Add to Wishlist Button */}
               <button
                 className="btn btn-outline-warning w-100"
-                onClick={() => handleAddToWish(product)} // Add or remove from wishlist
+                onClick={handleAddToWish}
               >
                 Add to Wishlist
               </button>
