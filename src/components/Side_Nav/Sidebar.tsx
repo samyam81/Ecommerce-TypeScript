@@ -185,7 +185,7 @@ const Sidebar = () => {
 
       {/* Follow Us Section */}
       <div className="mt-5 text-center">
-        <h5 className="mb-3">Follow Us On</h5>
+        <h5 className="mb-3 text-success">Follow Us On</h5>
         <div className="d-flex justify-content-center gap-3">
           <i className="bi bi-youtube text-danger fs-3"></i>
           <i className="bi bi-facebook text-primary fs-3"></i>

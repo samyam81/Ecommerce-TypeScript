@@ -28,7 +28,7 @@ const About = () => {
         If you have any questions, feel free to reach out to us at{" "}
         <a
           href="mailto:samyam081@gmail.com"
-          className="text-decoration-none text-primary"
+          className="text-decoration-none text-danger"
           style={{
             fontWeight: "bold",
             transition: "color 0.3s, transform 0.3s",
