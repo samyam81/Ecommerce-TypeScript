@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const Sidebar = () => {
   const {
     setSearchQuery,
-    selectedCategory,
     setSelectedCategory,
     setMinPrice,
     setMaxPrice,
@@ -58,10 +57,6 @@ const Sidebar = () => {
     fetchRandomProduct();
   }, []);
 
-  const handleRadioChangeCategories = (category: string) => {
-    setSelectedCategory(category);
-  };
-
   const handleKeywordClick = (keyword: string) => {
     setKeywords(keyword);
   };
@@ -75,35 +70,18 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar bg-light p-4 rounded shadow-sm">
-      <h1 className="sidebar-header border-bottom pb-3 mb-4 text-center text-primary fw-bold">
-        React Store
+    <div className="sidebar bg-white p-4 rounded shadow">
+      <h1
+        className="text-center text-gradient fw-bold py-3"
+        style={{
+          background: "linear-gradient(to right, #007bff, #28a745)",
+          WebkitBackgroundClip: "text",
+          color: "transparent",
+          fontSize: "1.8rem",
+        }}
+      >
+       Samyam React
       </h1>
-
-      {/* Categories Section */}
-      <section className="mb-5">
-        <h3 className="h5 text-dark mb-3">Categories</h3>
-        {categories.length > 0 ? (
-          categories.map((category, index) => (
-            <div key={index} className="form-check mb-2">
-              <input
-                type="radio"
-                className="form-check-input"
-                id={category}
-                name="category"
-                value={category}
-                onChange={() => handleRadioChangeCategories(category)}
-                checked={selectedCategory === category}
-              />
-              <label className="form-check-label text-muted" htmlFor={category}>
-                {category.toUpperCase()}
-              </label>
-            </div>
-          ))
-        ) : (
-          <p className="text-muted">Loading categories...</p>
-        )}
-      </section>
 
       {/* Keywords Section */}
       <section className="mb-5">
@@ -112,18 +90,18 @@ const Sidebar = () => {
           {keywords.map((keyword, index) => (
             <span
               key={index}
-              className="badge bg-success text-white cursor-pointer p-2 shadow-sm"
+              className="badge bg-light text-dark border shadow-sm cursor-pointer px-3 py-2 rounded-pill"
               onClick={() => handleKeywordClick(keyword)}
               style={{
                 transition: "transform 0.2s, background-color 0.3s",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "scale(1.1)";
-                e.currentTarget.style.backgroundColor = "#28a745";
+                e.currentTarget.style.backgroundColor = "#f8f9fa";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "scale(1)";
-                e.currentTarget.style.backgroundColor = "#28a745";
+                e.currentTarget.style.backgroundColor = "white";
               }}
             >
               {keyword.toUpperCase()}
@@ -139,12 +117,13 @@ const Sidebar = () => {
           <div
             className="card shadow-lg border-0"
             style={{
-              maxWidth: "220px",
+              maxWidth: "250px",
               transition: "transform 0.3s ease, box-shadow 0.3s ease",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.2)";
+              e.currentTarget.style.boxShadow =
+                "0 4px 15px rgba(0, 0, 0, 0.2)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
@@ -174,12 +153,6 @@ const Sidebar = () => {
                   letterSpacing: "1px",
                   transition: "background-color 0.3s",
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#007bff";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#0056b3";
-                }}
               >
                 View Product
               </Link>
@@ -190,12 +163,13 @@ const Sidebar = () => {
 
       {/* Reset Filters */}
       <button
-        className="btn btn-danger w-100 mt-4 py-2 shadow-sm"
+        className="btn btn-danger w-100 mt-4 py-2 shadow"
         onClick={handleResetFilters}
         style={{
           fontWeight: "bold",
           letterSpacing: "1px",
-          transition: "background-color 0.3s, transform 0.3s",
+          borderRadius: "8px",
+          transition: "transform 0.3s ease, background-color 0.3s ease",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "scale(1.05)";
@@ -208,6 +182,17 @@ const Sidebar = () => {
       >
         Reset Filters
       </button>
+
+      {/* Follow Us Section */}
+      <div className="mt-5 text-center">
+        <h5 className="mb-3">Follow Us On</h5>
+        <div className="d-flex justify-content-center gap-3">
+          <i className="bi bi-youtube text-danger fs-3"></i>
+          <i className="bi bi-facebook text-primary fs-3"></i>
+          <i className="bi bi-twitter text-info fs-3"></i>
+        </div>
+        <span style={{display:'none'}}>{categories}</span>
+      </div>
     </div>
   );
 };
