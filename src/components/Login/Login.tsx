@@ -54,12 +54,19 @@ const Login: React.FC = () => {
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div
         className="card p-4 shadow-lg"
-        style={{ maxWidth: "400px", width: "100%" }}
+        style={{
+          maxWidth: "400px",
+          width: "100%",
+          borderRadius: "10px",
+          backgroundColor: "#f9f9f9",
+        }}
       >
-        <h3 className="text-center mb-4">Login</h3>
+        <h3 className="text-center mb-4" style={{ color: "#343a40" }}>
+          Login
+        </h3>
         <form onSubmit={handleSubmit}>
           <div className="form-group mb-3">
-            <label htmlFor="InputEmail" className="form-label">
+            <label htmlFor="InputEmail" className="form-label" style={{ color: "#495057" }}>
               Email address
             </label>
             <input
@@ -70,11 +77,15 @@ const Login: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               aria-describedby="emailHelp"
+              style={{
+                borderColor: errors.email ? "#e74c3c" : "#ced4da",
+                backgroundColor: "#fff",
+              }}
             />
             {errors.email && (
               <div
                 className="invalid-feedback"
-                style={{ fontSize: "0.875rem" }}
+                style={{ fontSize: "0.875rem", color: "#e74c3c" }}
               >
                 {errors.email}
               </div>
@@ -82,7 +93,7 @@ const Login: React.FC = () => {
           </div>
 
           <div className="form-group mb-3">
-            <label htmlFor="InputPassword" className="form-label">
+            <label htmlFor="InputPassword" className="form-label" style={{ color: "#495057" }}>
               Password
             </label>
             <input
@@ -92,11 +103,15 @@ const Login: React.FC = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              style={{
+                borderColor: errors.password ? "#e74c3c" : "#ced4da",
+                backgroundColor: "#fff",
+              }}
             />
             {errors.password && (
               <div
                 className="invalid-feedback"
-                style={{ fontSize: "0.875rem" }}
+                style={{ fontSize: "0.875rem", color: "#e74c3c" }}
               >
                 {errors.password}
               </div>
@@ -109,17 +124,22 @@ const Login: React.FC = () => {
               className="form-check-input"
               id="exampleCheck1"
             />
-            <label className="form-check-label" htmlFor="exampleCheck1">
+            <label className="form-check-label" htmlFor="exampleCheck1" style={{ color: "#495057" }}>
               Remember me
             </label>
           </div>
 
           <button
             type="submit"
-            className={`btn btn-primary w-100 py-2 ${
-              loading ? "disabled" : ""
-            }`}
+            className={`btn btn-primary w-100 py-2 ${loading ? "disabled" : ""}`}
             disabled={loading}
+            style={{
+              backgroundColor: "#007bff",
+              borderColor: "#007bff",
+              padding: "10px 20px",
+              fontWeight: "bold",
+              transition: "background-color 0.3s ease",
+            }}
           >
             {loading ? (
               <span
@@ -134,7 +154,25 @@ const Login: React.FC = () => {
 
           <div className="text-center mt-3">
             <p>
-              Don't have an account? <a href="#">Sign up</a>
+              Don't have an account?{" "}
+              <a
+                href="#"
+                style={{
+                  color: "#007bff",
+                  textDecoration: "none",
+                  fontWeight: "bold",
+                  transition: "color 0.3s ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLAnchorElement).style.color = "#0056b3";
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLAnchorElement).style.color = "#007bff";
+                }}
+              >
+                Sign up
+              </a>
+
             </p>
           </div>
         </form>

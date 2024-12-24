@@ -1,26 +1,45 @@
+/* General Variables */
+:root {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --secondary-color: #6c757d;
+  --secondary-hover: #5a6268;
+  --border-color: #ddd;
+  --card-radius: 8px;
+  --transition-speed: 0.3s;
+}
+
 /* General Styling */
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
 }
 
-/* Hover effect for product cards */
+/* Card Hover Effect */
 .card-hover-effect {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  transition: transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease,
+    border-color var(--transition-speed) ease;
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
   overflow: hidden;
   background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-hover-effect:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  border-color: #007bff;
+  border-color: var(--primary-color);
 }
 
-/* Product Image */
+/* Product Image Hover Effect */
 .card-hover-effect img {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform var(--transition-speed) ease,
+    opacity var(--transition-speed) ease;
 }
 
 .card-hover-effect:hover img {
@@ -30,36 +49,83 @@ body {
 
 /* Button Styling */
 .card-hover-effect .btn {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--transition-speed) ease,
+    color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  border-radius: var(--card-radius);
+  padding: 10px 20px;
 }
 
 .card-hover-effect .btn-primary {
-  background-color: #007bff;
+  background-color: var(--primary-color);
   color: #fff;
+  border: 1px solid var(--primary-color);
 }
 
 .card-hover-effect .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 /* Footer Button Styling */
 .card-hover-effect .btn-outline-secondary {
-  color: #6c757d;
-  border-color: #6c757d;
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  background-color: transparent;
 }
 
 .card-hover-effect .btn-outline-secondary:hover {
-  background-color: #6c757d;
+  background-color: var(--secondary-color);
   color: #fff;
 }
 
-/* Additional Card Styles */
-.card-hover-effect .card-body {
-  padding: 15px;
+/* Focus Styles for Buttons */
+.card-hover-effect .btn:focus,
+.card-hover-effect .btn:active {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
+/* Card Body Padding */
+.card-hover-effect .card-body {
+  padding: 20px;
+}
+
+/* Card Footer Styling */
 .card-hover-effect .card-footer {
   background-color: transparent;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
   padding: 10px 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Responsive Design for Cards */
+@media (max-width: 768px) {
+  .card-hover-effect {
+    margin-bottom: 20px;
+  }
+
+  .card-hover-effect .card-body {
+    padding: 15px;
+  }
+
+  .card-hover-effect .btn {
+    padding: 8px 16px;
+  }
+}
+
+.wishlist-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  border: none;
+  font-size: 18px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.wishlist-icon:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
 }

@@ -50,16 +50,17 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="container mt-5 p-4 bg-light rounded shadow-sm">
-      <h2 className="text-center mb-4 text-primary">Contact Us</h2>
-      <p className="text-center mb-4 text-muted">
-        If you have any questions or feedback about E-commerce Nepal, feel free
-        to reach out using the form below.
+    <div className="container mt-5 p-4 bg-light rounded shadow-lg" style={{ maxWidth: '600px' }}>
+      <h2 className="text-center mb-4 text-info" style={{ fontWeight: "600", color: '#007bff' }}>
+        Contact Us
+      </h2>
+      <p className="text-center mb-4" style={{ color: '#6c757d' }}>
+        If you have any questions or feedback about E-commerce Nepal, feel free to reach out using the form below.
       </p>
       <form onSubmit={handleSubmit}>
         {/* Name Field */}
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">
+          <label htmlFor="name" className="form-label" style={{ fontWeight: "500", color: '#495057' }}>
             Name:
           </label>
           <input
@@ -73,7 +74,7 @@ const Contact: React.FC = () => {
             aria-describedby="nameError"
           />
           {errors.name && (
-            <div id="nameError" className="invalid-feedback">
+            <div id="nameError" className="invalid-feedback" style={{ fontSize: "0.875rem", color: '#dc3545' }}>
               {errors.name}
             </div>
           )}
@@ -81,7 +82,7 @@ const Contact: React.FC = () => {
 
         {/* Email Field */}
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">
+          <label htmlFor="email" className="form-label" style={{ fontWeight: "500", color: '#495057' }}>
             Email:
           </label>
           <input
@@ -95,7 +96,7 @@ const Contact: React.FC = () => {
             aria-describedby="emailError"
           />
           {errors.email && (
-            <div id="emailError" className="invalid-feedback">
+            <div id="emailError" className="invalid-feedback" style={{ fontSize: "0.875rem", color: '#dc3545' }}>
               {errors.email}
             </div>
           )}
@@ -103,7 +104,7 @@ const Contact: React.FC = () => {
 
         {/* Message Field */}
         <div className="mb-3">
-          <label htmlFor="message" className="form-label">
+          <label htmlFor="message" className="form-label" style={{ fontWeight: "500", color: '#495057' }}>
             Message:
           </label>
           <textarea
@@ -117,7 +118,7 @@ const Contact: React.FC = () => {
             aria-describedby="messageError"
           />
           {errors.message && (
-            <div id="messageError" className="invalid-feedback">
+            <div id="messageError" className="invalid-feedback" style={{ fontSize: "0.875rem", color: '#dc3545' }}>
               {errors.message}
             </div>
           )}
@@ -127,15 +128,22 @@ const Contact: React.FC = () => {
         <div className="d-flex justify-content-center">
           <button
             type="submit"
-            className="btn btn-primary w-50 shadow-sm transition-transform"
-            style={{ transition: "transform 0.3s, box-shadow 0.3s ease" }}
+            className="btn btn-primary w-50 shadow-sm py-2 px-3"
+            style={{
+              transition: "transform 0.3s, box-shadow 0.3s ease, background-color 0.3s ease",
+              fontWeight: "500",
+              backgroundColor: '#007bff',
+              borderColor: '#007bff'
+            }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.05)";
               e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.2)";
+              e.currentTarget.style.backgroundColor = "#0056b3";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
               e.currentTarget.style.boxShadow = "none";
+              e.currentTarget.style.backgroundColor = "#007bff";
             }}
           >
             Submit

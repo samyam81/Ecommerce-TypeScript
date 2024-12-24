@@ -3,6 +3,7 @@ import { useFilter } from "../Filter/FilterContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCart } from "../Cart/CartContext";
+import { useWish } from "../Wish/WishContext"; // Import the Wish context
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductLanding/ProductCard";
 import "../Styles/Main.css";
@@ -11,17 +12,17 @@ const MainContent = () => {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
     useFilter();
   const { addItemToCart } = useCart();
+  const { wishItems, addItemToWish } = useWish(); // Access wish context
   const [products, setProducts] = useState<any[]>([]);
   const [filter, setFilter] = useState<"all" | string>("all");
   const [dropdown, setDropdown] = useState(false);
   const [currentPage] = useState(1);
-  const [selectedProduct, setSelectedProduct] = useState<any>(null); // Track selected product for modal
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const itemsPerPage = 12;
 
   useEffect(() => {
-    let url = `https://dummyjson.com/products?limit=${itemsPerPage}&skip=${
-      (currentPage - 1) * itemsPerPage
-    }`;
+    let url = `https://dummyjson.com/products?limit=${itemsPerPage}&skip=${(currentPage - 1) * itemsPerPage
+      }`;
 
     if (keyword) {
       url = `https://dummyjson.com/products/search?q=${keyword}`;
@@ -88,13 +89,16 @@ const MainContent = () => {
     setSelectedProduct(product); // Open modal with selected product
   }
 
+  function handleToggleWishlist(product: any) {
+    addItemToWish(product); // Add or remove from wishlist
+  }
+
   function closeProductCard() {
     setSelectedProduct(null); // Close modal
   }
 
   return (
     <section className="main-content container-fluid mt-4 px-4">
-      {/* Ad Section */}
       <div className="ad-section bg-primary text-white p-5 rounded mb-4 text-center shadow-lg">
         <h4 className="display-4">🎉 Exclusive Offer!</h4>
         <p className="lead">
@@ -106,7 +110,6 @@ const MainContent = () => {
         </button>
       </div>
 
-      {/* Filter and Sorting */}
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="text-dark">🛍️ Products</h2>
         <div className="dropdown">
@@ -161,11 +164,22 @@ const MainContent = () => {
         </div>
       </div>
 
-      {/* Product Grid */}
       <div className="row g-4">
         {getFilteredProducts().map((product) => (
           <div key={product.id} className="col-lg-3 col-md-4 col-sm-6">
-            <div className="card h-100 shadow-lg card-hover-effect">
+            <div className="card h-100 shadow-lg card-hover-effect position-relative">
+              <button
+                className={`wishlist-icon btn ${wishItems.some((item) => item.id === product.id)
+                  ? "btn-danger"
+                  : "btn-outline-danger"
+                  }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleToggleWishlist(product);
+                }}
+              >
+                ♥
+              </button>
               <Link
                 to={`/product/${product.id}`}
                 className="text-decoration-none text-dark"
@@ -192,7 +206,7 @@ const MainContent = () => {
                 <button
                   className="btn btn-primary btn-sm"
                   onClick={(e) => {
-                    e.preventDefault(); // Prevent navigation
+                    e.preventDefault();
                     handleAddToCart(product);
                   }}
                 >
@@ -210,7 +224,6 @@ const MainContent = () => {
         ))}
       </div>
 
-      {/* Product Modal */}
       {selectedProduct && (
         <ProductCard product={selectedProduct} onClose={closeProductCard} />
       )}

@@ -48,6 +48,8 @@ const CartPage: React.FC = () => {
                 className="list-group-item d-flex align-items-center justify-content-between p-3 shadow-sm rounded mb-3"
                 style={{
                   backgroundColor: "#f9f9f9",
+                  border: "2px solid #ddd", // Add border here
+                  borderRadius: "8px", // Optional: to maintain rounded corners
                 }}
               >
                 <div className="d-flex flex-grow-1 align-items-center gap-3">
@@ -81,7 +83,10 @@ const CartPage: React.FC = () => {
                       );
                       updateItemQuantity(item.id, newQuantity);
                     }}
-                    style={{ width: "60px" }}
+                    style={{
+                      width: "60px",
+                      border: "1px solid #ccc", // Add border for the input
+                    }}
                   />
                   <button
                     className="btn btn-sm btn-outline-secondary"
@@ -108,6 +113,7 @@ const CartPage: React.FC = () => {
           <button
             className="btn btn-danger w-100 mb-3 py-2 shadow-sm"
             onClick={clearCart}
+            style={{ border: "2px solid red" }} // Add border for Clear Cart button
           >
             🗑️ Clear Cart
           </button>
@@ -117,6 +123,7 @@ const CartPage: React.FC = () => {
             className="text-center bg-primary text-white py-3 rounded shadow-sm"
             style={{
               opacity: totalPrice === 0 ? 0.7 : 1,
+              border: "2px solid #ccc", // Add border for total price section
             }}
           >
             <h4 className="mb-0">💰 Total: ${totalPrice.toFixed(2)}</h4>
@@ -128,6 +135,7 @@ const CartPage: React.FC = () => {
               <button
                 className="btn btn-lg btn-warning px-4 py-3 rounded-pill shadow-lg"
                 onClick={() => (window.location.href = "/login")}
+                style={{ border: "2px solid #f8b400" }} // Add border for Buy Now button
               >
                 🛒 Buy Now
               </button>
@@ -139,6 +147,7 @@ const CartPage: React.FC = () => {
             <button
               className="btn btn-lg btn-success px-4 py-3 rounded-pill shadow-lg"
               onClick={() => (window.location.href = "/")}
+              style={{ border: "2px solid #28a745" }} // Add border for Shop More button
             >
               🛍️ Shop More
             </button>
