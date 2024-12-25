@@ -1,28 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
+import { toast } from "react-toastify";
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
+    subscribe: false,
   });
+
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     message: "",
   });
 
+  useEffect(() => {
+    emailjs.init("-jlq9VRlor9jTRh8F");
+  }, []);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" });
+    const { name, value, type } = e.target;
+
+    if (type === "checkbox") {
+      const checked = (e.target as HTMLInputElement).checked;
+      setFormData({
+        ...formData,
+        [name]: checked,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+      setErrors({ ...errors, [name]: "" });
+    }
   };
+
 
   const validateForm = () => {
     let isValid = true;
-    const newErrors = { name: "", email: "", message: "" };
+    const newErrors = { name: "", email: "", message: "", gender: "" };
 
     if (!formData.name.trim()) {
       newErrors.name = "Name is required.";
@@ -43,69 +64,88 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (validateForm()) {
-      alert("Thank you for contacting us. We will get back to you soon.");
-      setFormData({ name: "", email: "", message: "" });
+      emailjs
+        .send(
+          "service_cin4xa6", // Replace with your service ID
+          "template_5vp7f0c", // Replace with your template ID
+          {
+            to_name: "Recipient Name", // You could replace this with the recipient's name dynamically if needed
+            from_name: formData.name,  // Sender's name
+            from_email: formData.email, // Sender's email
+            message: formData.message,  // Sender's message
+          },
+          "-jlq9VRlor9jTRh8F" // Replace with your public key
+        )
+        .then(
+          (response) => {
+            // Display success toast notification
+            toast.success("Thank you for contacting us. We will get back to you soon.");
+            setFormData({
+              name: "",
+              email: "",
+              message: "",
+              subscribe: false,
+            });
+            console.log(response);
+          },
+          (error) => {
+            // Display error toast notification
+            toast.error("Something went wrong. Please try again later.");
+            console.error(error);
+          }
+        );
     }
   };
 
   return (
-    <div className="container mt-5 p-4 bg-light rounded shadow-lg" style={{ maxWidth: '600px' }}>
-      <h2 className="text-center mb-4 text-info" style={{ fontWeight: "600", color: '#007bff' }}>
+    <div className="container mt-5 p-4 bg-white rounded shadow-lg" style={{ maxWidth: "600px" }}>
+      <h2 className="text-center mb-4 text-primary" style={{ fontWeight: "600" }}>
         Contact Us
       </h2>
-      <p className="text-center mb-4" style={{ color: '#6c757d' }}>
-        If you have any questions or feedback about E-commerce Nepal, feel free to reach out using the form below.
+      <p className="text-center mb-4 text-muted">
+        Have questions or feedback? Fill out the form below, and we'll get back to you promptly.
       </p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="p-3">
         {/* Name Field */}
         <div className="mb-3">
-          <label htmlFor="name" className="form-label" style={{ fontWeight: "500", color: '#495057' }}>
-            Name:
+          <label htmlFor="name" className="form-label text-secondary">
+            Name
           </label>
           <input
             type="text"
             id="name"
             name="name"
             className={`form-control ${errors.name ? "is-invalid" : ""}`}
-            placeholder="Enter your name"
+            placeholder="Enter your full name"
             value={formData.name}
             onChange={handleChange}
-            aria-describedby="nameError"
           />
-          {errors.name && (
-            <div id="nameError" className="invalid-feedback" style={{ fontSize: "0.875rem", color: '#dc3545' }}>
-              {errors.name}
-            </div>
-          )}
+          {errors.name && <div className="invalid-feedback">{errors.name}</div>}
         </div>
 
         {/* Email Field */}
         <div className="mb-3">
-          <label htmlFor="email" className="form-label" style={{ fontWeight: "500", color: '#495057' }}>
-            Email:
+          <label htmlFor="email" className="form-label text-secondary">
+            Email
           </label>
           <input
             type="email"
             id="email"
             name="email"
             className={`form-control ${errors.email ? "is-invalid" : ""}`}
-            placeholder="Enter your email"
+            placeholder="Enter your email address"
             value={formData.email}
             onChange={handleChange}
-            aria-describedby="emailError"
           />
-          {errors.email && (
-            <div id="emailError" className="invalid-feedback" style={{ fontSize: "0.875rem", color: '#dc3545' }}>
-              {errors.email}
-            </div>
-          )}
+          {errors.email && <div className="invalid-feedback">{errors.email}</div>}
         </div>
 
         {/* Message Field */}
         <div className="mb-3">
-          <label htmlFor="message" className="form-label" style={{ fontWeight: "500", color: '#495057' }}>
-            Message:
+          <label htmlFor="message" className="form-label text-secondary">
+            Message
           </label>
           <textarea
             id="message"
@@ -115,35 +155,27 @@ const Contact: React.FC = () => {
             value={formData.message}
             onChange={handleChange}
             rows={4}
-            aria-describedby="messageError"
           />
-          {errors.message && (
-            <div id="messageError" className="invalid-feedback" style={{ fontSize: "0.875rem", color: '#dc3545' }}>
-              {errors.message}
-            </div>
-          )}
+          {errors.message && <div className="invalid-feedback">{errors.message}</div>}
         </div>
 
         {/* Submit Button */}
-        <div className="d-flex justify-content-center">
+        <div className="text-center">
           <button
             type="submit"
-            className="btn btn-primary w-50 shadow-sm py-2 px-3"
+            className="btn btn-primary w-50 shadow py-2 px-3"
             style={{
-              transition: "transform 0.3s, box-shadow 0.3s ease, background-color 0.3s ease",
-              fontWeight: "500",
-              backgroundColor: '#007bff',
-              borderColor: '#007bff'
+              fontWeight: "600",
+              borderRadius: "30px",
+              transition: "all 0.3s",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.transform = "scale(1.1)";
               e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.2)";
-              e.currentTarget.style.backgroundColor = "#0056b3";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
               e.currentTarget.style.boxShadow = "none";
-              e.currentTarget.style.backgroundColor = "#007bff";
             }}
           >
             Submit
