@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../Styles/Main.css";
+import "../Styles/Responsive.css";
+import "../Styles/Animation.css"; // Import the animation styles
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -41,10 +44,9 @@ const Contact: React.FC = () => {
     }
   };
 
-
   const validateForm = () => {
     let isValid = true;
-    const newErrors = { name: "", email: "", message: "", gender: "" };
+    const newErrors = { name: "", email: "", message: "" };
 
     if (!formData.name.trim()) {
       newErrors.name = "Name is required.";
@@ -60,55 +62,60 @@ const Contact: React.FC = () => {
     }
 
     setErrors(newErrors);
-    return isValid;
+    return { isValid, newErrors };
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      emailjs
-        .send(
-          "service_cin4xa6", // Replace with your service ID
-          "template_5vp7f0c", // Replace with your template ID
-          {
-            to_name: "Recipient Name", // You could replace this with the recipient's name dynamically if needed
-            from_name: formData.name,  // Sender's name
-            from_email: formData.email, // Sender's email
-            message: formData.message,  // Sender's message
-          },
-          "-jlq9VRlor9jTRh8F" // Replace with your public key
-        )
-        .then(
-          (response) => {
-            // Display success toast notification
-            toast.success("Thank you for contacting us. We will get back to you soon.");
-            setFormData({
-              name: "",
-              email: "",
-              message: "",
-              subscribe: false,
-            });
-            console.log(response);
-          },
-          (error) => {
-            // Display error toast notification
-            toast.error("Something went wrong. Please try again later.");
-            console.error(error);
-          }
-        );
+    const { isValid, newErrors } = validateForm();
+
+    // Show each validation error in a separate toast message
+    if (!isValid) {
+      if (newErrors.name) toast.error(newErrors.name);
+      if (newErrors.email) toast.error(newErrors.email);
+      if (newErrors.message) toast.error(newErrors.message);
+      return;
     }
+
+    emailjs
+      .send(
+        "service_cin4xa6",
+        "template_5vp7f0c",
+        {
+          to_name: "Recipient Name",
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        },
+        "-jlq9VRlor9jTRh8F"
+      )
+      .then(
+        (response) => {
+          toast.success("Thank you for contacting us. We will get back to you soon.");
+          setFormData({
+            name: "",
+            email: "",
+            message: "",
+            subscribe: false,
+          });
+          console.log(response);
+        },
+        (error) => {
+          toast.error("Something went wrong. Please try again later.");
+          console.error(error);
+        }
+      );
   };
 
   return (
-    <div className="container mt-5 p-4 bg-white rounded shadow-lg" style={{ maxWidth: "600px" }}>
-      <h2 className="text-center mb-4 text-primary" style={{ fontWeight: "600" }}>
-        Contact Us
-      </h2>
-      <p className="text-center mb-4 text-muted">
+    <div className="contact-container">
+      <ToastContainer />
+      <h2 className="contact-heading">Contact Us</h2>
+      <p className="contact-description">
         Have questions or feedback? Fill out the form below, and we'll get back to you promptly.
       </p>
-      <form onSubmit={handleSubmit} className="p-3">
+      <form onSubmit={handleSubmit} className="contact-form">
         {/* Name Field */}
         <div className="mb-3">
           <label htmlFor="name" className="form-label text-secondary">
@@ -164,25 +171,68 @@ const Contact: React.FC = () => {
         <div className="text-center">
           <button
             type="submit"
-            className="btn btn-primary w-50 shadow py-2 px-3"
-            style={{
-              fontWeight: "600",
-              borderRadius: "30px",
-              transition: "all 0.3s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.1)";
-              e.currentTarget.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
+            className="btn btn-primary w-50 shadow py-2 px-3 scale-up"
           >
             Submit
           </button>
         </div>
       </form>
+
+      <style>
+        {`
+          .contact-container {
+            max-width: 600px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+          }
+
+          .contact-heading {
+            text-align: center;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 1rem;
+          }
+
+          .contact-description {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 2rem;
+          }
+
+          .contact-form {
+            padding: 1rem;
+          }
+
+          .contact-form .form-label {
+            font-weight: 500;
+            color: #6c757d;
+          }
+
+          .contact-form .form-control {
+            border-radius: 8px;
+          }
+
+          .contact-form .btn {
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+          }
+
+          .contact-form .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+          }
+
+          .invalid-feedback {
+            display: block;
+            font-size: 0.875rem;
+            color: red;
+          }
+        `}
+      </style>
     </div>
   );
 };

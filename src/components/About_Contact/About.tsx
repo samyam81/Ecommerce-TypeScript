@@ -1,22 +1,31 @@
-import "../Styles/Main.css";
+import "../Styles/Responsive.css";
+import "../Styles/Animation.css"; // Import the animation styles
 
 const About = () => {
   return (
     <div className="container py-5">
       {/* Main Header Section */}
-      <h1 className="display-4 mb-4 text-primary fw-bold text-center text-md-start" style={{ letterSpacing: "1px" }}>
+      <h1
+        className="display-4 mb-4 text-primary fw-bold text-center text-md-start fade-in"
+        style={{ letterSpacing: "1px" }}
+      >
         About Us
       </h1>
-      <p className="lead text-muted mb-5 text-center text-md-start" style={{ lineHeight: "1.8" }}>
+      <p
+        className="lead text-muted mb-5 text-center text-md-start fade-in-fast"
+        style={{ lineHeight: "1.8" }}
+      >
         Welcome to our e-commerce store! We are committed to providing you with the best products at the most affordable prices. Whether you're looking for electronics, fashion, or home essentials, we have something for everyone.
       </p>
 
-      <p className="mb-4 text-muted text-center text-md-start" style={{ lineHeight: "1.8" }}>
+      <p className="mb-4 text-muted text-center text-md-start fade-in-fast" style={{ lineHeight: "1.8" }}>
         Our goal is to make your shopping experience as seamless and enjoyable as possible. With a wide range of high-quality products, secure payment options, and fast delivery, we aim to exceed your expectations.
       </p>
 
       {/* Mission Section */}
-      <h2 className="display-5 mb-3 text-secondary fw-bold text-center text-md-start text-uppercase">
+      <h2
+        className="display-5 mb-3 text-secondary fw-bold text-center text-md-start text-uppercase slide-in-left"
+      >
         Our Mission
       </h2>
       <p className="mb-4 text-muted text-center text-md-start" style={{ lineHeight: "1.8" }}>
@@ -24,7 +33,9 @@ const About = () => {
       </p>
 
       {/* Contact Section */}
-      <h2 className="display-5 mb-3 text-secondary fw-bold text-center text-md-start text-uppercase">
+      <h2
+        className="display-5 mb-3 text-secondary fw-bold text-center text-md-start text-uppercase slide-in-left"
+      >
         Contact Us
       </h2>
       <p className="text-muted text-center text-md-start">
@@ -50,10 +61,11 @@ const About = () => {
 
       {/* Features Section - Why Shop With Us? */}
       <div className="d-flex justify-content-center mt-5">
-        <div className="bg-light p-4 rounded shadow-lg w-100" style={{ maxWidth: "600px" }}>
-          <h3 className="h5 text-primary mb-3 fw-bold text-center">
-            Why Shop With Us?
-          </h3>
+        <div
+          className="bg-light p-4 rounded shadow-lg w-100 scale-up"
+          style={{ maxWidth: "600px" }}
+        >
+          <h3 className="h5 text-primary mb-3 fw-bold text-center">Why Shop With Us?</h3>
           <ul className="list-unstyled">
             <li className="mb-3">
               <i className="bi bi-check-circle text-success"></i> High-quality products
@@ -73,7 +85,7 @@ const About = () => {
 
       {/* About Section with Background */}
       <div
-        className="py-5 mt-4 rounded"
+        className="py-5 mt-4 rounded fade-in"
         style={{
           background: "linear-gradient(135deg, #6f42c1, #007bff)",
         }}

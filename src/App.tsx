@@ -12,6 +12,8 @@ import { WishProvider } from "./components/Wish/WishContext";
 import WishPage from "./components/Wish/WishPage";
 import ThankYou from "./components/ThankYouPage/ThankYou";
 import Login from "./components/Login/Login";
+import { ToastContainer } from "react-toastify"; // Import ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import toast styles
 
 const App = () => {
   return (
@@ -72,6 +74,9 @@ const App = () => {
             >
               <p>&copy; 2024 Project. All rights reserved.</p>
             </footer>
+
+            {/* Toast Notifications Container */}
+            <ToastContainer />
           </div>
         </Router>
       </WishProvider>

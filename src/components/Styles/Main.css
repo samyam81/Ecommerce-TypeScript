@@ -97,200 +97,182 @@ body {
   font-size: 14px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Responsive Media Queries */
+
+/* Small Phones (Portrait) */
+/* Width: 320px to 374px, Height: 480px to 667px */
+@media (min-width: 320px) and (max-width: 374px) {
+  body {
+    font-size: 0.8rem; /* Smaller font size */
+  }
+
   .card-hover-effect {
-    margin-bottom: 20px;
+    padding: 15px; /* Smaller padding */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Reduce shadow */
   }
 
   .card-hover-effect .card-body {
-    padding: 15px;
+    padding: 15px; /* Adjust padding */
   }
 
   .card-hover-effect .btn {
-    padding: 8px 16px;
+    font-size: 0.85rem;
+    padding: 8px 15px;
+  }
+}
+
+/* Medium Phones (Portrait) */
+/* Width: 375px to 424px, Height: 667px to 812px */
+@media (min-width: 375px) and (max-width: 424px) {
+  body {
+    font-size: 0.9rem; /* Slightly larger font */
   }
 
-  .container {
-    padding: 1.5rem 1rem;
-  }
-
-  .display-4 {
-    font-size: 2rem;
-  }
-
-  .display-5 {
-    font-size: 1.8rem;
-  }
-
-  p {
-    font-size: 0.9rem;
-  }
-
-  .card {
-    font-size: 0.8rem;
-    max-width: 90%;
-  }
-
-  .card-img-top {
-    height: 120px;
-  }
-
-  .card-footer {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .dropdown-toggle {
-    width: 100%;
-    text-align: left;
-  }
-
-  /* Ensure cards are stacked for smaller screens */
   .card-hover-effect {
-    display: block;
-    width: 100%;
+    padding: 20px; /* Moderate padding */
+  }
+
+  .card-hover-effect .card-body {
+    padding: 18px; /* Adjust card body padding */
+  }
+
+  .card-hover-effect .btn {
+    font-size: 0.95rem;
+    padding: 9px 18px;
   }
 }
 
-/* For small screens (less than 576px) */
-@media (max-width: 576px) {
-  .container,
-  .product-card-container {
-    padding: 0 15px;
+/* Large Phones (Portrait) */
+/* Width: 425px to 599px, Height: 812px to 926px */
+@media (min-width: 425px) and (max-width: 599px) {
+  body {
+    font-size: 1rem; /* Normal font size */
   }
 
-  .card {
-    padding: 1rem;
-    max-width: 100%;
-    font-size: 0.9rem;
+  .card-hover-effect {
+    padding: 20px; /* Default padding */
   }
 
-  .card-body h5,
-  .card-body h2,
-  h3 {
-    font-size: 1.3rem;
+  .card-hover-effect .card-body {
+    padding: 20px;
   }
 
-  .card-body .text-success,
-  .card-body .text-warning,
-  .card-body .bg-danger {
-    font-size: 0.9rem;
-  }
-
-  .form-label,
-  .form-control,
-  .btn {
+  .card-hover-effect .btn {
     font-size: 1rem;
-  }
-
-  .d-flex {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .w-48 {
-    width: 100%;
-  }
-
-  .product-card img {
-    height: 250px;
-    object-fit: contain;
-  }
-
-  .form-control {
-    width: 50px;
-  }
-
-  /* Improve button sizing for small screens */
-  .btn {
-    width: 100%;
-    padding: 12px;
+    padding: 10px 20px;
   }
 }
 
-/* For medium screens (576px to 768px) */
-@media (min-width: 576px) and (max-width: 768px) {
-  .card {
-    padding: 1.5rem;
-    max-width: 90%;
+/* Phablets (Portrait) */
+/* Width: 600px to 767px, Height: 926px to 1280px */
+@media (min-width: 600px) and (max-width: 767px) {
+  body {
+    font-size: 1.1rem; /* Increase font size */
   }
 
-  .card-body h5,
-  h2 {
-    font-size: 1.6rem;
+  .card-hover-effect {
+    padding: 25px; /* Larger padding for more space */
   }
 
-  .form-label,
-  .form-control {
+  .card-hover-effect .card-body {
+    padding: 25px;
+  }
+
+  .card-hover-effect .btn {
     font-size: 1.1rem;
-  }
-
-  .btn {
-    padding: 10px 15px;
-    font-size: 1rem;
-  }
-
-  .d-flex {
-    gap: 15px;
-  }
-
-  .text-success,
-  .text-warning {
-    font-size: 1.2rem;
-  }
-
-  .bg-danger {
-    font-size: 1.2rem;
+    padding: 12px 24px;
   }
 }
 
-/* For very small screens (less than 414px, such as iPhone XR) */
-@media (max-width: 414px) {
-  .container,
-  .product-card-container {
-    padding: 0 10px;
+/* Tablets (Portrait) */
+/* Width: 768px to 1023px, Height: 1024px to 1366px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    font-size: 1.2rem; /* Larger font size */
   }
 
-  .card {
-    padding: 1rem;
-    font-size: 0.85rem;
+  .card-hover-effect {
+    padding: 30px;
   }
 
-  .card-body h5,
-  .card-body h2,
-  h3 {
+  .card-hover-effect .card-body {
+    padding: 30px;
+  }
+
+  .card-hover-effect .btn {
     font-size: 1.2rem;
+    padding: 14px 28px;
+  }
+}
+
+/* Large Tablets & Small Desktops (Portrait/Landscape) */
+/* Width: 1024px to 1440px, Height: 1366px to 900px */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  body {
+    font-size: 1.3rem; /* Larger font for bigger screens */
   }
 
-  .card-body .text-success,
-  .card-body .text-warning,
-  .card-body .bg-danger {
-    font-size: 0.85rem;
+  .card-hover-effect {
+    padding: 35px;
   }
 
-  .form-label,
-  .form-control,
-  .btn {
-    font-size: 0.9rem;
+  .card-hover-effect .card-body {
+    padding: 35px;
   }
 
-  .d-flex {
-    flex-direction: column;
-    gap: 8px;
+  .card-hover-effect .btn {
+    font-size: 1.3rem;
+    padding: 16px 32px;
   }
+}
 
-  .product-card img {
-    height: 220px;
-    object-fit: contain;
-  }
+.product-image {
+  width: 100%; /* Ensure it spans the card width */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Crop to fill the space */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .form-control {
-    width: 50px;
-  }
+.product-image:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add depth */
+}
 
-  .btn {
-    width: 100%;
-    padding: 12px;
-  }
+/* Flip Animation */
+.card-container {
+  position: relative;
+  width: 100%;
+  perspective: 1000px; /* Add perspective to give a 3D effect */
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d; /* Enable 3D transforms */
+  transition: transform 0.6s ease-in-out;
+}
+
+.card:hover {
+  transform: rotateY(180deg); /* Flip the card on hover */
+}
+
+.card .card-front,
+.card .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hide the back when the card is flipped */
+}
+
+.card .card-front {
+  background-color: #fff; /* Front of the card */
+  border-radius: 8px;
+  /* Add any other styling for the front */
+}
+
+.card .card-back {
+  background-color: #f8f9fa; /* Back of the card */
+  transform: rotateY(180deg); /* Initially rotate the back side */
+  /* Add any other styling for the back */
 }

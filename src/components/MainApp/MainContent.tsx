@@ -3,21 +3,24 @@ import { useFilter } from "../Filter/FilterContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCart } from "../Cart/CartContext";
-import { useWish } from "../Wish/WishContext"; // Import the Wish context
+import { useWish } from "../Wish/WishContext";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductLanding/ProductCard";
 import "../Styles/Main.css";
+import "../Styles/Responsive.css";
+import "../Styles/animation.css"; // Import animation styles
 
 const MainContent = () => {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
     useFilter();
   const { addItemToCart } = useCart();
-  const { wishItems, addItemToWish } = useWish(); // Access wish context
+  const { wishItems, addItemToWish } = useWish();
   const [products, setProducts] = useState<any[]>([]);
   const [filter, setFilter] = useState<"all" | string>("all");
   const [dropdown, setDropdown] = useState(false);
   const [currentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [animate, setAnimate] = useState(true); // New state for animation
   const itemsPerPage = 12;
 
   useEffect(() => {
@@ -85,21 +88,21 @@ const MainContent = () => {
   }
 
   function handleAddToCart(product: any) {
-    addItemToCart(product); // Add to cart
-    setSelectedProduct(product); // Open modal with selected product
+    addItemToCart(product);
+    setSelectedProduct(product);
   }
 
   function handleToggleWishlist(product: any) {
-    addItemToWish(product); // Add or remove from wishlist
+    addItemToWish(product);
   }
 
   function closeProductCard() {
-    setSelectedProduct(null); // Close modal
+    setSelectedProduct(null);
   }
 
   return (
     <section className="main-content container-fluid mt-4 px-4">
-      <div className="ad-section bg-primary text-white p-5 rounded mb-4 text-center shadow-lg">
+      <div className="ad-section bg-primary text-white p-5 rounded mb-4 text-center shadow-lg fade-in">
         <h4 className="display-4">🎉 Exclusive Offer!</h4>
         <p className="lead">
           Get 50% off on your first order! Don’t miss out on this limited-time
@@ -127,7 +130,13 @@ const MainContent = () => {
               <li>
                 <button
                   className="dropdown-item"
-                  onClick={() => setFilter("Cheap")}
+                  onClick={() => {
+                    setAnimate(false);
+                    setTimeout(() => {
+                      setFilter("Cheap");
+                      setAnimate(true);
+                    }, 500);
+                  }}
                 >
                   Cheapest
                 </button>
@@ -135,7 +144,13 @@ const MainContent = () => {
               <li>
                 <button
                   className="dropdown-item"
-                  onClick={() => setFilter("Expensive")}
+                  onClick={() => {
+                    setAnimate(false);
+                    setTimeout(() => {
+                      setFilter("Expensive");
+                      setAnimate(true);
+                    }, 500);
+                  }}
                 >
                   Most Expensive
                 </button>
@@ -143,7 +158,13 @@ const MainContent = () => {
               <li>
                 <button
                   className="dropdown-item"
-                  onClick={() => setFilter("Popular")}
+                  onClick={() => {
+                    setAnimate(false);
+                    setTimeout(() => {
+                      setFilter("Popular");
+                      setAnimate(true);
+                    }, 500);
+                  }}
                 >
                   Most Popular
                 </button>
@@ -154,7 +175,13 @@ const MainContent = () => {
               <li>
                 <button
                   className="dropdown-item"
-                  onClick={() => setFilter("all")}
+                  onClick={() => {
+                    setAnimate(false);
+                    setTimeout(() => {
+                      setFilter("all");
+                      setAnimate(true);
+                    }, 500);
+                  }}
                 >
                   Reset Filter
                 </button>
@@ -164,7 +191,7 @@ const MainContent = () => {
         </div>
       </div>
 
-      <div className="row g-4">
+      <div className={`row g-4 ${animate ? "fade-in" : ""}`}>
         {getFilteredProducts().map((product) => (
           <div key={product.id} className="col-lg-3 col-md-4 col-sm-6">
             <div className="card h-100 shadow-lg rounded-3 overflow-hidden position-relative">
@@ -173,12 +200,20 @@ const MainContent = () => {
                 className={`wishlist-icon btn ${wishItems.some((item) => item.id === product.id)
                   ? "btn-danger"
                   : "btn-outline-danger"
-                  } position-absolute top-0 end-0 p-2`}
+                  } position-absolute top-0 end-0 p-3 rounded-circle d-flex justify-content-center align-items-center`}
                 onClick={(e) => {
                   e.preventDefault();
                   handleToggleWishlist(product);
                 }}
                 aria-label="Add to Wishlist"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  fontSize: "1.5rem",
+                  lineHeight: "1.2",
+                  borderRadius: "50%",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+                }}
               >
                 ♥
               </button>
@@ -191,23 +226,13 @@ const MainContent = () => {
                 <img
                   src={product.thumbnail || product.images[0]}
                   alt={product.title}
-                  className="card-img-top"
-                  style={{
-                    height: "180px",
-                    objectFit: "cover",
-                    transition: "transform 0.3s ease",
-                  }}
+                  className="card-img-top img-fluid rounded-top product-image"
                 />
                 <div className="card-body">
-                  <h6
-                    className="card-title text-truncate"
-                    title={product.title}
-                  >
+                  <h6 className="card-title text-truncate" title={product.title}>
                     {product.title}
                   </h6>
-                  <p className="card-text text-success fw-bold">
-                    ${product.price}
-                  </p>
+                  <p className="card-text text-success fw-bold">${product.price}</p>
                 </div>
               </Link>
 
@@ -232,6 +257,8 @@ const MainContent = () => {
                 </Link>
               </div>
             </div>
+
+
           </div>
         ))}
       </div>

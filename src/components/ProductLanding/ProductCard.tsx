@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "../Cart/CartContext";
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft, FaCartPlus, FaMinus, FaPlus } from "react-icons/fa"; // Using react-icons for a better look
+import { FaArrowLeft, FaCartPlus, FaMinus, FaPlus } from "react-icons/fa";
 import "../Styles/Main.css";
+import "../Styles/Responsive.css";
+import "../Styles/Animation.css"; // Importing animation styles
 
 const ProductCard = ({
   product,
@@ -16,62 +18,50 @@ const ProductCard = ({
 
   if (!product || !product.id || !product.title || !product.price) return null;
 
-  // Check if the product is already in the cart
   const cartItem = cartItems.find((item) => item.id === product.id);
 
-  // Initialize quantity to 1 by default if no item in cart, or use cart item's quantity
   const [quantity, setQuantity] = useState<number>(cartItem ? cartItem.quantity : 1);
 
-  // Update quantity only after the first render when the cartItem is found
   useEffect(() => {
     if (cartItem) {
-      setQuantity(cartItem.quantity); // If item exists in cart, set the quantity to the cart value
+      setQuantity(cartItem.quantity);
     }
-  }, [cartItem]); // This effect runs when cartItem is updated
+  }, [cartItem]);
 
-  // Calculate total price
   const totalPrice =
     !isNaN(quantity) && !isNaN(product.price)
       ? product.price * quantity
       : product.price;
 
-  // Handle adding item to cart
   const handleAddToCart = () => {
     if (!cartItem) {
-      // If the item is not in the cart, add it with the selected quantity
       addItemToCart({ ...product, quantity });
     } else {
-      // If the item is already in the cart, update the quantity directly
       updateItemQuantity(cartItem.id, quantity);
     }
 
-    // Navigate to login page if user is not logged in (Optional: Adjust with your auth logic)
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Example check
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     if (!isLoggedIn) {
-      navigate("/login"); // Redirect to login if not logged in
+      navigate("/login");
     }
   };
 
-  // Handle changes in quantity input
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let newQuantity = parseInt(e.target.value) || 1; // Ensure it's at least 1
-    newQuantity = Math.max(1, newQuantity); // Enforce min of 1
-    setQuantity(newQuantity); // Update the local quantity
+    let newQuantity = parseInt(e.target.value) || 1;
+    newQuantity = Math.max(1, newQuantity);
+    setQuantity(newQuantity);
   };
 
-  // Handle increase in quantity
   const handleIncrease = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
-  // Handle decrease in quantity
   const handleDecrease = () => {
-    setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1)); // Enforce min of 1
+    setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
   };
 
-  // Handle back button
   const handleBackClick = () => {
-    navigate("/"); // Navigate to home (root path)
+    navigate("/");
   };
 
   return (
@@ -80,7 +70,7 @@ const ProductCard = ({
       style={{ zIndex: 1000 }}
     >
       <div
-        className="bg-white p-4 rounded-3 shadow-lg product-card"
+        className="bg-white p-4 rounded-3 shadow-lg product-card color-change"
         style={{ maxWidth: "600px", width: "90%" }}
       >
         {/* Back button */}
@@ -144,10 +134,10 @@ const ProductCard = ({
           <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
         </div>
 
-        {/* Add to Cart Button */}
+        {/* Add to Cart Button with hover animation */}
         <div className="d-flex justify-content-center mb-3">
           <button
-            className="btn btn-primary w-100 py-2 shadow-sm"
+            className="btn btn-primary w-100 py-2 shadow-sm button-hover-color-change"
             onClick={handleAddToCart}
           >
             <FaCartPlus className="me-2" />

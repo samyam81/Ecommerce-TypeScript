@@ -1,6 +1,8 @@
 import React from "react";
 import { useCart } from "./CartContext";
 import "../Styles/Main.css";
+import "../Styles/Responsive.css";
+import "../Styles/Animation.css"; // Import the animation styles
 
 // Define types for CartItem
 interface CartItem {
@@ -26,14 +28,14 @@ const CartPage: React.FC = () => {
 
   return (
     <div className="container py-5">
-      <h1 className="text-center mb-4">🛒 Your Shopping Cart</h1>
+      <h1 className="text-center mb-4 fade-in">🛒 Your Shopping Cart</h1>
 
       {/* Cart Empty State */}
       {cartItems.length === 0 ? (
-        <div className="text-center">
+        <div className="text-center fade-in">
           <p className="text-muted fs-4">Your cart is currently empty.</p>
           <button
-            className="btn btn-lg btn-primary mt-3 px-4 py-3 rounded-pill shadow-lg"
+            className="btn btn-lg btn-primary mt-3 px-4 py-3 rounded-pill shadow-lg scale-up"
             onClick={() => (window.location.href = "/")}
           >
             🛍️ Start Shopping
@@ -46,11 +48,11 @@ const CartPage: React.FC = () => {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="list-group-item d-flex align-items-center justify-content-between p-3 shadow-sm rounded mb-3"
+                className="list-group-item d-flex align-items-center justify-content-between p-3 shadow-sm rounded mb-3 slide-in-bottom"
                 style={{
                   backgroundColor: "#f9f9f9",
-                  border: "2px solid #ddd", // Add border here
-                  borderRadius: "8px", // Optional: to maintain rounded corners
+                  border: "2px solid #ddd",
+                  borderRadius: "8px",
                 }}
               >
                 <div className="d-flex flex-grow-1 align-items-center gap-3">
@@ -63,7 +65,7 @@ const CartPage: React.FC = () => {
                 <div className="d-flex align-items-center gap-3">
                   {/* Quantity Controls */}
                   <button
-                    className="btn btn-sm btn-outline-secondary"
+                    className="btn btn-sm btn-outline-secondary scale-up"
                     onClick={() =>
                       updateItemQuantity(
                         item.id,
@@ -86,11 +88,11 @@ const CartPage: React.FC = () => {
                     }}
                     style={{
                       width: "60px",
-                      border: "1px solid #ccc", // Add border for the input
+                      border: "1px solid #ccc",
                     }}
                   />
                   <button
-                    className="btn btn-sm btn-outline-secondary"
+                    className="btn btn-sm btn-outline-secondary scale-up"
                     onClick={() =>
                       updateItemQuantity(item.id, item.quantity + 1)
                     }
@@ -101,7 +103,7 @@ const CartPage: React.FC = () => {
 
                 {/* Remove Item Button */}
                 <button
-                  className="btn btn-sm btn-danger ms-3"
+                  className="btn btn-sm btn-danger ms-3 scale-up"
                   onClick={() => removeItemFromCart(item.id)}
                 >
                   Remove
@@ -112,19 +114,19 @@ const CartPage: React.FC = () => {
 
           {/* Clear Cart Button */}
           <button
-            className="btn btn-danger w-100 mb-3 py-2 shadow-sm"
+            className="btn btn-danger w-100 mb-3 py-2 shadow-sm scale-up"
             onClick={clearCart}
-            style={{ border: "2px solid red" }} // Add border for Clear Cart button
+            style={{ border: "2px solid red" }}
           >
             🗑️ Clear Cart
           </button>
 
           {/* Total Price Section */}
           <div
-            className="text-center bg-primary text-white py-3 rounded shadow-sm"
+            className="text-center bg-primary text-white py-3 rounded shadow-sm scale-up"
             style={{
               opacity: totalPrice === 0 ? 0.7 : 1,
-              border: "2px solid #ccc", // Add border for total price section
+              border: "2px solid #ccc",
             }}
           >
             <h4 className="mb-0">💰 Total: ${totalPrice.toFixed(2)}</h4>
@@ -134,9 +136,9 @@ const CartPage: React.FC = () => {
           {totalPrice > 0 && (
             <div className="text-center mt-4">
               <button
-                className="btn btn-lg btn-warning px-4 py-3 rounded-pill shadow-lg"
+                className="btn btn-lg btn-warning px-4 py-3 rounded-pill shadow-lg scale-up"
                 onClick={() => (window.location.href = "/login")}
-                style={{ border: "2px solid #f8b400" }} // Add border for Buy Now button
+                style={{ border: "2px solid #f8b400" }}
               >
                 🛒 Buy Now
               </button>
@@ -146,9 +148,9 @@ const CartPage: React.FC = () => {
           {/* Shop Now Button */}
           <div className="text-center mt-3">
             <button
-              className="btn btn-lg btn-success px-4 py-3 rounded-pill shadow-lg"
+              className="btn btn-lg btn-success px-4 py-3 rounded-pill shadow-lg scale-up"
               onClick={() => (window.location.href = "/")}
-              style={{ border: "2px solid #28a745" }} // Add border for Shop More button
+              style={{ border: "2px solid #28a745" }}
             >
               🛍️ Shop More
             </button>

@@ -1,0 +1,296 @@
+/* General Animations */
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Fade-out animation */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Slide-in from various directions */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scale-up effect */
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Border glow animation */
+@keyframes borderGlow {
+  0%,
+  100% {
+    border-color: rgba(255, 215, 0, 0.5); /* Light yellow */
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    border-color: rgba(255, 165, 0, 0.8); /* Orange */
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.6);
+  }
+}
+
+/* Color change effect */
+@keyframes colorChange {
+  0% {
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  50% {
+    background-color: #e2e6ea;
+    color: #007bff;
+  }
+  100% {
+    background-color: #f8f9fa;
+    color: #333;
+  }
+}
+
+/* Button hover color change */
+@keyframes buttonColorChange {
+  0% {
+    background-color: #007bff;
+    color: white;
+  }
+  50% {
+    background-color: #28a745;
+    color: white;
+  }
+  100% {
+    background-color: #007bff;
+    color: white;
+  }
+}
+
+/* Pop effect */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Slightly enlarge */
+  }
+  100% {
+    transform: scale(1); /* Back to original size */
+  }
+}
+
+/* Hover pop effect */
+@keyframes hoverPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Hover glow effect */
+@keyframes iconGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+}
+
+/* General Animation Classes */
+
+/* Fade-in */
+.fade-in {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.fade-in-fast {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Slide-in from left */
+.slide-in-left {
+  animation: slideInLeft 1.5s ease-out;
+}
+
+/* Slide-in from bottom */
+.slide-in-bottom {
+  animation: slideIn 1.5s ease-out;
+}
+
+/* Scale-up */
+.scale-up {
+  animation: scaleUp 1s ease-out;
+}
+
+/* Hover Effects */
+
+/* Card hover with border glow */
+.card:hover {
+  animation: borderGlow 1.5s infinite;
+  transform: translateY(-5px); /* Slight upward motion */
+  transition: transform 0.3s ease;
+}
+
+/* Button hover color change */
+.button-hover-color-change:hover {
+  animation: buttonColorChange 1s infinite;
+}
+
+/* Color change animation */
+.color-change {
+  animation: colorChange 3s infinite;
+}
+
+/* Scale effect on hover for product image */
+.product-image:hover {
+  animation: scaleUp 0.5s ease-in-out;
+}
+
+/* Pop effect */
+.pop-effect {
+  animation: pop 0.5s ease-out;
+}
+
+/* Hover pop effect for navbar links */
+.navbar-nav .nav-item:hover {
+  animation: hoverPop 0.5s ease-out;
+}
+
+/* Hover glow effect for cart and wishlist icons */
+.btn-outline-primary:hover,
+.btn-outline-danger:hover {
+  animation: iconGlow 1s ease-in-out infinite;
+}
+
+/* Navbar Brand Pop */
+.navbar-brand {
+  animation: pop 1s ease-out;
+}
+
+/* Navbar Toggler Fade-in */
+.navbar-toggler {
+  animation: fadeIn 1s ease-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Zoom effect for cards */
+.card-zoom {
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.card-zoom:hover {
+  transform: scale(1.05);
+}
+
+/* Animations for buttons */
+@keyframes buttonHover {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-remove,
+.animate-view {
+  transition: transform 0.3s ease;
+}
+
+.animate-remove:hover,
+.animate-view:hover {
+  animation: buttonHover 0.3s forwards;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+/* Shadow effect on hover for buttons */
+.btn:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Glowing effect for ad section */
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 5px #ff0099, 0 0 10px #ff0099, 0 0 15px #ff0099,
+      0 0 20px #ff0099;
+  }
+  50% {
+    box-shadow: 0 0 10px #ff0099, 0 0 20px #ff0099, 0 0 30px #ff0099,
+      0 0 40px #ff0099;
+  }
+  100% {
+    box-shadow: 0 0 5px #ff0099, 0 0 10px #ff0099, 0 0 15px #ff0099,
+      0 0 20px #ff0099;
+  }
+}
+
+/* Apply glowing effect to ad section */
+.ad-section {
+  animation: glowing 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}

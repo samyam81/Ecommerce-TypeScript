@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify"; // Import toastify
+import "react-toastify/dist/ReactToastify.css"; // Import toast styles
 import "../Styles/Main.css";
+import "../Styles/Responsive.css";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -14,16 +17,25 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        setIsAuthenticated(true);
-      }, 2000);
+
+    const { isValid, newErrors } = validateForm();
+
+    // Show each validation error in a separate toast message
+    if (!isValid) {
+      if (newErrors.email) toast.error(newErrors.email); // Show toast for email error
+      if (newErrors.password) toast.error(newErrors.password); // Show toast for password error
+      return;
     }
+
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setIsAuthenticated(true);
+      toast.success("Login successful!"); // Show success toast
+    }, 2000);
   };
 
-  const validateForm = (): boolean => {
+  const validateForm = (): { isValid: boolean; newErrors: { email: string; password: string } } => {
     let isValid = true;
     const newErrors = { email: "", password: "" };
 
@@ -44,7 +56,7 @@ const Login: React.FC = () => {
     }
 
     setErrors(newErrors);
-    return isValid;
+    return { isValid, newErrors };
   };
 
   if (isAuthenticated) {
@@ -84,10 +96,7 @@ const Login: React.FC = () => {
               }}
             />
             {errors.email && (
-              <div
-                className="invalid-feedback"
-                style={{ fontSize: "0.875rem", color: "#e74c3c" }}
-              >
+              <div className="invalid-feedback" style={{ fontSize: "0.875rem", color: "#e74c3c" }}>
                 {errors.email}
               </div>
             )}
@@ -110,21 +119,14 @@ const Login: React.FC = () => {
               }}
             />
             {errors.password && (
-              <div
-                className="invalid-feedback"
-                style={{ fontSize: "0.875rem", color: "#e74c3c" }}
-              >
+              <div className="invalid-feedback" style={{ fontSize: "0.875rem", color: "#e74c3c" }}>
                 {errors.password}
               </div>
             )}
           </div>
 
           <div className="form-check mb-3">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
+            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
             <label className="form-check-label" htmlFor="exampleCheck1" style={{ color: "#495057" }}>
               Remember me
             </label>
@@ -143,11 +145,7 @@ const Login: React.FC = () => {
             }}
           >
             {loading ? (
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
+              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             ) : (
               "Submit"
             )}
@@ -173,11 +171,13 @@ const Login: React.FC = () => {
               >
                 Sign up
               </a>
-
             </p>
           </div>
         </form>
       </div>
+
+      {/* Toast container should be placed at the root level of your app */}
+      <ToastContainer />
     </div>
   );
 };

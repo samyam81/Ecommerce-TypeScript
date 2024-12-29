@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../Cart/CartContext";
 import { useWish } from "../Wish/WishContext";
-import "../Styles/Main.css";
+import "../Styles/Main.css"; // Ensure you import the updated CSS file with animations
+import "../Styles/Responsive.css";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -61,14 +62,14 @@ const ProductDetails = () => {
   const totalPrice = product.price * quantity;
 
   return (
-    <div className="container mt-5 product-details-container">
+    <div className="container mt-5 product-details-container fade-in">
       <div className="card shadow-sm border-0">
         <div className="row g-0">
           <div className="col-md-6">
             <img
               src={product.images[0]}
               alt={product.title}
-              className="img-fluid rounded-start"
+              className="img-fluid rounded-start product-image"
               style={{ maxHeight: "400px", objectFit: "cover" }}
             />
           </div>
@@ -78,10 +79,10 @@ const ProductDetails = () => {
               <p className="card-text">{product.description}</p>
               <p className="text-success fw-bold">Price: ${product.price}</p>
 
-              {/* Quantity selector */}
+              {/* Quantity selector with hover effect */}
               <div className="d-flex align-items-center gap-2 mb-3">
                 <button
-                  className="btn btn-outline-secondary"
+                  className="btn btn-outline-secondary quantity-button"
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   aria-label="Decrease quantity"
                 >
@@ -98,7 +99,7 @@ const ProductDetails = () => {
                   aria-label="Product quantity"
                 />
                 <button
-                  className="btn btn-outline-secondary"
+                  className="btn btn-outline-secondary quantity-button"
                   onClick={() => setQuantity(quantity + 1)}
                   aria-label="Increase quantity"
                 >
@@ -114,15 +115,17 @@ const ProductDetails = () => {
                 <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
               </div>
 
+              {/* Add to Cart Button with hover animation */}
               <button
-                className="btn btn-primary w-100 mb-2"
+                className="btn btn-primary w-100 mb-2 button-hover"
                 onClick={handleAddToCart}
               >
                 Add to Cart
               </button>
 
+              {/* Add to Wishlist Button */}
               <button
-                className="btn btn-outline-warning w-100"
+                className="btn btn-outline-warning w-100 button-hover"
                 onClick={handleAddToWish}
               >
                 Add to Wishlist

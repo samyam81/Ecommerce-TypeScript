@@ -1,17 +1,18 @@
 import { useWish } from "./WishContext";
 import { Link } from "react-router-dom";
 import "../Styles/Main.css";
-
+import "../Styles/Responsive.css";
+import "../Styles/Animation.css"
 const Wishpage = () => {
   const { wishItems, removeItemFromWish } = useWish();
 
   return (
     <div className="container my-5">
-      <h1 className="text-center mb-4">💖 Your Wishlist</h1>
+      <h1 className="text-center mb-4 fade-in">💖 Your Wishlist</h1>
 
       {/* Empty Wishlist State */}
       {wishItems.length === 0 ? (
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 fade-in">
           <p className="text-muted fs-4">Your wishlist is empty!</p>
           <Link
             to="/"
@@ -25,10 +26,12 @@ const Wishpage = () => {
           {wishItems.map((item) => (
             <div key={item.id} className="col d-flex justify-content-center">
               <div
-                className="card shadow-sm border-0"
+                className="card shadow-sm border-0 card-zoom"
                 style={{
                   width: "20rem",
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  opacity: 0,
+                  animation: "fadeIn 0.5s forwards",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "scale(1.05)";
@@ -49,6 +52,7 @@ const Wishpage = () => {
                     objectFit: "cover",
                     borderTopLeftRadius: "8px",
                     borderTopRightRadius: "8px",
+                    transition: "transform 0.3s ease",
                   }}
                 />
                 <div className="card-body text-center">
@@ -64,13 +68,13 @@ const Wishpage = () => {
                   <div className="d-grid gap-2">
                     <button
                       onClick={() => removeItemFromWish(item.id)}
-                      className="btn btn-outline-danger"
+                      className="btn btn-outline-danger shadow-sm animate-remove"
                     >
                       🗑️ Remove
                     </button>
                     <Link
                       to={`/product/${item.id}`}
-                      className="btn btn-outline-primary"
+                      className="btn btn-outline-primary shadow-sm animate-view"
                     >
                       🔍 View Details
                     </Link>

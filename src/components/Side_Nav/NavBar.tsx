@@ -3,6 +3,7 @@ import { useCart } from "../Cart/CartContext";
 import { useWish } from "../Wish/WishContext";
 import { useFilter } from "../Filter/FilterContext";
 import "../Styles/Main.css";
+import "../Styles/Animation.css"; // Import the animation.css
 
 const NavBar = () => {
   const { cartItems } = useCart();
@@ -29,13 +30,13 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-3">
       <div className="container-fluid">
-        <Link to="/" className="navbar-brand text-primary fw-bold">
+        <Link to="/" className="navbar-brand text-primary fw-bold animate__animated animate__fadeIn">
           <i className="bi bi-shop"></i> SamyamREACT
         </Link>
 
         {/* Toggle Button for Mobile */}
         <button
-          className="navbar-toggler"
+          className="navbar-toggler animate__animated animate__fadeIn"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -50,12 +51,12 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link to="/about" className="nav-link">
+              <Link to="/about" className="nav-link animate__animated animate__fadeIn">
                 About
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/contact" className="nav-link">
+              <Link to="/contact" className="nav-link animate__animated animate__fadeIn">
                 Contact
               </Link>
             </li>
@@ -90,7 +91,7 @@ const NavBar = () => {
           <div className="d-flex">
             <Link
               to="/cart"
-              className="btn btn-outline-primary position-relative me-2"
+              className="btn btn-outline-primary position-relative me-2 animate__animated animate__fadeIn"
             >
               <i className="bi bi-cart"></i> Cart
               <span
@@ -107,7 +108,7 @@ const NavBar = () => {
 
             <Link
               to="/wish"
-              className="btn btn-outline-danger position-relative"
+              className="btn btn-outline-danger position-relative animate__animated animate__fadeIn"
             >
               <i className="bi bi-heart"></i> Wish List
               <span
@@ -116,7 +117,7 @@ const NavBar = () => {
                   top: "-5px",
                   right: "-10px",
                   fontSize: "0.75rem",
-                  backgroundColor: "#722f37", 
+                  backgroundColor: "#722f37",
                 }}
               >
                 {wishItems.length}

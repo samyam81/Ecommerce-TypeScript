@@ -1,0 +1,147 @@
+/* Responsive.css */
+
+/* Small Phones (Portrait) */
+/* Width: 320px to 374px, Height: 480px to 667px */
+@media (min-width: 320px) and (max-width: 374px) and (min-height: 480px) and (max-height: 667px) {
+  /* Adjustments for small phones like iPhone 4, iPhone 5 */
+  body {
+    font-size: 0.9rem;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .display-4 {
+    font-size: 1.5rem; /* Reduce heading size */
+  }
+
+  .lead {
+    font-size: 0.85rem; /* Reduce paragraph size */
+  }
+}
+
+/* Medium Phones (Portrait) */
+/* Width: 375px to 424px, Height: 667px to 812px */
+@media (min-width: 375px) and (max-width: 424px) and (min-height: 667px) and (max-height: 812px) {
+  /* Adjustments for medium phones like iPhone 6, 7, 8, Pixel 3a */
+  body {
+    font-size: 1rem;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  .display-4 {
+    font-size: 1.75rem; /* Increase heading size */
+  }
+
+  .lead {
+    font-size: 1rem; /* Standard paragraph size */
+  }
+}
+
+/* Large Phones (Portrait) */
+/* Width: 425px to 599px, Height: 812px to 926px */
+@media (min-width: 425px) and (max-width: 599px) and (min-height: 812px) and (max-height: 926px) {
+  /* Adjustments for large phones like iPhone 11, iPhone 12, Pixel 4, Galaxy S10 */
+  body {
+    font-size: 1.1rem;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  .display-4 {
+    font-size: 2rem; /* Adjust heading size */
+  }
+
+  .lead {
+    font-size: 1.1rem; /* Slightly larger paragraph size */
+  }
+}
+
+/* Phablets (Portrait) */
+/* Width: 600px to 767px, Height: 926px to 1280px */
+@media (min-width: 600px) and (max-width: 767px) and (min-height: 926px) and (max-height: 1280px) {
+  /* Adjustments for phablets like iPhone Plus models, Galaxy Note */
+  body {
+    font-size: 1.2rem;
+  }
+
+  .container {
+    padding: 25px;
+  }
+
+  .display-4 {
+    font-size: 2.5rem; /* Larger heading for phablets */
+  }
+
+  .lead {
+    font-size: 1.2rem; /* Larger paragraph text */
+  }
+}
+
+/* Tablets (Portrait) */
+/* Width: 768px to 1023px, Height: 1024px to 1366px */
+@media (min-width: 768px) and (max-width: 1023px) and (min-height: 1024px) and (max-height: 1366px) {
+  /* Adjustments for tablets like iPad, iPad Mini, Android Tablets */
+  body {
+    font-size: 1.3rem;
+  }
+
+  .container {
+    padding: 30px;
+  }
+
+  .display-4 {
+    font-size: 3rem; /* Larger font size for tablets */
+  }
+
+  .lead {
+    font-size: 1.3rem; /* Slightly larger text */
+  }
+}
+
+/* Large Tablets & Small Desktops (Portrait/Landscape) */
+/* Width: 1024px to 1440px, Height: 1366px to 900px */
+@media (min-width: 1024px) and (max-width: 1440px) and (min-height: 900px) and (max-height: 1366px) {
+  /* Adjustments for iPad Pro, larger Android tablets */
+  body {
+    font-size: 1.4rem;
+  }
+
+  .container {
+    padding: 40px;
+  }
+
+  .display-4 {
+    font-size: 3.5rem; /* Larger heading for larger tablets and desktops */
+  }
+
+  .lead {
+    font-size: 1.4rem; /* Larger paragraph text */
+  }
+}
+
+/* Optional Landscape Adjustments (Optional for wider screen devices) */
+@media (min-width: 768px) and (max-width: 1440px) and (orientation: landscape) {
+  body {
+    font-size: 1.3rem;
+  }
+
+  .container {
+    padding: 30px;
+  }
+
+  .display-4 {
+    font-size: 3rem;
+  }
+
+  .lead {
+    font-size: 1.3rem;
+  }
+}
+
