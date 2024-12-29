@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaCartPlus, FaMinus, FaPlus } from "react-icons/fa";
 import "../Styles/Main.css";
 import "../Styles/Responsive.css";
-import "../Styles/Animation.css"; // Importing animation styles
+import "../Styles/Animation.css"; // Importing Animation styles
 
 const ProductCard = ({
   product,
@@ -134,7 +134,7 @@ const ProductCard = ({
           <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
         </div>
 
-        {/* Add to Cart Button with hover animation */}
+        {/* Add to Cart Button with hover Animation */}
         <div className="d-flex justify-content-center mb-3">
           <button
             className="btn btn-primary w-100 py-2 shadow-sm button-hover-color-change"

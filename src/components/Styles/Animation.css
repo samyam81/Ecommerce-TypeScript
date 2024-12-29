@@ -1,6 +1,6 @@
 /* General Animations */
 
-/* Fade-in animation */
+/* Fade-in Animation */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -12,7 +12,7 @@
   }
 }
 
-/* Fade-out animation */
+/* Fade-out Animation */
 @keyframes fadeOut {
   0% {
     opacity: 1;
@@ -59,7 +59,7 @@
   }
 }
 
-/* Border glow animation */
+/* Border glow Animation */
 @keyframes borderGlow {
   0%,
   100% {
@@ -183,7 +183,7 @@
   animation: buttonColorChange 1s infinite;
 }
 
-/* Color change animation */
+/* Color change Animation */
 .color-change {
   animation: colorChange 3s infinite;
 }
@@ -219,7 +219,7 @@
   animation: fadeIn 1s ease-out;
 }
 
-/* Fade-in animation */
+/* Fade-in Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;

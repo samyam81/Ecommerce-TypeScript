@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../Cart/CartContext";
 import { useWish } from "../Wish/WishContext";
-import "../Styles/Main.css"; // Ensure you import the updated CSS file with animations
+import "../Styles/Main.css"; // Ensure you import the updated CSS file with Animations
 import "../Styles/Responsive.css";
 
 const ProductDetails = () => {
@@ -115,7 +115,7 @@ const ProductDetails = () => {
                 <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
               </div>
 
-              {/* Add to Cart Button with hover animation */}
+              {/* Add to Cart Button with hover Animation */}
               <button
                 className="btn btn-primary w-100 mb-2 button-hover"
                 onClick={handleAddToCart}

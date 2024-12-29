@@ -2,7 +2,7 @@ import React from "react";
 import { useCart } from "./CartContext";
 import "../Styles/Main.css";
 import "../Styles/Responsive.css";
-import "../Styles/Animation.css"; // Import the animation styles
+import "../Styles/Animation.css"; // Import the Animation styles
 
 // Define types for CartItem
 interface CartItem {

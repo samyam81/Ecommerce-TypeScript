@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import ProductCard from "../ProductLanding/ProductCard";
 import "../Styles/Main.css";
 import "../Styles/Responsive.css";
-import "../Styles/animation.css"; // Import animation styles
+import "../Styles/Animation.css"; // Import Animation styles
 
 const MainContent = () => {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
@@ -20,7 +20,7 @@ const MainContent = () => {
   const [dropdown, setDropdown] = useState(false);
   const [currentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const [animate, setAnimate] = useState(true); // New state for animation
+  const [animate, setAnimate] = useState(true); // New state for Animation
   const itemsPerPage = 12;
 
   useEffect(() => {

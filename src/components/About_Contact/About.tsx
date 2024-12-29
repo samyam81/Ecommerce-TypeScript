@@ -1,5 +1,5 @@
 import "../Styles/Responsive.css";
-import "../Styles/Animation.css"; // Import the animation styles
+import "../Styles/Animation.css"; // Import the Animation styles
 
 const About = () => {
   return (

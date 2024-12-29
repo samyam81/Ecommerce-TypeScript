@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Styles/Main.css";
 import "../Styles/Responsive.css";
-import "../Styles/Animation.css"; // Import the animation styles
+import "../Styles/Animation.css"; // Import the Animation styles
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({

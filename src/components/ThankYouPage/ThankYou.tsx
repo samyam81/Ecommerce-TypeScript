@@ -3,7 +3,7 @@ import { useCart } from "../Cart/CartContext";
 import { Link } from "react-router-dom";
 import "../Styles/Main.css";
 import "../Styles/Responsive.css";
-import "../Styles/Animation.css"; // Import animation.css
+import "../Styles/Animation.css"; // Import Animation.css
 
 const ThankYou: React.FC = () => {
   const { clearCart } = useCart();
@@ -14,7 +14,7 @@ const ThankYou: React.FC = () => {
 
   return (
     <div className="container text-center py-5">
-      {/* Apply the fade-in animation class */}
+      {/* Apply the fade-in Animation class */}
       <h1 className="display-4 text-success mb-4 fade-in pop-effect">
         Thank You for Your Purchase!
       </h1>

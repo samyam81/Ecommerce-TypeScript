@@ -3,7 +3,7 @@ import { useCart } from "../Cart/CartContext";
 import { useWish } from "../Wish/WishContext";
 import { useFilter } from "../Filter/FilterContext";
 import "../Styles/Main.css";
-import "../Styles/Animation.css"; // Import the animation.css
+import "../Styles/Animation.css"; // Import the Animation.css
 
 const NavBar = () => {
   const { cartItems } = useCart();
