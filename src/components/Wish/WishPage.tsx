@@ -31,7 +31,7 @@ const Wishpage = () => {
                   width: "20rem",
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   opacity: 0,
-                  Animation: "fadeIn 0.5s forwards",
+                  animation: "fadeIn 0.5s forwards",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "scale(1.05)";
