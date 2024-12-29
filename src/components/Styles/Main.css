@@ -25,7 +25,6 @@ body {
     border-color var(--transition-speed) ease;
   border: 1px solid var(--border-color);
   border-radius: var(--card-radius);
-  overflow: hidden;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -66,7 +65,6 @@ body {
   border-color: var(--primary-hover);
 }
 
-/* Footer Button Styling */
 .card-hover-effect .btn-outline-secondary {
   color: var(--secondary-color);
   border-color: var(--secondary-color);
@@ -99,7 +97,7 @@ body {
   font-size: 14px;
 }
 
-/* Responsive Design for Cards */
+/* Responsive Design */
 @media (max-width: 768px) {
   .card-hover-effect {
     margin-bottom: 20px;
@@ -112,20 +110,187 @@ body {
   .card-hover-effect .btn {
     padding: 8px 16px;
   }
+
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .display-4 {
+    font-size: 2rem;
+  }
+
+  .display-5 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  .card {
+    font-size: 0.8rem;
+    max-width: 90%;
+  }
+
+  .card-img-top {
+    height: 120px;
+  }
+
+  .card-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dropdown-toggle {
+    width: 100%;
+    text-align: left;
+  }
+
+  /* Ensure cards are stacked for smaller screens */
+  .card-hover-effect {
+    display: block;
+    width: 100%;
+  }
 }
 
-.wishlist-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 10;
-  border: none;
-  font-size: 18px;
-  padding: 5px;
-  cursor: pointer;
+/* For small screens (less than 576px) */
+@media (max-width: 576px) {
+  .container,
+  .product-card-container {
+    padding: 0 15px;
+  }
+
+  .card {
+    padding: 1rem;
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .card-body h5,
+  .card-body h2,
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  .card-body .text-success,
+  .card-body .text-warning,
+  .card-body .bg-danger {
+    font-size: 0.9rem;
+  }
+
+  .form-label,
+  .form-control,
+  .btn {
+    font-size: 1rem;
+  }
+
+  .d-flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .w-48 {
+    width: 100%;
+  }
+
+  .product-card img {
+    height: 250px;
+    object-fit: contain;
+  }
+
+  .form-control {
+    width: 50px;
+  }
+
+  /* Improve button sizing for small screens */
+  .btn {
+    width: 100%;
+    padding: 12px;
+  }
 }
 
-.wishlist-icon:hover {
-  transform: scale(1.1);
-  transition: transform 0.2s;
+/* For medium screens (576px to 768px) */
+@media (min-width: 576px) and (max-width: 768px) {
+  .card {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .card-body h5,
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .form-label,
+  .form-control {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+
+  .d-flex {
+    gap: 15px;
+  }
+
+  .text-success,
+  .text-warning {
+    font-size: 1.2rem;
+  }
+
+  .bg-danger {
+    font-size: 1.2rem;
+  }
+}
+
+/* For very small screens (less than 414px, such as iPhone XR) */
+@media (max-width: 414px) {
+  .container,
+  .product-card-container {
+    padding: 0 10px;
+  }
+
+  .card {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .card-body h5,
+  .card-body h2,
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  .card-body .text-success,
+  .card-body .text-warning,
+  .card-body .bg-danger {
+    font-size: 0.85rem;
+  }
+
+  .form-label,
+  .form-control,
+  .btn {
+    font-size: 0.9rem;
+  }
+
+  .d-flex {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .product-card img {
+    height: 220px;
+    object-fit: contain;
+  }
+
+  .form-control {
+    width: 50px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+  }
 }

@@ -36,7 +36,7 @@ const App = () => {
               }}
             >
               {/* Sidebar */}
-              <Sidebar/>
+              <Sidebar />
 
               {/* Main Content */}
               <div

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFilter } from "../Filter/FilterContext";
 import { Link } from "react-router-dom";
+import "../Styles/Main.css";
 
 const Sidebar = () => {
   const {

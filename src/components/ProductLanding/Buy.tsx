@@ -4,6 +4,7 @@ import { useCart } from "../Cart/CartContext";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify"; // Toast components
 import "react-toastify/dist/ReactToastify.css"; // Toast CSS
+import "../Styles/Main.css";
 
 const Buy: React.FC = () => {
   const { cartItems } = useCart();

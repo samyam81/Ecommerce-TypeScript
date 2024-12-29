@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useCart } from "../Cart/CartContext";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaCartPlus, FaMinus, FaPlus } from "react-icons/fa"; // Using react-icons for a better look
+import "../Styles/Main.css";
 
 const ProductCard = ({
   product,
@@ -19,9 +20,7 @@ const ProductCard = ({
   const cartItem = cartItems.find((item) => item.id === product.id);
 
   // Initialize quantity to 1 by default if no item in cart, or use cart item's quantity
-  const [quantity, setQuantity] = useState<number>(
-    cartItem ? cartItem.quantity : 1
-  );
+  const [quantity, setQuantity] = useState<number>(cartItem ? cartItem.quantity : 1);
 
   // Update quantity only after the first render when the cartItem is found
   useEffect(() => {
@@ -77,11 +76,11 @@ const ProductCard = ({
 
   return (
     <div
-      className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
+      className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center product-card-container"
       style={{ zIndex: 1000 }}
     >
       <div
-        className="bg-white p-4 rounded-3 shadow-lg"
+        className="bg-white p-4 rounded-3 shadow-lg product-card"
         style={{ maxWidth: "600px", width: "90%" }}
       >
         {/* Back button */}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
+import "../Styles/Main.css";
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "../Cart/CartContext";
 import { useWish } from "../Wish/WishContext";
 import { useFilter } from "../Filter/FilterContext";
+import "../Styles/Main.css";
 
 const NavBar = () => {
   const { cartItems } = useCart();

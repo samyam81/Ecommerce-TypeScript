@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useCart } from "../Cart/CartContext";
 import { Link } from "react-router-dom";
+import "../Styles/Main.css";
 
 const ThankYou: React.FC = () => {
   const { clearCart } = useCart();
@@ -28,7 +29,7 @@ const ThankYou: React.FC = () => {
           className="btn btn-lg btn-success mt-3 px-4 py-3 rounded-pill shadow-lg hover-shadow"
           onClick={() => (window.location.href = "/")}
         >
-          Continue Shopping 
+          Continue Shopping
         </button>
         <Link to="/contact">
           <button className="btn btn-lg btn-outline-success mt-3 px-4 py-3 rounded-pill shadow-lg hover-shadow">

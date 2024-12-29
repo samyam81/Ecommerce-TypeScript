@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart } from "./CartContext";
+import "../Styles/Main.css";
 
 // Define types for CartItem
 interface CartItem {

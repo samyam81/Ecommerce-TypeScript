@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../Cart/CartContext";
 import { useWish } from "../Wish/WishContext";
+import "../Styles/Main.css";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -60,7 +61,7 @@ const ProductDetails = () => {
   const totalPrice = product.price * quantity;
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 product-details-container">
       <div className="card shadow-sm border-0">
         <div className="row g-0">
           <div className="col-md-6">

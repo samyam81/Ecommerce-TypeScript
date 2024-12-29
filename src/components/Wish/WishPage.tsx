@@ -1,5 +1,6 @@
 import { useWish } from "./WishContext";
 import { Link } from "react-router-dom";
+import "../Styles/Main.css";
 
 const Wishpage = () => {
   const { wishItems, removeItemFromWish } = useWish();

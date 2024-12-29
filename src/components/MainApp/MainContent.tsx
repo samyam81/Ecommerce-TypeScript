@@ -167,19 +167,23 @@ const MainContent = () => {
       <div className="row g-4">
         {getFilteredProducts().map((product) => (
           <div key={product.id} className="col-lg-3 col-md-4 col-sm-6">
-            <div className="card h-100 shadow-lg card-hover-effect position-relative">
+            <div className="card h-100 shadow-lg rounded-3 overflow-hidden position-relative">
+              {/* Wishlist Button */}
               <button
                 className={`wishlist-icon btn ${wishItems.some((item) => item.id === product.id)
                   ? "btn-danger"
                   : "btn-outline-danger"
-                  }`}
+                  } position-absolute top-0 end-0 p-2`}
                 onClick={(e) => {
                   e.preventDefault();
                   handleToggleWishlist(product);
                 }}
+                aria-label="Add to Wishlist"
               >
                 ♥
               </button>
+
+              {/* Product Link */}
               <Link
                 to={`/product/${product.id}`}
                 className="text-decoration-none text-dark"
@@ -188,7 +192,11 @@ const MainContent = () => {
                   src={product.thumbnail || product.images[0]}
                   alt={product.title}
                   className="card-img-top"
-                  style={{ height: "180px", objectFit: "cover" }}
+                  style={{
+                    height: "180px",
+                    objectFit: "cover",
+                    transition: "transform 0.3s ease",
+                  }}
                 />
                 <div className="card-body">
                   <h6
@@ -202,19 +210,23 @@ const MainContent = () => {
                   </p>
                 </div>
               </Link>
-              <div className="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+
+              {/* Footer with Add to Cart and Details Button */}
+              <div className="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center">
                 <button
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-primary btn-sm shadow-sm"
                   onClick={(e) => {
                     e.preventDefault();
                     handleAddToCart(product);
                   }}
+                  aria-label="Add to Cart"
                 >
                   Add to Cart
                 </button>
                 <Link
                   to={`/product/${product.id}`}
-                  className="btn btn-outline-secondary btn-sm"
+                  className="btn btn-outline-secondary btn-sm shadow-sm"
+                  aria-label="View Product Details"
                 >
                   Details
                 </Link>
