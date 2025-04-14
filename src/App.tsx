@@ -14,6 +14,9 @@ import ThankYou from "./components/ThankYouPage/ThankYou";
 import Login from "./components/Login/Login";
 import { ToastContainer } from "react-toastify"; // Import ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import toast styles
+import Checkout from "./components/Esewa/Checkout";
+import PaymentSuccess from "./components/Esewa/PaymentSuccess";
+import PaymentFailure from "./components/Esewa/PaymentFailure";
 
 const App = () => {
   return (
@@ -58,6 +61,9 @@ const App = () => {
                   <Route path="/buy" element={<Buy />} />
                   <Route path="/thankyou" element={<ThankYou />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/checkout" element={< Checkout />} />
+                  <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+                  <Route path="/paymentfailure" element={<PaymentFailure />} />
                 </Routes>
               </div>
             </div>

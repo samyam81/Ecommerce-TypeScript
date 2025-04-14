@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify"; // Import toastify
-import "react-toastify/dist/ReactToastify.css"; // Import toast styles
-import "../Styles/Main.css";
-import "../Styles/Responsive.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -14,16 +12,16 @@ const Login: React.FC = () => {
   });
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const { isValid, newErrors } = validateForm();
 
-    // Show each validation error in a separate toast message
     if (!isValid) {
-      if (newErrors.email) toast.error(newErrors.email); // Show toast for email error
-      if (newErrors.password) toast.error(newErrors.password); // Show toast for password error
+      if (newErrors.email) toast.error(newErrors.email);
+      if (newErrors.password) toast.error(newErrors.password);
       return;
     }
 
@@ -31,7 +29,7 @@ const Login: React.FC = () => {
     setTimeout(() => {
       setLoading(false);
       setIsAuthenticated(true);
-      toast.success("Login successful!"); // Show success toast
+      toast.success("Login successful!");
     }, 2000);
   };
 
@@ -64,24 +62,13 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div
-        className="card p-4 shadow-lg"
-        style={{
-          maxWidth: "400px",
-          width: "100%",
-          borderRadius: "10px",
-          backgroundColor: "#f9f9f9",
-        }}
-      >
-        <h3 className="text-center mb-4" style={{ color: "#343a40" }}>
-          Login
-        </h3>
+    <div className="container main-content d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+      <div className="card shadow-royal p-4" style={{ maxWidth: "400px", width: "100%" }}>
+        <h3 className="text-center mb-4">Login</h3>
         <form onSubmit={handleSubmit}>
-          <div className="form-group mb-3">
-            <label htmlFor="InputEmail" className="form-label" style={{ color: "#495057" }}>
-              Email address
-            </label>
+          {/* Email Field */}
+          <div className="mb-3">
+            <label htmlFor="InputEmail" className="form-label">Email address</label>
             <input
               type="email"
               className={`form-control ${errors.email ? "is-invalid" : ""}`}
@@ -89,23 +76,13 @@ const Login: React.FC = () => {
               placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              aria-describedby="emailHelp"
-              style={{
-                borderColor: errors.email ? "#e74c3c" : "#ced4da",
-                backgroundColor: "#fff",
-              }}
             />
-            {errors.email && (
-              <div className="invalid-feedback" style={{ fontSize: "0.875rem", color: "#e74c3c" }}>
-                {errors.email}
-              </div>
-            )}
+            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
           </div>
 
-          <div className="form-group mb-3">
-            <label htmlFor="InputPassword" className="form-label" style={{ color: "#495057" }}>
-              Password
-            </label>
+          {/* Password Field */}
+          <div className="mb-3">
+            <label htmlFor="InputPassword" className="form-label">Password</label>
             <input
               type="password"
               className={`form-control ${errors.password ? "is-invalid" : ""}`}
@@ -113,71 +90,51 @@ const Login: React.FC = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={{
-                borderColor: errors.password ? "#e74c3c" : "#ced4da",
-                backgroundColor: "#fff",
-              }}
             />
-            {errors.password && (
-              <div className="invalid-feedback" style={{ fontSize: "0.875rem", color: "#e74c3c" }}>
-                {errors.password}
-              </div>
-            )}
+            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
           </div>
 
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-            <label className="form-check-label" htmlFor="exampleCheck1" style={{ color: "#495057" }}>
-              Remember me
-            </label>
+          {/* Remember Me Checkbox */}
+          <div className="mb-3 form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="rememberMe"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
+            <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
           </div>
 
-          <button
-            type="submit"
-            className={`btn btn-primary w-100 py-2 ${loading ? "disabled" : ""}`}
-            disabled={loading}
-            style={{
-              backgroundColor: "#007bff",
-              borderColor: "#007bff",
-              padding: "10px 20px",
-              fontWeight: "bold",
-              transition: "background-color 0.3s ease",
-            }}
-          >
-            {loading ? (
-              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            ) : (
-              "Submit"
-            )}
-          </button>
+          {/* Submit Button */}
+          <div className="d-grid gap-2">
+            <button
+              type="submit"
+              className={`btn btn-primary ${loading ? "disabled" : ""}`}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Loading...
+                </>
+              ) : (
+                "Submit"
+              )}
+            </button>
+          </div>
 
+          {/* Signup Link */}
           <div className="text-center mt-3">
-            <p>
+            <p className="text-muted">
               Don't have an account?{" "}
-              <a
-                href="#"
-                style={{
-                  color: "#007bff",
-                  textDecoration: "none",
-                  fontWeight: "bold",
-                  transition: "color 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  (e.target as HTMLAnchorElement).style.color = "#0056b3";
-                }}
-                onMouseLeave={(e) => {
-                  (e.target as HTMLAnchorElement).style.color = "#007bff";
-                }}
-              >
-                Sign up
-              </a>
+              <a href="#" className="text-royal">Sign up</a>
             </p>
           </div>
         </form>
       </div>
 
-      {/* Toast container should be placed at the root level of your app */}
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={5000} />
     </div>
   );
 };

@@ -5,34 +5,20 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify"; // Toast components
 import "react-toastify/dist/ReactToastify.css"; // Toast CSS
 import "../Styles/Main.css";
-import "../Styles/Responsive.css"
+import "../Styles/Responsive.css";
 
 const Buy: React.FC = () => {
   const { cartItems } = useCart();
-  const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    phone: "",
-  });
-  const [errors, setErrors] = useState({
-    name: false,
-    address: false,
-    phone: false,
-  });
+  const [formData, setFormData] = useState({ name: "", address: "", phone: "" });
+  const [errors, setErrors] = useState({ name: false, address: false, phone: false });
 
   const totalPrice = calculateTotalPrice(cartItems);
   const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    setErrors({
-      ...errors,
-      [name]: false,
-    });
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: false });
   };
 
   const validateForm = () => {
@@ -43,119 +29,92 @@ const Buy: React.FC = () => {
     };
     setErrors(newErrors);
     if (Object.values(newErrors).includes(true)) {
-      toast.error("Please fill in all the fields.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      toast.error("Please fill in all the fields.", { position: "top-right", autoClose: 3000 });
       return false;
     }
     return true;
   };
 
   const handlePaymentMethod = (method: string) => {
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
-    toast.success(`You are paying through ${method}.`, {
-      position: "top-right",
-      autoClose: 3000,
-    });
+    toast.success(`You are paying through ${method}.`, { position: "top-right", autoClose: 3000 });
 
-    setTimeout(() => {
-      navigate("/thankyou");
-    }, 3000); // Navigate after the toast disappears
+    setTimeout(() => navigate("/thankyou"), 3000);
   };
 
   return (
-    <div className="container py-5">
-      <ToastContainer /> {/* Toast container for displaying notifications */}
-      <div className="card shadow-lg mx-auto" style={{ maxWidth: "600px" }}>
-        <div className="card-body">
-          <h1 className="text-center mb-4 text-primary">Checkout</h1>
-          <p className="text-center text-danger fw-bold">
-            Total Price: ${totalPrice.toFixed(2)}
-          </p>
-          <form>
-            {/* Name Field */}
-            <div className="mb-4">
-              <label htmlFor="name" className="form-label fs-5">
-                Name:
-              </label>
+    <div className="section fade-in">
+      <ToastContainer />
+      <div className="box" style={{ maxWidth: "600px", margin: "0 auto" }}>
+        <h1 className="title is-4 text-royal">Checkout</h1>
+        <p className="has-text-danger has-text-weight-bold">Total Price: ${totalPrice.toFixed(2)}</p>
+        <form>
+          {/* Name Field */}
+          <div className="field">
+            <label htmlFor="name" className="label">Name:</label>
+            <div className="control">
               <input
                 type="text"
                 id="name"
                 name="name"
-                className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                className={`input ${errors.name ? "is-danger" : ""}`}
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Enter your name"
               />
-              {errors.name && (
-                <div className="invalid-feedback">Name is required.</div>
-              )}
             </div>
+            {errors.name && <p className="help is-danger">Name is required.</p>}
+          </div>
 
-            {/* Address Field */}
-            <div className="mb-4">
-              <label htmlFor="address" className="form-label fs-5">
-                Address:
-              </label>
+          {/* Address Field */}
+          <div className="field">
+            <label htmlFor="address" className="label">Address:</label>
+            <div className="control">
               <input
                 type="text"
                 id="address"
                 name="address"
-                className={`form-control ${errors.address ? "is-invalid" : ""}`}
+                className={`input ${errors.address ? "is-danger" : ""}`}
                 value={formData.address}
                 onChange={handleInputChange}
                 placeholder="Enter your address"
               />
-              {errors.address && (
-                <div className="invalid-feedback">Address is required.</div>
-              )}
             </div>
+            {errors.address && <p className="help is-danger">Address is required.</p>}
+          </div>
 
-            {/* Phone Number Field */}
-            <div className="mb-4">
-              <label htmlFor="phone" className="form-label fs-5">
-                Phone Number:
-              </label>
+          {/* Phone Number Field */}
+          <div className="field">
+            <label htmlFor="phone" className="label">Phone Number:</label>
+            <div className="control">
               <input
                 type="text"
                 id="phone"
                 name="phone"
-                className={`form-control ${errors.phone ? "is-invalid" : ""}`}
+                className={`input ${errors.phone ? "is-danger" : ""}`}
                 value={formData.phone}
                 onChange={handleInputChange}
                 placeholder="Enter your phone number"
               />
-              {errors.phone && (
-                <div className="invalid-feedback">Phone number is required.</div>
-              )}
             </div>
+            {errors.phone && <p className="help is-danger">Phone number is required.</p>}
+          </div>
 
-            {/* Payment Buttons */}
-            <div className="d-flex justify-content-between">
-              <button
-                type="button"
-                className="btn btn-primary w-48"
-                onClick={() => handlePaymentMethod("E-sewa")}
-              >
-                E-sewa
-              </button>
-              <button
-                type="button"
-                className="btn btn-outline-secondary w-48"
-                onClick={() => handlePaymentMethod("Cash on Delivery")}
-              >
-                Cash on Delivery
-              </button>
-            </div>
-          </form>
-        </div>
+          {/* Payment Buttons */}
+          <div className="field is-grouped is-grouped-centered">
+            <button type="button" className="btn btn-primary" onClick={() => handlePaymentMethod("E-sewa")}>
+              E-sewa
+            </button>
+            <button type="button" className="btn btn-outline-primary" onClick={() => handlePaymentMethod("Cash on Delivery")}>
+              Cash on Delivery
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
 };
+
 
 export default Buy;

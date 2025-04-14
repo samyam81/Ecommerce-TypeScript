@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../Cart/CartContext";
 import { useWish } from "../Wish/WishContext";
-import "../Styles/Main.css"; // Ensure you import the updated CSS file with Animations
+import "../Styles/Main.css";
 import "../Styles/Responsive.css";
 
 const ProductDetails = () => {
@@ -34,7 +34,7 @@ const ProductDetails = () => {
 
   if (!product)
     return (
-      <div className="text-center mt-5">
+      <div className="has-text-centered mt-5">
         <p>Loading product details...</p>
       </div>
     );
@@ -62,79 +62,84 @@ const ProductDetails = () => {
   const totalPrice = product.price * quantity;
 
   return (
-    <div className="container mt-5 product-details-container fade-in">
-      <div className="card shadow-sm border-0">
-        <div className="row g-0">
-          <div className="col-md-6">
-            <img
-              src={product.images[0]}
-              alt={product.title}
-              className="img-fluid rounded-start product-image"
-              style={{ maxHeight: "400px", objectFit: "cover" }}
-            />
-          </div>
-          <div className="col-md-6">
-            <div className="card-body">
-              <h5 className="card-title">{product.title}</h5>
-              <p className="card-text">{product.description}</p>
-              <p className="text-success fw-bold">Price: ${product.price}</p>
-
-              {/* Quantity selector with hover effect */}
-              <div className="d-flex align-items-center gap-2 mb-3">
-                <button
-                  className="btn btn-outline-secondary quantity-button"
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  aria-label="Decrease quantity"
-                >
-                  <i className="bi bi-dash"></i>
-                </button>
-                <input
-                  type="number"
-                  id="quantity"
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                  min="1"
-                  className="form-control text-center"
-                  style={{ width: "70px" }}
-                  aria-label="Product quantity"
+    <section className="section">
+      <div className="container product-details-container fade-in">
+        <div className="box">
+          <div className="columns is-variable is-5">
+            {/* Product Image */}
+            <div className="column is-half">
+              <figure className="image is-4by3">
+                <img
+                  src={product.images[0]}
+                  alt={product.title}
+                  className="is-rounded"
+                  style={{ objectFit: "cover", maxHeight: "400px" }}
                 />
-                <button
-                  className="btn btn-outline-secondary quantity-button"
-                  onClick={() => setQuantity(quantity + 1)}
-                  aria-label="Increase quantity"
-                >
-                  <i className="bi bi-plus"></i>
+              </figure>
+            </div>
+
+            {/* Product Details */}
+            <div className="column is-half">
+              <h1 className="title is-4">{product.title}</h1>
+              <p className="has-text-grey">{product.description}</p>
+              <p className="has-text-success has-text-weight-bold">
+                Price: ${product.price.toFixed(2)}
+              </p>
+
+              {/* Quantity Selector */}
+              <div className="field has-addons is-justify-content-center mb-3">
+                <p className="control">
+                  <button
+                    className="button is-light"
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  >
+                    -
+                  </button>
+                </p>
+                <p className="control">
+                  <input
+                    type="number"
+                    className="input has-text-centered"
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                    min="1"
+                    style={{ maxWidth: "70px" }}
+                  />
+                </p>
+                <p className="control">
+                  <button
+                    className="button is-light"
+                    onClick={() => setQuantity(quantity + 1)}
+                  >
+                    +
+                  </button>
+                </p>
+              </div>
+
+              {/* Total Price */}
+              <div className="notification is-danger has-text-centered">
+                <p className="is-size-5">Total: ${totalPrice.toFixed(2)}</p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="buttons">
+                <Link to="/" className="button is-secondary">
+                  Back
+                </Link>
+
+                <button className="button is-primary is-fullwidth" onClick={handleAddToCart}>
+                  Add to Cart
+                </button>
+
+                <button className="button is-warning is-fullwidth" onClick={handleAddToWish}>
+                  Add to Wishlist
                 </button>
               </div>
-
-              <Link to="/" className="btn btn-secondary mb-3">
-                <i className="bi bi-arrow-left-circle"></i> Back
-              </Link>
-
-              <div className="bg-danger text-white text-center py-2 rounded my-3">
-                <p className="mb-0 fs-5">Total: ${totalPrice.toFixed(2)}</p>
-              </div>
-
-              {/* Add to Cart Button with hover Animation */}
-              <button
-                className="btn btn-primary w-100 mb-2 button-hover"
-                onClick={handleAddToCart}
-              >
-                Add to Cart
-              </button>
-
-              {/* Add to Wishlist Button */}
-              <button
-                className="btn btn-outline-warning w-100 button-hover"
-                onClick={handleAddToWish}
-              >
-                Add to Wishlist
-              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

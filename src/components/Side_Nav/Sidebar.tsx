@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFilter } from "../Filter/FilterContext";
 import { Link } from "react-router-dom";
-import "../Styles/Main.css";
 
 const Sidebar = () => {
   const {
@@ -71,129 +70,106 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar bg-white p-4 rounded shadow">
-      <h1
-        className="text-center text-gradient fw-bold py-3"
-        style={{
-          background: "linear-gradient(to right, #007bff, #28a745)",
-          WebkitBackgroundClip: "text",
-          color: "transparent",
-          fontSize: "1.8rem",
-        }}
-      >
-       Samyam React
-      </h1>
+    <div className="card shadow-royal border-0 fade-in">
+      <div className="card-body p-4">
+        {/* Logo/Brand */}
+        <h1 className="text-center mb-4">
+          <span className="text-royal fw-bold">Royal</span>
+          <span className="text-royal-blue fw-bold">Shop</span>
+        </h1>
 
-      {/* Keywords Section */}
-      <section className="mb-5">
-        <h3 className="h5 text-dark mb-3">Keywords</h3>
-        <div className="d-flex flex-wrap gap-2">
-          {keywords.map((keyword, index) => (
-            <span
-              key={index}
-              className="badge bg-light text-dark border shadow-sm cursor-pointer px-3 py-2 rounded-pill"
-              onClick={() => handleKeywordClick(keyword)}
-              style={{
-                transition: "transform 0.2s, background-color 0.3s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.1)";
-                e.currentTarget.style.backgroundColor = "#f8f9fa";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "scale(1)";
-                e.currentTarget.style.backgroundColor = "white";
-              }}
-            >
-              {keyword.toUpperCase()}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* Special Offer Section */}
-      {randomProduct && (
-        <section className="mb-5">
-          <h3 className="h5 text-dark mb-3">Special Offer</h3>
-          <div
-            className="card shadow-lg border-0"
-            style={{
-              maxWidth: "250px",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow =
-                "0 4px 15px rgba(0, 0, 0, 0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            <img
-              src={randomProduct.thumbnail || randomProduct.image}
-              alt={randomProduct.title}
-              className="card-img-top"
-              style={{
-                objectFit: "cover",
-                height: "150px",
-                borderRadius: "5px 5px 0 0",
-              }}
-            />
-            <div className="card-body p-3">
-              <h5 className="card-title text-dark">{randomProduct.title}</h5>
-              <p className="card-text text-muted">
-                Price: <strong>${randomProduct.price}</strong>
-              </p>
-              <Link
-                to={`/product/${randomProduct.id}`}
-                className="btn btn-primary btn-sm w-100"
-                style={{
-                  fontWeight: "bold",
-                  letterSpacing: "1px",
-                  transition: "background-color 0.3s",
-                }}
+        {/* Keywords Section */}
+        <section className="mb-4">
+          <h3 className="h5 text-royal-purple-dark mb-3">Popular Keywords</h3>
+          <div className="d-flex flex-wrap gap-2">
+            {keywords.map((keyword, index) => (
+              <span
+                key={index}
+                className="badge badge-outline-primary hover-scale cursor-pointer"
+                onClick={() => handleKeywordClick(keyword)}
               >
-                View Product
-              </Link>
-            </div>
+                {keyword.toUpperCase()}
+              </span>
+            ))}
           </div>
         </section>
-      )}
 
-      {/* Reset Filters */}
-      <button
-        className="btn btn-danger w-100 mt-4 py-2 shadow"
-        onClick={handleResetFilters}
-        style={{
-          fontWeight: "bold",
-          letterSpacing: "1px",
-          borderRadius: "8px",
-          transition: "transform 0.3s ease, background-color 0.3s ease",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "scale(1.05)";
-          e.currentTarget.style.backgroundColor = "#e02b2b";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "scale(1)";
-          e.currentTarget.style.backgroundColor = "#dc3545";
-        }}
-      >
-        Reset Filters
-      </button>
+        {/* Special Offer Section */}
+        {randomProduct && (
+          <section className="mb-4">
+            <h3 className="h5 text-royal-purple-dark mb-3">Special Offer</h3>
+            <div className="card shadow-sm hover-shadow product-card">
+              <div className="position-relative">
+                <img
+                  src={randomProduct.thumbnail || randomProduct.image}
+                  alt={randomProduct.title}
+                  className="card-img-top"
+                  style={{
+                    objectFit: "cover",
+                    height: "150px",
+                  }}
+                />
+                <span className="badge badge-wine position-absolute top-0 end-0 m-2">
+                  SPECIAL
+                </span>
+              </div>
+              <div className="card-body p-3">
+                <h5 className="card-title">{randomProduct.title}</h5>
+                <p className="product-price mb-2">
+                  ${randomProduct.price}
+                  {randomProduct.discountPercentage && (
+                    <small className="text-muted ms-2">
+                      <del>
+                        $
+                        {Math.round(
+                          randomProduct.price *
+                          (1 + randomProduct.discountPercentage / 100)
+                        )}
+                      </del>
+                    </small>
+                  )}
+                </p>
+                <Link
+                  to={`/product/${randomProduct.id}`}
+                  className="btn btn-primary w-100"
+                >
+                  View Product
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
 
-      {/* Follow Us Section */}
-      <div className="mt-5 text-center">
-        <h5 className="mb-3 text-success">Follow Us On</h5>
-        <div className="d-flex justify-content-center gap-3">
-          <i className="bi bi-youtube text-danger fs-3"></i>
-          <i className="bi bi-facebook text-primary fs-3"></i>
-          <i className="bi bi-twitter text-info fs-3"></i>
+        {/* Reset Filters Button */}
+        <button
+          className="btn btn-wine w-100 mb-4 hover-scale"
+          onClick={handleResetFilters}
+        >
+          <i className="bi bi-x-circle me-2"></i>
+          Reset All Filters
+        </button>
+
+        {/* Follow Us Section */}
+        <div className="ad-section text-center p-4">
+          <h4 className="mb-3">Follow Us</h4>
+          <div className="d-flex justify-content-center gap-3 mb-3">
+            <a href="#" className="text-white fs-4 hover-scale">
+              <i className="bi bi-youtube"></i>
+            </a>
+            <a href="#" className="text-white fs-4 hover-scale">
+              <i className="bi bi-facebook"></i>
+            </a>
+            <a href="#" className="text-white fs-4 hover-scale">
+              <i className="bi bi-twitter"></i>
+            </a>
+            <a href="#" className="text-white fs-4 hover-scale">
+              <i className="bi bi-instagram"></i>
+            </a>
+          </div>
+          <p className="mb-0">Stay updated with our latest offers</p>
         </div>
-        <span style={{display:'none'}}>{categories}</span>
       </div>
+      <span style={{ display: "none" }}>{categories}</span>
     </div>
   );
 };

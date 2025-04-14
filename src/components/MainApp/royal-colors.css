@@ -1,0 +1,161 @@
+/* Royal Color Palette */
+:root {
+  --royal-blue: #2c3e8c;
+  --royal-blue-light: #3b4fad;
+  --royal-purple: #5b21b6;
+  --royal-purple-light: #7c3aed;
+  --royal-purple-dark: #4c1d95;
+  --elegant-white: #f8f7ff;
+  --red-wine: #991b1b;
+  --red-wine-light: #b91c1c;
+  --light-pink: #fdf2f8;
+  --light-pink-dark: #fbcfe8;
+
+  /* Override Bootstrap variables */
+  --primary-color: var(--royal-purple);
+  --primary-hover: var(--royal-purple-dark);
+  --secondary-color: var(--royal-blue);
+  --secondary-hover: var(--royal-blue-light);
+  --border-color: var(--light-pink-dark);
+  --card-radius: 8px;
+  --transition-speed: 0.3s;
+}
+
+/* Royal Styling */
+body {
+  background-color: var(--elegant-white);
+}
+
+.royal-heading {
+  color: var(--royal-purple);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.royal-sort-btn {
+  background-color: transparent;
+  border: 1px solid var(--royal-purple);
+  color: var(--royal-purple);
+  transition: all 0.3s ease;
+}
+
+.royal-sort-btn:hover {
+  background-color: var(--royal-purple);
+  color: white;
+}
+
+.royal-card {
+  border: 1px solid var(--light-pink-dark);
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.royal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(91, 33, 182, 0.15);
+  border-color: var(--royal-purple-light);
+}
+
+.royal-wishlist {
+  background-color: white;
+  color: var(--red-wine);
+  border-color: var(--red-wine);
+  transition: all 0.3s ease;
+}
+
+.royal-wishlist:hover {
+  background-color: var(--light-pink);
+  color: var(--red-wine);
+}
+
+.royal-wishlist-active {
+  background-color: var(--red-wine);
+  color: white;
+  border-color: var(--red-wine);
+}
+
+.royal-price {
+  color: var(--royal-purple);
+  font-size: 1.1rem;
+}
+
+.royal-cart-btn {
+  background-color: var(--royal-purple);
+  color: white;
+  border-color: var(--royal-purple);
+  transition: all 0.3s ease;
+}
+
+.royal-cart-btn:hover {
+  background-color: var(--royal-purple-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(91, 33, 182, 0.2);
+}
+
+.royal-details-btn {
+  background-color: transparent;
+  color: var(--royal-blue);
+  border: 1px solid var(--royal-blue);
+  transition: all 0.3s ease;
+}
+
+.royal-details-btn:hover {
+  background-color: var(--royal-blue);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(44, 62, 140, 0.2);
+}
+
+/* Dropdown styling */
+.dropdown-menu {
+  border-color: var(--light-pink-dark);
+  box-shadow: 0 5px 15px rgba(91, 33, 182, 0.1);
+}
+
+.dropdown-item:hover {
+  background-color: var(--light-pink);
+  color: var(--royal-purple);
+}
+
+/* Animation enhancements */
+.fade-in {
+  animation: royalFadeIn 0.8s ease-in-out;
+}
+
+@keyframes royalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card hover image effect */
+.royal-card img {
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.royal-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+/* Product title styling */
+.royal-card .card-title {
+  color: var(--royal-purple-dark);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.royal-card:hover .card-title {
+  color: var(--royal-purple);
+}
+
+/* Card footer styling */
+.royal-card .card-footer {
+  background-color: var(--elegant-white);
+  border-top: 1px solid var(--light-pink-dark);
+}
