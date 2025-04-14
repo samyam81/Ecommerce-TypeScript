@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom"; // make sure to use react-router-dom v6+
 
 interface PaymentData {

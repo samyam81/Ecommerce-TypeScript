@@ -99,7 +99,7 @@ const CartPage: React.FC = () => {
           </button>
 
           {/* Total Price Section */}
-          <div className="card bg-royal-purple text-white mt-4 shadow-royal">
+          <div className="card bg-royal-purple text-dark mt-4 shadow-royal">
             <div className="card-body text-center">
               <h4>💰 Total: ${totalPrice.toFixed(2)}</h4>
             </div>
@@ -109,7 +109,7 @@ const CartPage: React.FC = () => {
           {totalPrice > 0 && (
             <div className="text-center mt-4">
               <button
-                className="btn btn-gold hover-lift"
+                className="btn btn-gold text-success hover-lift"
                 onClick={() => (window.location.href = "/login")}
               >
                 🛒 Buy Now

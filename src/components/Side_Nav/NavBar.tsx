@@ -167,13 +167,13 @@ const NavBar = () => {
 
                 <Link
                   to="/wish"
-                  className="btn btn-wine flex-grow-1"
+                  className="btn btn-wine  flex-grow-1"
                   onClick={() => setIsActive(false)}
                 >
                   <i className="bi bi-heart me-1"></i>
                   Wishlist
                   {wishItems.length > 0 && (
-                    <span className="badge badge-outline-primary ms-1">{wishItems.length}</span>
+                    <span className="badge text-danger badge-outline-primary ms-1">{wishItems.length}</span>
                   )}
                 </Link>
               </div>

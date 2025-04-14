@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useCart } from "../Cart/CartContext";
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft, FaCartPlus, FaMinus, FaPlus } from "react-icons/fa";
+import {  FaCartPlus, FaMinus, FaPlus } from "react-icons/fa";
 
 const ProductCard = ({ product, onClose }: { product: any; onClose: () => void }) => {
   const { cartItems, updateItemQuantity, addItemToCart } = useCart();
